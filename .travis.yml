@@ -1,0 +1,26 @@
+language: java
+
+sudo: false
+
+jdk:
+  - oraclejdk8
+
+services:
+  - mysql
+
+script:
+  - mvn test -B
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+
+notifications:
+  email:
+    recipients:
+      - antoniojk7@gmail.com
+      - leomeister22@gmail.com
+      - lucas.advc@gmail.com
+      - skingk.f@gmail.com
+      - do.guilherme@hotmail.com
+      - iamferreirajp@gmail.com
+      - adailson2@gmail.com
+
+
