@@ -115,5 +115,4 @@ We can set the log locations with the following codes:
 Values of variables can be showed in the logger too, just use the `+ variable` and the value will appear in the file.
 This end the Logger Section.
 
-
 Be patient, have faith, and good luck. And keep walking.
