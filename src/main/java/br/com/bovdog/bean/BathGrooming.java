@@ -17,4 +17,5 @@ public class BathGrooming {
 	public void setServiceBathGrooming(String serviceBathGrooming){
 		this.serviceBathGrooming = serviceBathGrooming;
 	}
+
 }
