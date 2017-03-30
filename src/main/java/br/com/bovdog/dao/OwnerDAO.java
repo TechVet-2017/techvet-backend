@@ -50,7 +50,7 @@ public class OwnerDAO {
 		}
 	}
 	
-	public void updateOwner(Long cpf, String ownerName, String ownerLastName, Long phoneNumber,String address){
+	public void updateOwner(Owner owner){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		String sqlStatement = "UPDATE owner SET ownerName = ?, ownerLastName = ?, phoneNumber = ?, address = ? WHERE cpf = ? ";
@@ -59,11 +59,11 @@ public class OwnerDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement(sqlStatement);
-			preparedStatement.setString(1, ownerName);
-			preparedStatement.setString(2, ownerLastName);
-			preparedStatement.setLong(3, phoneNumber);
-			preparedStatement.setString(4, address);
-			preparedStatement.setLong(5, cpf);
+			preparedStatement.setString(1, owner.getOwnerName());
+			preparedStatement.setString(2, owner.getOwnerLastName());
+			preparedStatement.setLong(3, owner.getPhoneNumber());
+			preparedStatement.setString(4, owner.getAddress());
+			preparedStatement.setLong(5, owner.getCpf());
 		} catch(SQLException exception) {
 			exception.printStackTrace();
 		} catch(ClassNotFoundException exception) {
