@@ -83,6 +83,18 @@ public class OwnerDAO {
 		}
 	}
 	
+	public void deleteOwner(Long cpf){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM owner WHERE cpf = ?");
+			statement.setLong(1, cpf);
+			statement.executeUpdate();
+		} catch(Exception exception){
+			exception.printStackTrace();
+		}
+	}
+	
 	public List<Owner> getAllOwners(){
 		List<Owner> owners = new ArrayList<Owner>();
 		
