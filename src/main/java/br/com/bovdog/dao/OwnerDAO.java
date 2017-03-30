@@ -26,6 +26,62 @@ public class OwnerDAO {
 		}
 		
 	}
+	public void updateCpf(Long cpf){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET cpf=?");
+			statement.setLong(1, cpf);
+			statement.executeUpdate();
+		} catch(Exception exception){
+			exception.printStackTrace();
+		}
+	}
+	public void updateOwnerName(String ownerName){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET ownerName=?");
+			statement.setString(1, ownerName);
+			statement.executeUpdate();
+		} catch(Exception exception){
+			exception.printStackTrace();
+		}
+	}
+	
+	public void updateOwnerLastName(String ownerLastName){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET ownerLastName=?");
+			statement.setString(1, ownerLastName);
+			statement.executeUpdate();
+		} catch(Exception exception){
+			exception.printStackTrace();
+		}
+	}
+	public void updatePhoneNumber(Long phoneNumber){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET phoneNumber=?");
+			statement.setLong(1, phoneNumber);
+			statement.executeUpdate();
+		} catch(Exception exception){
+			exception.printStackTrace();
+		}
+	}
+	public void updateAddress(String address){
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET address=?");
+			statement.setString(1, address);
+			statement.executeUpdate();
+		} catch(Exception exception){
+			exception.printStackTrace();
+		}
+	}
 	
 	public List<Owner> getAllOwners(){
 		List<Owner> owners = new ArrayList<Owner>();
