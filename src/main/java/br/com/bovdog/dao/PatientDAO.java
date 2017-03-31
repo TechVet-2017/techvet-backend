@@ -11,7 +11,7 @@ import br.com.bovdog.bean.Patient;
 
 public class PatientDAO {
 	private final String USER = "root";
-	private final String PASSWORD = "root";
+	private final String PASSWORD = "16182534";
 	private final String URL = "jdbc:mysql://localhost/chattering?useSSL=false&serverTimezone=UTC";
 	
 	public List<Patient> getAllPatients() {
