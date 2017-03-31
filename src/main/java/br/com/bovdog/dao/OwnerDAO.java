@@ -13,7 +13,7 @@ public class OwnerDAO {
 	public void createOwner(Owner owner){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sqlStatement = "INSERT INTO owner(cpf),owner(ownerName),owner(ownerLastNAme),owner(phoneNumber),owner(address) VALUES (?),(?),(?),(?),(?)";
+		String sqlStatement = "INSERT INTO `owner` (cpf, ownerName, ownerLastName, phoneNumber, address) VALUES (?, ?, ?, ?, ?)";
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -64,6 +64,7 @@ public class OwnerDAO {
 			preparedStatement.setLong(3, owner.getPhoneNumber());
 			preparedStatement.setString(4, owner.getAddress());
 			preparedStatement.setLong(5, owner.getCpf());
+			preparedStatement.executeUpdate();
 		} catch(SQLException exception) {
 			exception.printStackTrace();
 		} catch(ClassNotFoundException exception) {
@@ -89,9 +90,7 @@ public class OwnerDAO {
 			}
 		}
 	}
-	
-	
-	
+		
 	public void deleteOwner(Long cpf){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -128,6 +127,44 @@ public class OwnerDAO {
 			}
 		}
 	}
+
+	public void deleteOwnerById(int ownerId){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "DELETE FROM owner WHERE ownerId = ?";
+	
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			preparedStatement.setLong(1, ownerId);
+			preparedStatement.executeUpdate();
+		} catch(SQLException exception) {
+			exception.printStackTrace();
+		} catch(ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
+		}
+	}
+	
 	
 	public List<Owner> getAllOwners(){
 		List<Owner> owners = new ArrayList<Owner>();
@@ -142,6 +179,7 @@ public class OwnerDAO {
 			
 			while(results.next()){
 				Owner owner = new Owner();
+				owner.setOwnerId(results.getInt("ownerId"));
 				owner.setCpf(results.getLong("cpf"));
 				owner.setOwnerName(results.getString("ownerName"));
 				owner.setOwnerLastName(results.getString("ownerLastName"));

@@ -28,7 +28,7 @@ public class OwnerService {
 	@Path("/owners/create")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public void createOwner(@FormParam(value = "cpf") Long cpf ,
+	public Owner createOwner(@FormParam(value = "cpf") Long cpf ,
 								   @FormParam(value = "ownerName") String ownerName ,
 								   @FormParam(value = "ownerLastName") String ownerLastName ,
 								   @FormParam(value = "phoneNumber") Long phoneNumber ,
@@ -42,13 +42,13 @@ public class OwnerService {
 		owner.setAddress(address);		
 		
 		OwnerDAO dao = new OwnerDAO();
-		dao.updateOwner(owner);
+		dao.createOwner(owner);
+		return owner;
 	}
 	
 	@POST
 	@Path("/owners/update")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("application/json")
 	public void updateOwner(@FormParam(value = "cpf") Long cpf ,
 								   @FormParam(value = "ownerName") String ownerName ,
 								   @FormParam(value = "ownerLastName") String ownerLastName ,
@@ -68,7 +68,6 @@ public class OwnerService {
 	
 	@DELETE
 	@Path("/owners/delete")
-	@Produces("application/json")
 	public void deleteOwner(@FormParam(value = "cpf") Long cpf ){
 		OwnerDAO dao = new OwnerDAO();
 		dao.deleteOwner(cpf);
