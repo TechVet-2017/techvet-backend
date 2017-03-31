@@ -11,98 +11,134 @@ public class OwnerDAO {
 	private final String PASSWORD = "root";
 	
 	public void createOwner(Owner owner){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "INSERT INTO owner(cpf),owner(ownerName),owner(ownerLastNAme),owner(phoneNumber),owner(address) VALUES (?),(?),(?),(?),(?)";
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO owner(cpf),owner(ownerName),owner(ownerLastNAme),owner(phoneNumber),owner(address) VALUES (?),(?),(?),(?),(?)");
-			statement.setLong(1, owner.getCpf());
-			statement.setString(2, owner.getOwnerName());
-			statement.setString(3, owner.getOwnerLastName());
-			statement.setLong(4, owner.getPhoneNumber());
-			statement.setString(5, owner.getAddress());
-			statement.executeUpdate();
-		} catch(Exception exception){
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			preparedStatement.setLong(1, owner.getCpf());
+			preparedStatement.setString(2, owner.getOwnerName());
+			preparedStatement.setString(3, owner.getOwnerLastName());
+			preparedStatement.setLong(4, owner.getPhoneNumber());
+			preparedStatement.setString(5, owner.getAddress());
+			preparedStatement.executeUpdate();
+		} catch(SQLException exception) {
 			exception.printStackTrace();
-		}
-		
-	}
-	public void updateCpf(Long cpf){
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET cpf=?");
-			statement.setLong(1, cpf);
-			statement.executeUpdate();
-		} catch(Exception exception){
+		} catch(ClassNotFoundException exception) {
 			exception.printStackTrace();
-		}
-	}
-	public void updateOwnerName(String ownerName){
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET ownerName=?");
-			statement.setString(1, ownerName);
-			statement.executeUpdate();
-		} catch(Exception exception){
-			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
 		}
 	}
 	
-	public void updateOwnerLastName(String ownerLastName){
+	public void updateOwner(Long cpf, String ownerName, String ownerLastName, Long phoneNumber,String address){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "UPDATE owner SET ownerName = ?, ownerLastName = ?, phoneNumber = ?, address = ? WHERE cpf = ? ";
+	
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET ownerLastName=?");
-			statement.setString(1, ownerLastName);
-			statement.executeUpdate();
-		} catch(Exception exception){
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			preparedStatement.setString(1, ownerName);
+			preparedStatement.setString(2, ownerLastName);
+			preparedStatement.setLong(3, phoneNumber);
+			preparedStatement.setString(4, address);
+			preparedStatement.setLong(5, cpf);
+		} catch(SQLException exception) {
 			exception.printStackTrace();
+		} catch(ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
 		}
 	}
-	public void updatePhoneNumber(Long phoneNumber){
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET phoneNumber=?");
-			statement.setLong(1, phoneNumber);
-			statement.executeUpdate();
-		} catch(Exception exception){
-			exception.printStackTrace();
-		}
-	}
-	public void updateAddress(String address){
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("UPDATE owner SET address=?");
-			statement.setString(1, address);
-			statement.executeUpdate();
-		} catch(Exception exception){
-			exception.printStackTrace();
-		}
-	}
+	
+	
 	
 	public void deleteOwner(Long cpf){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "DELETE FROM owner WHERE cpf = ?";
+	
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("DELETE FROM owner WHERE cpf = ?");
-			statement.setLong(1, cpf);
-			statement.executeUpdate();
-		} catch(Exception exception){
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			preparedStatement.setLong(1, cpf);
+			preparedStatement.executeUpdate();
+		} catch(SQLException exception) {
 			exception.printStackTrace();
+		} catch(ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
 		}
 	}
 	
 	public List<Owner> getAllOwners(){
 		List<Owner> owners = new ArrayList<Owner>();
-		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "SELECT * FROM owner";
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM owner");
-			ResultSet results = statement.executeQuery();
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			ResultSet results = preparedStatement.executeQuery();
 			
 			while(results.next()){
 				Owner owner = new Owner();
@@ -112,8 +148,29 @@ public class OwnerDAO {
 				owner.setPhoneNumber(results.getLong("phoneNumber"));
 				owner.setAddress(results.getString("address"));	
 			}
-		} catch(Exception exception){
+		} catch(SQLException exception) {
 			exception.printStackTrace();
+		} catch(ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
 		}
 		return owners;
 	}
