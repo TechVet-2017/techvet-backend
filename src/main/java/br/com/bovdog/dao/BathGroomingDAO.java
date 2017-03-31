@@ -10,7 +10,7 @@ import java.util.List;
 import br.com.bovdog.bean.BathGrooming;
 
 public class BathGroomingDAO {
-	private final String URL = "jdbc:mysql://localhost/bathGrooming";
+	private final String URL = "jdbc:mysql://localhost:3306/techvet?useSSL=false&serverTimezone=UTC";
 	private final String USER = "root";
 	private final String PASSWORD = "root";
 	
