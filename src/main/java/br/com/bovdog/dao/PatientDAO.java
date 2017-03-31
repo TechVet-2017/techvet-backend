@@ -11,7 +11,7 @@ import br.com.bovdog.bean.Patient;
 
 public class PatientDAO {
 	private final String USER = "root";
-	private final String PASSWORD = "16182534";
+	private final String PASSWORD = "root";
 	private final String URL = "jdbc:mysql://localhost/chattering?useSSL=false&serverTimezone=UTC";
 	
 	public List<Patient> getAllPatients() {
@@ -42,12 +42,79 @@ public class PatientDAO {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			
+		} finally {
+			
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return patients;
 	}
 	
 	public Patient getPatientById(int id) {
-		return null;
+		Patient patient = new Patient();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = "SELECT * FROM patient WHERE id = ?";
+		ResultSet result = null;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection= DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+			result = preparedStatement.executeQuery();
+			if (result.next()) {
+				patient.setBirthDate(result.getDate("birthDate"));
+				patient.setFurCharacteristics(result.getString("furCharacteristics"));
+				patient.setGender(result.getString("gender").charAt(0));
+				patient.setName(result.getString("name"));
+				patient.setRace(result.getString("race"));
+				patient.setSize(result.getString("size").charAt(0));
+				patient.setSpecies(result.getString("spicies"));
+				patient.setWeight(result.getFloat("weight"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			
+		} finally {
+			
+			try {
+				
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				
+			} catch(SQLException e) {
+				e.printStackTrace();
+				
+			}
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return patient;
 	}
 }
