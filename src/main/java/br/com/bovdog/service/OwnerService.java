@@ -67,7 +67,7 @@ public class OwnerService {
 	}
 	
 	@DELETE
-	@Path("/owers/delete")
+	@Path("/owners/delete")
 	@Produces("application/json")
 	public void deleteOwner(@FormParam(value = "cpf") Long cpf ){
 		OwnerDAO dao = new OwnerDAO();

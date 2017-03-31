@@ -6,7 +6,7 @@ import java.util.List;
 import br.com.bovdog.bean.Owner;
 
 public class OwnerDAO {
-	private final String URL = "jdbc:mysql://localhost/techvet?useSSL=false&serverTimezone=UTC"; //url da database
+	private final String URL = "jdbc:mysql://localhost/techvet?useSSL=false&serverTimezone=UTC";
 	private final String USER = "root";
 	private final String PASSWORD = "root";
 	
