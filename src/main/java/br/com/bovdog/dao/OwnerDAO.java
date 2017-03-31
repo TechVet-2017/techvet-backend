@@ -147,6 +147,7 @@ public class OwnerDAO {
 				owner.setOwnerLastName(results.getString("ownerLastName"));
 				owner.setPhoneNumber(results.getLong("phoneNumber"));
 				owner.setAddress(results.getString("address"));	
+				owners.add(owner);
 			}
 		} catch(SQLException exception) {
 			exception.printStackTrace();
