@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import br.com.bovdog.bean.Patient;
 
 // create class Patient DAO for database communication.
@@ -50,7 +51,7 @@ public class PatientDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		
-		// return error if caught SQL exception.
+		// return error if caught class exception.
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		
@@ -106,14 +107,14 @@ public class PatientDAO {
 				patient.setPatientName(result.getString("patientName"));
 				patient.setBreed(result.getString("breed"));
 				patient.setSize(result.getString("size").charAt(0));
-				patient.setSpecie(result.getString("spicie"));
+				patient.setSpecie(result.getString("specie"));
 			}
 			
 		// return error if caught SQL exception.
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
-		// return error if caught SQL exception.
+		// return error if caught class exception.
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			
@@ -144,5 +145,56 @@ public class PatientDAO {
 		
 		// returns wanted patient.
 		return patient;
+	}
+	
+	// create method for creation of patients in databank.
+	public void createPatient(Patient patient) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		// treatment to ensure the successful conclusion of the operation.
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			String sql = "INSERT INTO patient (patientName, specie, breed, size, gender, birthday, coat) "
+					   + "VALUES (?, ?, ?, ?, ?, ?, ?);";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, patient.getPatientName());
+			preparedStatement.setString(2, patient.getSpecie());
+			preparedStatement.setString(3, patient.getBreed());
+			preparedStatement.setString(4, String.valueOf(patient.getSize()));
+			preparedStatement.setString(5, String.valueOf(patient.getGender()));
+			preparedStatement.setDate(6, new java.sql.Date(patient.getBirthday().getTime()));
+			preparedStatement.setString(7, patient.getCoat());
+			preparedStatement.executeUpdate();
+			
+		// return error if caught SQL exception.
+		} catch(SQLException e) {
+			e.printStackTrace();
+		// return error if caught class exception.
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				if (preparedStatement != null) {
+					preparedStatement.close();
+				}
+				
+			// return error if caught SQL exception.
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				if (connection != null) {
+					connection.close();
+				}
+				
+			// return error if caught SQL exception.
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
