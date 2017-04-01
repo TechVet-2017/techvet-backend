@@ -3,8 +3,9 @@ package br.com.bovdog.bean;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 
+// create Patient object.
 @XmlRootElement
-public class Patient {
+public class Patient { 
 	private String name;
 	private String species;
 	private String race;
@@ -14,6 +15,7 @@ public class Patient {
 	private String furCharacteristics;
 	private float weight;
 	
+	// getters and setters for Patients attributes.
 	public String getName() {
 		return name;
 	}

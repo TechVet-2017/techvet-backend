@@ -9,23 +9,30 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.bovdog.bean.Patient;
 
+// create class Patient DAO for database communication.
 public class PatientDAO {
 	private final String USER = "root";
 	private final String PASSWORD = "16182534";
 	private final String URL = "jdbc:mysql://localhost/chattering?useSSL=false&serverTimezone=UTC";
 	
+	// create method getAllPatients to return list of Patients.
 	public List<Patient> getAllPatients() {
 		List<Patient> patients= new ArrayList<Patient>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet results = null;
-
+		
+		// treatment for increment in Patient list.
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(USER, PASSWORD, URL);
 			preparedStatement = connection.prepareStatement("SELECT * FROM patient;");
 			results = preparedStatement.executeQuery();
 			
+			/*
+			 * if any results exist in one list, it increments Patients attributes 
+			 * in the next list.
+			 */
 			while(results.next()) {
 				Patient patient = new Patient();
 				patient.setBirthDate(results.getDate("birthDate"));
@@ -38,17 +45,24 @@ public class PatientDAO {
 				patient.setWeight(results.getFloat("weight"));
 				patients.add(patient);
 			}
+			
+		// return error if caught SQL exception.
 		} catch (SQLException e) {
 			e.printStackTrace();
+		
+		// return error if caught SQL exception.
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			
+		
+		// close SQL statement and database connection. 
 		} finally {
 			
 			try {
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
+				
+			// return error if caught SQL exception.
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}
@@ -57,11 +71,14 @@ public class PatientDAO {
 				if (connection != null) {
 					connection.close();
 				}
+				
+			// return error if caught SQL exception.
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		
+		// return Patients list.
 		return patients;
 	}
 	
