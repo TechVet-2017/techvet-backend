@@ -6,33 +6,39 @@ import javax.xml.bind.annotation.XmlRootElement;
 // create Patient object.
 @XmlRootElement
 public class Patient { 
-	private String name;
-	private String species;
-	private String race;
+	private int idPatient;
+	private String patientName;
+	private String specie;
+	private String breed;
 	private char size;
 	private char gender;
-	private Date birthDate;
-	private String furCharacteristics;
-	private float weight;
+	private Date birthday;
+	private String coat;
 	
 	// getters and setters for Patients attributes.
-	public String getName() {
-		return name;
+	public int getIdPatient() {
+		return idPatient;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setIdPatient(int idPatient) {
+		this.idPatient = idPatient;
 	}
-	public String getSpecies() {
-		return species;
+	public String getPatientName() {
+		return patientName;
 	}
-	public void setSpecies(String species) {
-		this.species = species;
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
 	}
-	public String getRace() {
-		return race;
+	public String getSpecie() {
+		return specie;
 	}
-	public void setRace(String race) {
-		this.race = race;
+	public void setSpecie(String specie) {
+		this.specie = specie;
+	}
+	public String getBreed() {
+		return breed;
+	}
+	public void setBreed(String breed) {
+		this.breed = breed;
 	}
 	public char getSize() {
 		return size;
@@ -46,23 +52,17 @@ public class Patient {
 	public void setGender(char gender) {
 		this.gender = gender;
 	}
-	public Date getBirthDate() {
-		return birthDate;
+	public Date getBirthday() {
+		return birthday;
 	}
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
-	public String getFurCharacteristics() {
-		return furCharacteristics;
+	public String getCoat() {
+		return coat;
 	}
-	public void setFurCharacteristics(String furCharacteristics) {
-		this.furCharacteristics = furCharacteristics;
-	}
-	public float getWeight() {
-		return weight;
-	}
-	public void setWeight(float weight) {
-		this.weight = weight;
+	public void setCoat(String coat) {
+		this.coat = coat;
 	}
 	
 }

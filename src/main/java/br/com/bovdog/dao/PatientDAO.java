@@ -12,7 +12,7 @@ import br.com.bovdog.bean.Patient;
 // create class Patient DAO for database communication.
 public class PatientDAO {
 	private final String USER = "root";
-	private final String PASSWORD = "16182534";
+	private final String PASSWORD = "root";
 	private final String URL = "jdbc:mysql://localhost/chattering?useSSL=false&serverTimezone=UTC";
 	
 	// create method getAllPatients to return list of Patients.
@@ -35,14 +35,14 @@ public class PatientDAO {
 			 */
 			while(results.next()) {
 				Patient patient = new Patient();
-				patient.setBirthDate(results.getDate("birthDate"));
-				patient.setFurCharacteristics(results.getString("furCharacteristics"));
+				patient.setIdPatient(results.getInt("idPatient"));
+				patient.setPatientName(results.getString("PatientName"));
+				patient.setSpecie(results.getString("specie"));
+				patient.setBirthday(results.getDate("birthday"));
+				patient.setCoat(results.getString("coat"));
 				patient.setGender(results.getString("gender").charAt(0));
-				patient.setName(results.getString("name"));
-				patient.setRace(results.getString("race"));
+				patient.setBreed(results.getString("breed"));
 				patient.setSize(results.getString("size").charAt(0));
-				patient.setSpecies(results.getString("spicies"));
-				patient.setWeight(results.getFloat("weight"));
 				patients.add(patient);
 			}
 			
@@ -100,14 +100,13 @@ public class PatientDAO {
 			
 			// checks if patient list isn't empty.
 			if (result.next()) {
-				patient.setBirthDate(result.getDate("birthDate"));
-				patient.setFurCharacteristics(result.getString("furCharacteristics"));
+				patient.setBirthday(result.getDate("birthday"));
+				patient.setCoat(result.getString("coat"));
 				patient.setGender(result.getString("gender").charAt(0));
-				patient.setName(result.getString("name"));
-				patient.setRace(result.getString("race"));
+				patient.setPatientName(result.getString("patientName"));
+				patient.setBreed(result.getString("breed"));
 				patient.setSize(result.getString("size").charAt(0));
-				patient.setSpecies(result.getString("spicies"));
-				patient.setWeight(result.getFloat("weight"));
+				patient.setSpecie(result.getString("spicie"));
 			}
 			
 		// return error if caught SQL exception.
