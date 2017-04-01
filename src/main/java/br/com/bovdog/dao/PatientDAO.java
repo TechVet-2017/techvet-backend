@@ -82,6 +82,7 @@ public class PatientDAO {
 		return patients;
 	}
 	
+	// create method to select a specific patient from table by id.
 	public Patient getPatientById(int id) {
 		Patient patient = new Patient();
 		Connection connection = null;
@@ -89,12 +90,15 @@ public class PatientDAO {
 		String sql = "SELECT * FROM patient WHERE id = ?";
 		ResultSet result = null;
 		
+		// treatment for existance of desired patient id.
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection= DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
 			result = preparedStatement.executeQuery();
+			
+			// checks if patient list isn't empty.
 			if (result.next()) {
 				patient.setBirthDate(result.getDate("birthDate"));
 				patient.setFurCharacteristics(result.getString("furCharacteristics"));
@@ -106,11 +110,15 @@ public class PatientDAO {
 				patient.setWeight(result.getFloat("weight"));
 			}
 			
+		// return error if caught SQL exception.
 		} catch (SQLException e) {
 			e.printStackTrace();
+			
+		// return error if caught SQL exception.
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			
+		// close SQL statement and database connection. 
 		} finally {
 			
 			try {
@@ -119,6 +127,7 @@ public class PatientDAO {
 					preparedStatement.close();
 				}
 				
+			// return error if caught SQL exception.
 			} catch(SQLException e) {
 				e.printStackTrace();
 				
@@ -127,11 +136,14 @@ public class PatientDAO {
 				if (connection != null) {
 					connection.close();
 				}
+				
+			// return error if caught SQL exception.
 			} catch(SQLException e) {
 				e.printStackTrace();
 			}
 		}
 		
+		// returns wanted patient.
 		return patient;
 	}
 }
