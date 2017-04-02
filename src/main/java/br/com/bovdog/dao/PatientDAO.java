@@ -37,8 +37,8 @@ public class PatientDAO {
 			 */
 			while(results.next()) {
 				Patient patient = new Patient();
-				patient.setIdPatient(results.getInt("idPatient"));
-				patient.setPatientName(results.getString("PatientName"));
+				patient.setIdPatient(results.getInt("id_patient"));
+				patient.setPatientName(results.getString("name_patient"));
 				patient.setSpecie(results.getString("specie"));
 				patient.setBirthday(results.getDate("birthday"));
 				patient.setCoat(results.getString("coat"));
@@ -89,7 +89,7 @@ public class PatientDAO {
 		Patient patient = new Patient();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sql = "SELECT * FROM patient WHERE id = ?";
+		String sql = "SELECT * FROM patient WHERE id_patient = ?";
 		ResultSet result = null;
 		
 		// treatment for existence of desired patient id.
@@ -105,7 +105,7 @@ public class PatientDAO {
 				patient.setBirthday(result.getDate("birthday"));
 				patient.setCoat(result.getString("coat"));
 				patient.setGender(result.getString("gender").charAt(0));
-				patient.setPatientName(result.getString("patientName"));
+				patient.setPatientName(result.getString("name_patient"));
 				patient.setBreed(result.getString("breed"));
 				patient.setSize(result.getString("size").charAt(0));
 				patient.setSpecie(result.getString("specie"));
@@ -157,7 +157,7 @@ public class PatientDAO {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			String sql = "INSERT INTO patient (patientName, specie, breed, size, gender, birthday, coat) "
+			String sql = "INSERT INTO patient (name_patient, specie, breed, size, gender, birthday, coat) "
 					   + "VALUES (?, ?, ?, ?, ?, ?, ?);";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, patient.getPatientName());
@@ -272,4 +272,44 @@ public class PatientDAO {
 		}
 	}
 	
+	// method to delete a specific patient.
+	public void deletePatient(int idPatient) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = "DELETE FROM patient WHERE id_patient = ?";
+		
+		// verifies that the operation has been successful.
+		try {
+			Class.forName("com.mysql.cj.jdbc.Drive");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, idPatient);
+			preparedStatement.executeUpdate();
+		} catch(SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// close statement requirement. 
+				if (preparedStatement!=null) {
+					preparedStatement.close();
+				}
+			
+			// return error if caught SQL exception.
+			} catch(SQLException e) {
+				e.printStackTrace();	
+			}
+			try {
+				
+				// close connection requirement. 
+				if (connection != null) {
+					connection.close();
+				}
+				
+			// return error if caught SQL exception.
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
