@@ -7,8 +7,7 @@ CREATE TABLE `patient`(
 	`size` char(1) NOT NULL,
 	`gender` char(1) NOT NULL,
 	`birthday` DATE NOT NULL,
-	`coat` varchar(10) NOT NULL,
-	`weight` float NOT NULL,	
+	`coat` varchar(10) NOT NULL,	
 	PRIMARY KEY(`id_patient`)
 );
 	
