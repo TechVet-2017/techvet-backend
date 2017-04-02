@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.bovdog.bean.Patient;
@@ -91,7 +92,7 @@ public class PatientDAO {
 		String sql = "SELECT * FROM patient WHERE id = ?";
 		ResultSet result = null;
 		
-		// treatment for existance of desired patient id.
+		// treatment for existence of desired patient id.
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection= DriverManager.getConnection(URL, USER, PASSWORD);
@@ -147,7 +148,7 @@ public class PatientDAO {
 		return patient;
 	}
 	
-	// create method for creation of patients in databank.
+	// create method for creation of patients in database.
 	public void createPatient(Patient patient) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -171,12 +172,16 @@ public class PatientDAO {
 		// return error if caught SQL exception.
 		} catch(SQLException e) {
 			e.printStackTrace();
+			
 		// return error if caught class exception.
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			
 		} finally {
 			
 			try {
+				
+				// close statement requirement. 
 				if (preparedStatement != null) {
 					preparedStatement.close();
 				}
@@ -187,6 +192,8 @@ public class PatientDAO {
 			}
 			
 			try {
+				
+				// close connection requirement. 
 				if (connection != null) {
 					connection.close();
 				}
@@ -197,4 +204,72 @@ public class PatientDAO {
 			}
 		}
 	}
+	
+	// method for update Patient in database.
+	public void updatePatient(int idPatient,
+							  String patientName, 	
+							  String specie, 
+							  String breed,
+							  char size,
+							  char gender,
+							  Date birthday,
+							  String coat) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = "UPDATE patient SET name_patient = ?,"
+				   + "specie = ?,"
+				   + "breed = ?"
+				   + "size = ?"
+				   + "gender = ?"
+				   + "birthday = ?"
+				   + "coat = ?"
+				   + "WHERE id_patient = ?";
+
+		// treatment to insert attributes values in database. 
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL,USER,PASSWORD);
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, patientName);
+			preparedStatement.setString(2, specie);
+			preparedStatement.setString(3, breed);
+			preparedStatement.setString(4, String.valueOf(size));
+			preparedStatement.setString(5, String.valueOf(gender));
+			preparedStatement.setDate(6, new java.sql.Date(birthday.getTime()));
+			preparedStatement.setString(7, coat);
+			preparedStatement.setInt(8, idPatient);
+			preparedStatement.executeQuery(sql);
+		
+		// return error if caught SQL and class exception.
+		} catch(SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		
+		} finally {
+			
+			try {
+				
+				// close statement requirement. 
+				if (preparedStatement!=null) {
+					preparedStatement.close();
+				}
+			
+			// return error if caught SQL exception.
+			} catch(SQLException e) {
+				e.printStackTrace();	
+			}
+			
+			try {
+				
+				// close connection requirement. 
+				if (connection != null) {
+					connection.close();
+				}
+				
+			// return error if caught SQL exception.
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }
