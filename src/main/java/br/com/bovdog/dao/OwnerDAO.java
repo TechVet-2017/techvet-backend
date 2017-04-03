@@ -13,16 +13,22 @@ public class OwnerDAO {
 	public void createOwner(Owner owner){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sqlStatement = "INSERT INTO `owner` (cpf, ownerName, ownerLastName, phoneNumber, address) VALUES (?, ?, ?, ?, ?)";
+		String sqlStatement = "INSERT INTO `owner` (id_owner, cpf, owner_name, owner_last_name, phone_number, zip_code, "
+				+ "district, public_place, address_number) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement(sqlStatement);
-			preparedStatement.setLong(1, owner.getCpf());
-			preparedStatement.setString(2, owner.getOwnerName());
-			preparedStatement.setString(3, owner.getOwnerLastName());
-			preparedStatement.setLong(4, owner.getPhoneNumber());
-			preparedStatement.setString(5, owner.getAddress());
+			preparedStatement.setLong(1, owner.getOwnerId());
+			preparedStatement.setLong(2, owner.getCpf());
+			preparedStatement.setString(3, owner.getOwnerName());
+			preparedStatement.setString(4, owner.getOwnerLastName());
+			preparedStatement.setLong(5, owner.getPhoneNumber());
+			preparedStatement.setLong(6, owner.getZipCode());
+			preparedStatement.setString(7, owner.getDistrict());
+			preparedStatement.setString(8, owner.getPublicPlace());
+			preparedStatement.setLong(9, owner.getAddressNumber());
 			preparedStatement.executeUpdate();
 		} catch(SQLException exception) {
 			exception.printStackTrace();
@@ -53,7 +59,9 @@ public class OwnerDAO {
 	public void updateOwner(Owner owner){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sqlStatement = "UPDATE owner SET ownerName = ?, ownerLastName = ?, phoneNumber = ?, address = ? WHERE cpf = ? ";
+		String sqlStatement = "UPDATE owner SET owner_name = ?, owner_last_name = ?, phone_number = ?, zip_code = ?, "
+				+ "district = ?, public_place = ?, address_number = ?  "
+				+ "WHERE cpf = ? ";
 	
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -62,8 +70,10 @@ public class OwnerDAO {
 			preparedStatement.setString(1, owner.getOwnerName());
 			preparedStatement.setString(2, owner.getOwnerLastName());
 			preparedStatement.setLong(3, owner.getPhoneNumber());
-			preparedStatement.setString(4, owner.getAddress());
-			preparedStatement.setLong(5, owner.getCpf());
+			preparedStatement.setLong(4, owner.getZipCode());
+			preparedStatement.setString(5, owner.getDistrict());
+			preparedStatement.setString(6, owner.getPublicPlace());
+			preparedStatement.setLong(7, owner.getAddressNumber());
 			preparedStatement.executeUpdate();
 		} catch(SQLException exception) {
 			exception.printStackTrace();
@@ -131,7 +141,7 @@ public class OwnerDAO {
 	public void deleteOwnerById(int ownerId){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sqlStatement = "DELETE FROM owner WHERE ownerId = ?";
+		String sqlStatement = "DELETE FROM owner WHERE id_owner = ?";
 	
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -169,7 +179,7 @@ public class OwnerDAO {
 		List<Owner> owners = new ArrayList<Owner>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sqlStatement = "SELECT * FROM owner WHERE ownerName like CONCAT('%', ? ,'%')";
+		String sqlStatement = "SELECT * FROM owner WHERE owner_name like CONCAT('%', ? ,'%')";
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -179,12 +189,15 @@ public class OwnerDAO {
 			
 			while(results.next()){
 				Owner owner = new Owner();
-				owner.setOwnerId(results.getInt("ownerId"));
+				owner.setOwnerId(results.getInt("id_owner"));
 				owner.setCpf(results.getLong("cpf"));
-				owner.setOwnerName(results.getString("ownerName"));
-				owner.setOwnerLastName(results.getString("ownerLastName"));
-				owner.setPhoneNumber(results.getLong("phoneNumber"));
-				owner.setAddress(results.getString("address"));	
+				owner.setOwnerName(results.getString("owner_name"));
+				owner.setOwnerLastName(results.getString("owner_last_name"));
+				owner.setPhoneNumber(results.getLong("phone_number"));
+				owner.setZipCode(results.getLong("zip_code"));
+				owner.setDistrict(results.getString("district"));
+				owner.setPublicPlace(results.getString("plubic_place"));
+				owner.setAddressNumber(results.getLong("address_number"));
 				owners.add(owner);
 			}
 		} catch(SQLException exception) {
@@ -227,12 +240,15 @@ public class OwnerDAO {
 			
 			while(results.next()){
 				Owner owner = new Owner();
-				owner.setOwnerId(results.getInt("ownerId"));
+				owner.setOwnerId(results.getInt("id_owner"));
 				owner.setCpf(results.getLong("cpf"));
-				owner.setOwnerName(results.getString("ownerName"));
-				owner.setOwnerLastName(results.getString("ownerLastName"));
-				owner.setPhoneNumber(results.getLong("phoneNumber"));
-				owner.setAddress(results.getString("address"));	
+				owner.setOwnerName(results.getString("owner_name"));
+				owner.setOwnerLastName(results.getString("owner_last_name"));
+				owner.setPhoneNumber(results.getLong("phone_number"));
+				owner.setZipCode(results.getLong("zip_code"));
+				owner.setDistrict(results.getString("district"));
+				owner.setPublicPlace(results.getString("plubic_place"));
+				owner.setAddressNumber(results.getLong("address_number"));
 				owners.add(owner);
 			}
 		} catch(SQLException exception) {
@@ -266,7 +282,7 @@ public class OwnerDAO {
 		List<Owner> owners = new ArrayList<Owner>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sqlStatement = "SELECT * FROM owner WHERE phoneNumber like CONCAT('%',?,'%')";
+		String sqlStatement = "SELECT * FROM owner WHERE phone_number like CONCAT('%',?,'%')";
 		try{
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -276,12 +292,15 @@ public class OwnerDAO {
 			
 			while(results.next()){
 				Owner owner = new Owner();
-				owner.setOwnerId(results.getInt("ownerId"));
+				owner.setOwnerId(results.getInt("id_owner"));
 				owner.setCpf(results.getLong("cpf"));
-				owner.setOwnerName(results.getString("ownerName"));
-				owner.setOwnerLastName(results.getString("ownerLastName"));
-				owner.setPhoneNumber(results.getLong("phoneNumber"));
-				owner.setAddress(results.getString("address"));	
+				owner.setOwnerName(results.getString("owner_name"));
+				owner.setOwnerLastName(results.getString("owner_last_name"));
+				owner.setPhoneNumber(results.getLong("phone_number"));
+				owner.setZipCode(results.getLong("zip_code"));
+				owner.setDistrict(results.getString("district"));
+				owner.setPublicPlace(results.getString("plubic_place"));
+				owner.setAddressNumber(results.getLong("address_number"));	
 				owners.add(owner);
 			}
 		} catch(SQLException exception) {
@@ -324,12 +343,15 @@ public class OwnerDAO {
 			
 			while(results.next()){
 				Owner owner = new Owner();
-				owner.setOwnerId(results.getInt("ownerId"));
+				owner.setOwnerId(results.getInt("id_owner"));
 				owner.setCpf(results.getLong("cpf"));
-				owner.setOwnerName(results.getString("ownerName"));
-				owner.setOwnerLastName(results.getString("ownerLastName"));
-				owner.setPhoneNumber(results.getLong("phoneNumber"));
-				owner.setAddress(results.getString("address"));	
+				owner.setOwnerName(results.getString("owner_name"));
+				owner.setOwnerLastName(results.getString("owner_last_name"));
+				owner.setPhoneNumber(results.getLong("phone_number"));
+				owner.setZipCode(results.getLong("zip_code"));
+				owner.setDistrict(results.getString("district"));
+				owner.setPublicPlace(results.getString("public_place"));
+				owner.setAddressNumber(results.getLong("address_number"));
 				owners.add(owner);
 			}
 		} catch(SQLException exception) {
