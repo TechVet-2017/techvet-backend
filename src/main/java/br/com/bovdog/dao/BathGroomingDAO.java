@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,5 +36,72 @@ public class BathGroomingDAO {
 		}	
 	return services;
 	}
+	
+	public void createBathGrooming(BathGrooming bathGrooming){
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			String sql = "INSERT INTO bathGrooming (serviceBathGrooming) VALUES (?);";
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, bathGrooming.getServiceBathGrooming());
+			preparedStatement.executeUpdate();
+			
+			}catch(SQLException e) {
+				e.printStackTrace();
+			} catch(ClassNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				try {if (preparedStatement!= null) preparedStatement.close();} catch(SQLException e) {e.printStackTrace();};
+				try {if (connection != null) connection.close();} catch(SQLException e) {e.printStackTrace();};
+			}
+	}
+	
+	public void updateBathGrooming(int idBathGrooming, String serviceBathGrooming) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sql = "UPDATE bathGrooming SET text = ? WHERE idBathGrooming = ?";
+		 		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		 	connection = DriverManager.getConnection(URL, USER, PASSWORD);
+		 	preparedStatement = connection.prepareStatement(sql);
+		 	preparedStatement.setString(1, serviceBathGrooming);
+		 	preparedStatement.setInt(2, idBathGrooming);
+			preparedStatement.executeUpdate();
+		} catch(SQLException e) {	
+			e.printStackTrace();
+		} catch(ClassNotFoundException e) {
+		 	e.printStackTrace();
+		} finally {
+		try { if(preparedStatement!= null) preparedStatement.close(); } catch(SQLException e) {e.printStackTrace();}
+		try { if(connection != null) connection.close(); } catch(SQLException e) {e.printStackTrace();}
+		 	
+		}
+	}
+		 	
+	public void deleteMessage(int idBathGrooming) {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+ 		String sql = "DELETE FROM bathGrooming WHERE idBathGrooming = ?";
+		 		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		 	connection = DriverManager.getConnection(URL, USER, PASSWORD);
+		 	preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, idBathGrooming);
+		 	preparedStatement.executeUpdate();
+		 } catch(SQLException e) {
+			e.printStackTrace();
+		 } catch(ClassNotFoundException e) {
+		 	e.printStackTrace();
+		 } finally {
+		 try { if(preparedStatement!= null) preparedStatement.close(); } catch(SQLException e) {e.printStackTrace();}
+		 try { if(connection != null) connection.close(); } catch(SQLException e) {e.printStackTrace();}
+		 }
+	}
+	
 	
 }
