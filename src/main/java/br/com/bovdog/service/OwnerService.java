@@ -58,14 +58,20 @@ public class OwnerService {
 								   @FormParam(value = "ownerName") String ownerName ,
 								   @FormParam(value = "ownerLastName") String ownerLastName ,
 								   @FormParam(value = "phoneNumber") Long phoneNumber ,
-								   @FormParam(value = "address") String address){
+								   @FormParam(value = "zipCode") Long zipCode ,
+								   @FormParam(value = "district") String district ,
+								   @FormParam(value = "publicPlace") String publicPlace ,
+								   @FormParam(value = "addressNumber") Long addressNumber){
 		
 		Owner owner = new Owner();
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
 		owner.setOwnerLastName(ownerLastName);
 		owner.setPhoneNumber(phoneNumber);
-		owner.setAddress(address);		
+		owner.setZipCode(zipCode);
+		owner.setDistrict(district);
+		owner.setPublicPlace(publicPlace);
+		owner.setAddressNumber(addressNumber);		
 		
 		OwnerDAO dao = new OwnerDAO();
 		dao.createOwner(owner);
@@ -79,14 +85,20 @@ public class OwnerService {
 								   @FormParam(value = "ownerName") String ownerName ,
 								   @FormParam(value = "ownerLastName") String ownerLastName ,
 								   @FormParam(value = "phoneNumber") Long phoneNumber ,
-								   @FormParam(value = "address") String address){
+								   @FormParam(value = "zipCode") Long zipCode ,
+								   @FormParam(value = "district") String district ,
+								   @FormParam(value = "publicPlace") String publicPlace ,
+								   @FormParam(value = "addressNumber") Long addressNumber){
 		
 		Owner owner = new Owner();
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
 		owner.setOwnerLastName(ownerLastName);
 		owner.setPhoneNumber(phoneNumber);
-		owner.setAddress(address);		
+		owner.setZipCode(zipCode);
+		owner.setDistrict(district);
+		owner.setPublicPlace(publicPlace);
+		owner.setAddressNumber(addressNumber);
 		
 		OwnerDAO dao = new OwnerDAO();
 		dao.updateOwner(owner);

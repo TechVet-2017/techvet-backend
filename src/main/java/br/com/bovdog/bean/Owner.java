@@ -10,7 +10,10 @@ public class Owner {
 	private String ownerName; 
 	private String ownerLastName;
 	private Long phoneNumber;
-	private String address;
+	private Long zipCode;
+	private String district;
+	private String publicPlace;
+	private Long addressNumber;	
 	
 	public int getOwnerId() {
 		return ownerId;
@@ -42,10 +45,28 @@ public class Owner {
 	public void setPhoneNumber(Long phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public String getAddress() {
-		return address;
+	public Long getZipCode() {
+		return zipCode;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setZipCode(Long zipCode) {
+		this.zipCode = zipCode;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getPublicPlace() {
+		return publicPlace;
+	}
+	public void setPublicPlace(String publicPlace) {
+		this.publicPlace = publicPlace;
+	}
+	public Long getAddressNumber() {
+		return addressNumber;
+	}
+	public void setAddressNumber(Long addressNumber) {
+		this.addressNumber = addressNumber;
 	}
 }
