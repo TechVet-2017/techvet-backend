@@ -165,6 +165,151 @@ public class OwnerDAO {
 		}
 	}
 	
+	public List<Owner> findOwnerByName(String insertedName){
+		List<Owner> owners = new ArrayList<Owner>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "SELECT * FROM owner WHERE ownerName like CONCAT('%', ? ,'%')";
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			preparedStatement.setString(1, insertedName);
+			ResultSet results = preparedStatement.executeQuery();
+			
+			while(results.next()){
+				Owner owner = new Owner();
+				owner.setOwnerId(results.getInt("ownerId"));
+				owner.setCpf(results.getLong("cpf"));
+				owner.setOwnerName(results.getString("ownerName"));
+				owner.setOwnerLastName(results.getString("ownerLastName"));
+				owner.setPhoneNumber(results.getLong("phoneNumber"));
+				owner.setAddress(results.getString("address"));	
+				owners.add(owner);
+			}
+		} catch(SQLException exception) {
+			exception.printStackTrace();
+		} catch(ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
+		}
+		return owners;
+	}
+	public List<Owner> findOwnerByCpf(Long insertedCpf){
+		List<Owner> owners = new ArrayList<Owner>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "SELECT * FROM owner WHERE cpf like CONCAT('%',?,'%')";
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			preparedStatement.setLong(1, insertedCpf);
+			ResultSet results = preparedStatement.executeQuery();
+			
+			while(results.next()){
+				Owner owner = new Owner();
+				owner.setOwnerId(results.getInt("ownerId"));
+				owner.setCpf(results.getLong("cpf"));
+				owner.setOwnerName(results.getString("ownerName"));
+				owner.setOwnerLastName(results.getString("ownerLastName"));
+				owner.setPhoneNumber(results.getLong("phoneNumber"));
+				owner.setAddress(results.getString("address"));	
+				owners.add(owner);
+			}
+		} catch(SQLException exception) {
+			exception.printStackTrace();
+		} catch(ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
+		}
+		return owners;
+	}	
+	
+	public List<Owner> findOwnerByPhoneNumber(Long insertedPhoneNumber){
+		List<Owner> owners = new ArrayList<Owner>();
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String sqlStatement = "SELECT * FROM owner WHERE phoneNumber like CONCAT('%',?,'%')";
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
+			preparedStatement = connection.prepareStatement(sqlStatement);
+			preparedStatement.setLong(1, insertedPhoneNumber);
+			ResultSet results = preparedStatement.executeQuery();
+			
+			while(results.next()){
+				Owner owner = new Owner();
+				owner.setOwnerId(results.getInt("ownerId"));
+				owner.setCpf(results.getLong("cpf"));
+				owner.setOwnerName(results.getString("ownerName"));
+				owner.setOwnerLastName(results.getString("ownerLastName"));
+				owner.setPhoneNumber(results.getLong("phoneNumber"));
+				owner.setAddress(results.getString("address"));	
+				owners.add(owner);
+			}
+		} catch(SQLException exception) {
+			exception.printStackTrace();
+		} catch(ClassNotFoundException exception) {
+			exception.printStackTrace();
+		} finally {
+			try { 
+				if(preparedStatement != null){
+					preparedStatement.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+					exception.printStackTrace();
+			}
+			try { 
+				if(connection != null){
+					connection.close(); 
+				} else {
+					// Nothing to do
+				}
+			} catch(SQLException exception){
+				exception.printStackTrace();
+			}
+		}
+		return owners;	
+	}
 	
 	public List<Owner> getAllOwners(){
 		List<Owner> owners = new ArrayList<Owner>();

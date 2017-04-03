@@ -25,6 +25,32 @@ public class OwnerService {
 	}
 	
 	@POST
+	@Path("/owners/findbyname")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<Owner> findOwnerByName(@FormParam(value = "insertedName") String insertedName){
+		OwnerDAO dao = new OwnerDAO();
+		return dao.findOwnerByName(insertedName);
+	}
+
+	@POST
+	@Path("/owners/findbycpf")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") Long insertedCpf){
+		OwnerDAO dao = new OwnerDAO();
+		return dao.findOwnerByCpf(insertedCpf);
+	}
+	
+	@POST
+	@Path("/owners/findbyphone")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") Long insertedPhoneNumber){
+		OwnerDAO dao = new OwnerDAO();
+		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
+	}
+	@POST
 	@Path("/owners/create")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
