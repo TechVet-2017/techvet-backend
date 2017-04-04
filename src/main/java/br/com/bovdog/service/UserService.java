@@ -71,4 +71,11 @@ public class UserService {
 		UserDAO dao = new UserDAO();
 		dao.updateUser(idUser, userFullName, userName, userPassword);
 	}
+	
+	@DELETE
+	@Path("/users/delete")
+	public void deleteOwner(@FormParam(value = "idUser") int idUser ){
+		UserDAO dao = new UserDAO();
+		dao.deleteUser(idUser);
+	}
 }
