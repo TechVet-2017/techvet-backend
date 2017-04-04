@@ -220,7 +220,7 @@ public class UserDAO {
 				preparedStatement.setString(2, userName);
 				preparedStatement.setString(3, userPassword);
 				preparedStatement.setInt(4, idUser);
-				preparedStatement.executeUpdate(sql);
+				preparedStatement.executeUpdate();
 			
 			// return error if caught SQL and class exception.
 			} catch(SQLException | ClassNotFoundException e) {
@@ -266,38 +266,33 @@ public class UserDAO {
 			
 			// verifies that the operation has been successful.
 			try {
-				Class.forName("com.mysql.cj.jdbc.Drive");
+				Class.forName("com.mysql.cj.jdbc.Driver");
 				connection = DriverManager.getConnection(URL, USER, PASSWORD);
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, idUser);
 				preparedStatement.executeUpdate();
-			} catch(SQLException | ClassNotFoundException e) {
-				e.printStackTrace();
+			} catch(SQLException exception) {
+				exception.printStackTrace();
+			} catch(ClassNotFoundException exception) {
+				exception.printStackTrace();
 			} finally {
-				try {
-					// close statement requirement. 
-					if (preparedStatement!=null) {
-						preparedStatement.close();
+				try { 
+					if(preparedStatement != null){
+						preparedStatement.close(); 
 					} else {
-						//nothing to do.
+						// Nothing to do
 					}
-				
-				// return error if caught SQL exception.
-				} catch(SQLException e) {
-					e.printStackTrace();	
+				} catch(SQLException exception){
+						exception.printStackTrace();
 				}
-				try {
-					
-					// close connection requirement. 
-					if (connection != null) {
-						connection.close();
+				try { 
+					if(connection != null){
+						connection.close(); 
 					} else {
-						//nothing to do.
+						// Nothing to do
 					}
-					
-				// return error if caught SQL exception.
-				} catch (SQLException e) {
-					e.printStackTrace();
+				} catch(SQLException exception){
+					exception.printStackTrace();
 				}
 			}
 		}

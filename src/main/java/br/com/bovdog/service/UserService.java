@@ -56,7 +56,7 @@ public class UserService {
 	@POST
 	@Path("/users/update")
 	@Consumes("application/x-www-form-urlencoded")
-	public void updateUser(@FormParam(value = "idUser")int idUser,
+	public void updateUser(@FormParam(value = "userId")int idUser,
 																@FormParam(value = "userFullName")String userFullName,
 																@FormParam(value = "userName")String userName,
 																@FormParam(value = "userPassword")String userPassword){
@@ -73,7 +73,7 @@ public class UserService {
 	
 	@DELETE
 	@Path("/users/delete")
-	public void deleteOwner(@FormParam(value = "idUser") int idUser ){
+	public void deleteUser(@FormParam(value = "userId") int idUser ){
 		UserDAO dao = new UserDAO();
 		dao.deleteUser(idUser);
 	}
