@@ -29,9 +29,8 @@ public class UserService {
 	@Path("/users/byusername")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public User getUserByUserName(@FormParam(value = "insertedUserName") String insertedUserName){
+	public List<User> getUserByUserName(@FormParam(value = "insertedUserName") String insertedUserName){
 		UserDAO dao = new UserDAO();
-		System.out.println(insertedUserName);
 		return dao.getUserByUserName(insertedUserName);
 	}
 	

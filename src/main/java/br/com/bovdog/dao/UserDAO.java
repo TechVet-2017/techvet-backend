@@ -78,31 +78,30 @@ public class UserDAO {
 		return users;
 	}
 	
-	// create method to select a specific user from table by UserName.
-	public User getUserByUserName(String userName) {
-		User user = new User();
+	// create method to select a user from table by UserName.
+	public List<User> getUserByUserName(String insertedUserName) {
+		List<User> users = new ArrayList<User>();
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String sql = "SELECT * FROM user WHERE user_name = ?";
-		ResultSet result = null;
+		String sql = "SELECT * FROM user WHERE user_name like concat('%',?,'%')";
+		ResultSet results = null;
 			
 		// treatment for existence of desired user id.
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection= DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, userName);
-			result = preparedStatement.executeQuery();
+			preparedStatement.setString(1, insertedUserName);
+			results = preparedStatement.executeQuery();
 				
-			// checks if user list isn't empty.
-			if (result.next()) {
-				user.setIdUser(result.getInt("id_user"));
-				user.setUserFullName(result.getString("user_full_name"));
-				user.setUserName(result.getString("user_name"));
-				user.setUserPassword(result.getString("user_password"));
-			} else {
-				//nothing to do.
-			}
+			while (results.next()) {
+				User user = new User();
+				user.setIdUser(results.getInt("id_user"));
+				user.setUserFullName(results.getString("user_full_name"));
+				user.setUserName(results.getString("user_name"));
+				user.setUserPassword(results.getString("user_password"));
+				users.add(user);
+			} 
 				
 			// return error if caught SQL exception.
 			} catch (SQLException e) {
@@ -142,7 +141,7 @@ public class UserDAO {
 			}
 			
 			// returns wanted user.
-			return user;
+			return users;
 		}
 	
 	// create method for creation of user in database.
