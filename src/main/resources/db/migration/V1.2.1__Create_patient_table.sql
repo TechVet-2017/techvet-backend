@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `patient`;
 CREATE TABLE `patient`(
-	`id_patient` int NOT NULL,
+	`id_patient` int NOT NULL AUTO_INCREMENT,
 	`name_patient` varchar(50) NOT NULL,
 	`specie` char(1) NOT NULL,
 	`breed` varchar(20) NOT NULL,
@@ -10,4 +10,3 @@ CREATE TABLE `patient`(
 	`coat` varchar(10) NOT NULL,	
 	PRIMARY KEY(`id_patient`)
 );
-	

@@ -14,8 +14,8 @@ import br.com.bovdog.bean.Patient;
 // create class Patient DAO for database communication.
 public class PatientDAO {
 	private final String USER = "root";
-	private final String PASSWORD = "root";
-	private final String URL = "jdbc:mysql://localhost/chattering?useSSL=false&serverTimezone=UTC";
+	private final String PASSWORD = "16182534";
+	private final String URL = "jdbc:mysql://localhost/techvet?useSSL=false&serverTimezone=UTC";
 	
 	// create method getAllPatients to return list of Patients.
 	public List<Patient> getAllPatients() {
@@ -26,8 +26,8 @@ public class PatientDAO {
 		
 		// treatment for increment in Patient list.
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(USER, PASSWORD, URL);
+			Class.forName("com.mysql.cj.jdbc.Driver");			
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement("SELECT * FROM patient;");
 			results = preparedStatement.executeQuery();
 			
