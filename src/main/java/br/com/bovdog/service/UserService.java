@@ -53,4 +53,22 @@ public class UserService {
 		dao.createUser(user);
 		return user;
 	}
+	
+	@POST
+	@Path("/users/update")
+	@Consumes("application/x-www-form-urlencoded")
+	public void updateUser(@FormParam(value = "idUser")int idUser,
+																@FormParam(value = "userFullName")String userFullName,
+																@FormParam(value = "userName")String userName,
+																@FormParam(value = "userPassword")String userPassword){
+
+		User user = new User();
+		user.setIdUser(idUser);
+		user.setUserFullName(userFullName);
+		user.setUserName(userName);
+		user.setUserPassword(userPassword);	
+		
+		UserDAO dao = new UserDAO();
+		dao.updateUser(idUser, userFullName, userName, userPassword);
+	}
 }
