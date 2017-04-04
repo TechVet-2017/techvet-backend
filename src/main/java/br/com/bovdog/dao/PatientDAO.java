@@ -14,7 +14,7 @@ import br.com.bovdog.bean.Patient;
 // create class Patient DAO for database communication.
 public class PatientDAO {
 	private final String USER = "root";
-	private final String PASSWORD = "16182534";
+	private final String PASSWORD = "root";
 	private final String URL = "jdbc:mysql://localhost/techvet?useSSL=false&serverTimezone=UTC";
 	
 	// create method getAllPatients to return list of Patients.
@@ -102,6 +102,7 @@ public class PatientDAO {
 			
 			// checks if patient list isn't empty.
 			if (result.next()) {
+				patient.setIdPatient(result.getInt("id_patient"));
 				patient.setBirthday(result.getDate("birthday"));
 				patient.setCoat(result.getString("coat"));
 				patient.setGender(result.getString("gender").charAt(0));
