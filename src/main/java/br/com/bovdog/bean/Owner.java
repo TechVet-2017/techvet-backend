@@ -2,6 +2,7 @@ package br.com.bovdog.bean;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+//create Owner class.
 @XmlRootElement
 public class Owner {
 
@@ -15,6 +16,7 @@ public class Owner {
 	private String publicPlace;
 	private Long addressNumber;	
 	
+	// getters and setters for Owner attributes.
 	public int getOwnerId() {
 		return ownerId;
 	}
