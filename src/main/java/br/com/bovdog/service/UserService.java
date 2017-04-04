@@ -33,4 +33,24 @@ public class UserService {
 		UserDAO dao = new UserDAO();
 		return dao.getUserByUserName(insertedUserName);
 	}
+	
+	@POST
+	@Path("/users/create")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public User createUser(@FormParam(value = "idUser")int idUser,
+																@FormParam(value = "userFullName")String userFullName,
+																@FormParam(value = "userName")String userName,
+																@FormParam(value = "userPassword")String userPassword){
+
+		User user = new User();
+		user.setIdUser(idUser);
+		user.setUserFullName(userFullName);
+		user.setUserName(userName);
+		user.setUserPassword(userPassword);	
+		
+		UserDAO dao = new UserDAO();
+		dao.createUser(user);
+		return user;
+	}
 }
