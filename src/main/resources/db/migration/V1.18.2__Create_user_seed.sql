@@ -1,0 +1,2 @@
+INSERT INTO user (user_full_name, user_name, user_password) VALUES ('Antonio Carvalho de Oliveira Junior', 'antoniocoj', 'hgatinha');
+INSERT INTO user (user_full_name, user_name, user_password) VALUES ('Lucas Amoedo', 'Amoedoamigodoronaldo', 'cof');

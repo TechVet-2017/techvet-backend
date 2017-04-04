@@ -13,8 +13,8 @@ import br.com.bovdog.bean.User;
 // create class User DAO for database communication.
 public class UserDAO {
 	private final String USER = "root";
-	private final String PASSWORD = "root";
-	private final String URL = "jdbc:mysql://localhost/chattering?useSSL=false&serverTimezone=UTC";
+	private final String PASSWORD = "4775";
+	private final String URL = "jdbc:mysql://localhost/techvet?useSSL=false&serverTimezone=UTC";
 
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<User>();
@@ -25,7 +25,7 @@ public class UserDAO {
 		// Treatment for increment in user list.
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(USER, PASSWORD, URL);
+			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 			preparedStatement = connection.prepareStatement ("SELECT * FROM user;");
 			results = preparedStatement.executeQuery();
 			
@@ -78,7 +78,7 @@ public class UserDAO {
 		return users;
 	}
 	
-	// create method to select a specific user from table by idUser.
+	// create method to select a specific user from table by UserName.
 	public User getUserByUserName(String userName) {
 		User user = new User();
 		Connection connection = null;
@@ -154,7 +154,7 @@ public class UserDAO {
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				connection = DriverManager.getConnection(URL, USER, PASSWORD);
-				String sql = "INSERT INTO user (user_ful_name, user_name, user_password) "
+				String sql = "INSERT INTO user (user_full_name, user_name, user_password) "
 						   + "VALUES (?, ?, ?);";
 				preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setString(1, user.getUserFullName());
@@ -209,10 +209,7 @@ public class UserDAO {
 								  String userPassword) {
 			Connection connection = null;
 			PreparedStatement preparedStatement = null;
-			String sql = "UPDATE user SET user_full_name = ?,"
-					   + "user_name = ?,"
-					   + "user_password = ?"
-					   + "WHERE id_user = ?";
+			String sql = "UPDATE user SET user_full_name = ?, user_name = ?, user_password = ? WHERE id_user = ?";
 
 			// treatment to insert attributes values in database. 
 			try {
@@ -223,7 +220,7 @@ public class UserDAO {
 				preparedStatement.setString(2, userName);
 				preparedStatement.setString(3, userPassword);
 				preparedStatement.setInt(4, idUser);
-				preparedStatement.executeQuery(sql);
+				preparedStatement.executeUpdate(sql);
 			
 			// return error if caught SQL and class exception.
 			} catch(SQLException | ClassNotFoundException e) {

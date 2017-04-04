@@ -31,6 +31,7 @@ public class UserService {
 	@Produces("application/json")
 	public User getUserByUserName(@FormParam(value = "insertedUserName") String insertedUserName){
 		UserDAO dao = new UserDAO();
+		System.out.println(insertedUserName);
 		return dao.getUserByUserName(insertedUserName);
 	}
 	
@@ -38,13 +39,11 @@ public class UserService {
 	@Path("/users/create")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public User createUser(@FormParam(value = "idUser")int idUser,
-																@FormParam(value = "userFullName")String userFullName,
+	public User createUser(@FormParam(value = "userFullName")String userFullName,
 																@FormParam(value = "userName")String userName,
 																@FormParam(value = "userPassword")String userPassword){
 
 		User user = new User();
-		user.setIdUser(idUser);
 		user.setUserFullName(userFullName);
 		user.setUserName(userName);
 		user.setUserPassword(userPassword);	
