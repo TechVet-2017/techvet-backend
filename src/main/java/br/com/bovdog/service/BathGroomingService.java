@@ -18,7 +18,7 @@ import br.com.bovdog.dao.BathGroomingDAO;
 public class BathGroomingService {
 	
 	@GET
-	@Path("/BathGroomings")
+	@Path("/bathGroomings")
 	@Produces("/application/json")
 	public List<BathGrooming> getAllBathGrooming(){
 		BathGroomingDAO dao = new BathGroomingDAO();
@@ -26,7 +26,7 @@ public class BathGroomingService {
 	}
 	
 	@POST
-	@Path("/BathGroomings/create")
+	@Path("/bathGroomings/create")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
 	public List<BathGrooming> createBathGrooming(@FormParam("text") String text){
@@ -39,7 +39,7 @@ public class BathGroomingService {
 	}
 	
 	@POST
-	@Path("/BathGroomings/update")
+	@Path("/bathGroomings/update")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
 	public List<BathGrooming> updateBathGrooming(@FormParam("idBathGrooming") int idBathGrooming, @FormParam("text") String text){
@@ -49,7 +49,7 @@ public class BathGroomingService {
 	}
 	
 	@DELETE
-	@Path("/BathGrooming/delete")
+	@Path("/bathGrooming/delete")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
 	public List<BathGrooming> deleteBathGrooming(@FormParam("idBathGrooming") int idBathGrooming){
