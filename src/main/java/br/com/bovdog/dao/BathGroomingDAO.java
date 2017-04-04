@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.bovdog.bean.BathGrooming;
-
 public class BathGroomingDAO {
 	private final String URL = "jdbc:mysql://localhost:3306/techvet?useSSL=false&serverTimezone=UTC";
 	private final String USER = "root";
@@ -82,7 +81,7 @@ public class BathGroomingDAO {
 		}
 	}
 		 	
-	public void deleteMessage(int idBathGrooming) {
+	public void deleteBathGrooming(int idBathGrooming) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
  		String sql = "DELETE FROM bathGrooming WHERE idBathGrooming = ?";

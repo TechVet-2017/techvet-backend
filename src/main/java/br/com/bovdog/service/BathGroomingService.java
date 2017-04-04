@@ -3,6 +3,7 @@ package br.com.bovdog.service;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -36,5 +37,27 @@ public class BathGroomingService {
 		return dao.getAllBathGrooming();
 		
 	}
+	
+	@POST
+	@Path("/BathGroomings/update")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<BathGrooming> updateBathGrooming(@FormParam("idBathGrooming") int idBathGrooming, @FormParam("text") String text){
+		BathGroomingDAO dao = new BathGroomingDAO();
+		dao.updateBathGrooming(idBathGrooming, text);
+		return dao.getAllBathGrooming();
+	}
+	
+	@DELETE
+	@Path("/BathGrooming/delete")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<BathGrooming> deleteBathGrooming(@FormParam("idBathGrooming") int idBathGrooming){
+		BathGroomingDAO dao = new BathGroomingDAO();
+		dao.deleteBathGrooming(idBathGrooming);
+		return dao.getAllBathGrooming();
+	}
+	
+	
 	
 }
