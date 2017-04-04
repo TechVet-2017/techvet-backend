@@ -24,4 +24,13 @@ public class UserService {
 		UserDAO dao = new UserDAO();
 		return dao.getAllUsers();
 	}
+	
+	@POST
+	@Path("/users/byusername")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public User getUserByUserName(@FormParam(value = "insertedUserName") String insertedUserName){
+		UserDAO dao = new UserDAO();
+		return dao.getUserByUserName(insertedUserName);
+	}
 }
