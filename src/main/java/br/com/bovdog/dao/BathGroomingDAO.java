@@ -53,8 +53,16 @@ public class BathGroomingDAO {
 			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
 			} finally {
-				try {if (preparedStatement!= null) preparedStatement.close();} catch(SQLException e) {e.printStackTrace();};
-				try {if (connection != null) connection.close();} catch(SQLException e) {e.printStackTrace();};
+				try {
+					if (preparedStatement!= null) preparedStatement.close();
+				} catch(SQLException e) {
+						e.printStackTrace();
+					};
+				try {
+					if (connection != null) connection.close();
+				} catch(SQLException e) {
+					e.printStackTrace();
+				};
 			}
 	}
 	
@@ -97,8 +105,16 @@ public class BathGroomingDAO {
 		 } catch(ClassNotFoundException e) {
 		 	e.printStackTrace();
 		 } finally {
-		 try { if(preparedStatement!= null) preparedStatement.close(); } catch(SQLException e) {e.printStackTrace();}
-		 try { if(connection != null) connection.close(); } catch(SQLException e) {e.printStackTrace();}
+			 try { 
+				 if(preparedStatement!= null) preparedStatement.close(); 
+			 } catch(SQLException e) {
+				 e.printStackTrace();
+			 }
+			 try { 
+				 if(connection != null) connection.close(); 
+			 } catch(SQLException e) {
+				 e.printStackTrace();
+			 }
 		 }
 	}
 	
