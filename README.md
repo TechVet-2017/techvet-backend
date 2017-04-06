@@ -47,44 +47,16 @@ Example: br.com.bovdog.util.
 
 ## Database
 
+You must manually create your database, and it must be called 'techvet'.
 
-### Table names
+### Hibernate
 
-ALL tables must be named in the singular form, NOT the plural. So CREATE TABLE owners is INCORRECT, while CREATE TABLE owner is CORRECT.
+We are now using Hibernate! It automatically creates your tables and columns according to your beans. It has simpler methods to CRUD operations. It is easier to use and less repetitive than JDBC. It makes you coffee every morning!
 
 ### Database Migrations
 
-We will be using the Flyway Maven plugin to manage our database migrations.
-
-**First of all, open the flyway.properties file and add your database's username and password. This file must not be commited.**
-
-Any and all alterations made in the database must be saved in a migration file. Please follow the following instructions whenever creating a new migration:
+We will no longer be using the Flyway Maven plugin. We do not need migrations anymore. It was fun while it lasted.
 
 
-1. Create your migration file in the folder src/main/resources/db/migration.
-    * The file name **must** be named like VX.Y.Z__Migration_description.sql.
-        * Please note it's a capital V.
-        * Please note the first letter of the migration description is also capital.
-        * Please note there are two underscores after the version number.
-        * X is the Sprint number.
-        * Y is the Use Case number.
-        * Z is the migration number. The migration number starts with 1 and is incremented by the number of migrations created.
-    * For instance, if you are working on the Use Case #3 of Sprint #1, and you need to create a new table to store Owners. Your migration file, located in src/main/resources/db/migration, would be named:
-        * V1.3.1__Create_table_owner.sql
-    * And if you need a new migration after that, say to create a Patient table, it would be named:
-        * V.1.3.2__Create_table_patient.sql 
-        
-2. To run your migrations outside of Eclipse, open a terminal in the project folder and type: 
-    * mvn flyway:migrate
-3. To run your migrations in Eclipse:
-    1. Right click on your project, Run As > Run Configurations.
-    2. Select Maven Build, then click the New button located in the top left corner of the window.
-    3. In Base directory, click Browse Workspace... and select the project.
-    4. In Goals, type: flyway:migrate
-    5. Click Apply, then Run.
-    6. This run configuration will be saved, so you can directly run it through Run As > Run Configurations the next time you want to migrate your database.
-
-
-After each merge, it will be necessary to clean your database (due to eventual versioning conflicts, that are sure to happen). To do that, follow the above steps, but run the command flyway:clean instead of flyway:migrate. Then, migrate normally.
 
 Be patient, have faith, and good luck. And keep walking.
