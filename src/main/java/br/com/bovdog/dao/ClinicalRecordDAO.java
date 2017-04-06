@@ -5,16 +5,31 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.EntityManager;
+
 import br.com.bovdog.bean.ClinicalRecord;
 
 
-public class ClinicalRecodDAO {
+public class ClinicalRecordDAO {
 	
 	private final String URL = "jdbc:mysql://localhost:3306/techvet?useSSL=false&serverTimezone=UTC";
 	private final String USER = "root";
 	private final String PASSWORD = "root";
+
+  public ClinicalRecord getClinicalRecordById() {
+    EntityManagerFactory factory = Persistence.createEntityManagerFactory("techvet-unit");
+    EntityManager manager = factory.createEntityManager();
+    ClinicalRecord record = manager.find(ClinicalRecord.class, 1);
+    manager.close();
+    factory.close();
+    return record;
+  }
 	
 	
 	
@@ -37,7 +52,6 @@ public class ClinicalRecodDAO {
 				
 				ClinicalRecord record = new ClinicalRecord();
 				
-				record.setC_protocol(results.getInt("c_protocol"));
 				record.setAnamnesis(results.getString("anamnesis"));
 				record.setVeterinarian(results.getString("veterinarian"));
 				record.setClinical_history(results.getString("clinical_history"));
@@ -68,12 +82,6 @@ public class ClinicalRecodDAO {
 		
 		
 		return records;
-	}
-	
-	public ClinicalRecord getClinicalRecordById(){
-		
-		return null;
-		
 	}
 	
 	public void CreateClinicalRecord(ClinicalRecord clinicalRecord){
