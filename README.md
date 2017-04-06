@@ -47,12 +47,15 @@ Example: br.com.bovdog.util.
 
 ## Database
 
-For now, AND ONLY FOR NOW, we are not shipping migrations. This means each pair is responsible for creating their own database and tables. 
+You must manually create your database, and it must be called 'techvet'.
 
-Note, however, that **the database name must be techvet**. 
+### Hibernate
 
-Please, share your script with the others.
+We are now using Hibernate! It automatically creates your tables and columns according to your beans. It has simpler methods to CRUD operations. It is easier to use and less repetitive than JDBC. It makes you coffee every morning!
 
-And remember, this is a TEMPORARY workaround. 
+### Database Migrations
+
+We will no longer be using the Flyway Maven plugin. We do not need migrations anymore. It was fun while it lasted.
+
 
 Be patient, have faith, and good luck. And keep walking.

@@ -1,106 +1,131 @@
 package br.com.bovdog.bean;
 
-public class ClinicalRecord {
-	
-	private int c_protocol;
-	private int patientId;
-	
-	private String anamnesis;
-	private String veterinarian;
-	private String clinical_history;
-	private String diagnosis;
-	private float patientTemperature;
-	private float capillaryFill;
-	private String patientPulse;
-	private String mucosasApparent;
-	private float patientRespiratoryRate;
-	private float patientHeartRate;
-	
-	
-	public int getC_protocol() {
-		return c_protocol;
-	}
-	public void setC_protocol(int c_protocol) {
-		this.c_protocol = c_protocol;
-	}
-	public int getPatientId() {
-		return patientId;
-	}
-	public void setPatientId(int patientId) {
-		this.patientId = patientId;
-	}
-	public String getAnamnesis() {
-		return anamnesis;
-	}
-	public void setAnamnesis(String anamnesis) {
-		this.anamnesis = anamnesis;
-	}
-	public String getVeterinarian() {
-		return veterinarian;
-	}
-	public void setVeterinarian(String veterinarian) {
-		this.veterinarian = veterinarian;
-	}
-	public String getClinical_history() {
-		return clinical_history;
-	}
-	public void setClinical_history(String clinical_history) {
-		this.clinical_history = clinical_history;
-	}
-	public String getDiagnosis() {
-		return diagnosis;
-	}
-	public void setDiagnosis(String diagnosis) {
-		this.diagnosis = diagnosis;
-	}
-	public float getPatientTemperature() {
-		return patientTemperature;
-	}
-	public void setPatientTemperature(float patientTemperature) {
-		this.patientTemperature = patientTemperature;
-	}
-	public float getCapillaryFill() {
-		return capillaryFill;
-	}
-	public void setCapillaryFill(float capillaryFill) {
-		this.capillaryFill = capillaryFill;
-	}
-	public String getPatientPulse() {
-		return patientPulse;
-	}
-	public void setPatientPulse(String patientPulse) {
-		this.patientPulse = patientPulse;
-	}
-	public String getMucosasApparent() {
-		return mucosasApparent;
-	}
-	public void setMucosasApparent(String mucosasApparent) {
-		this.mucosasApparent = mucosasApparent;
-	}
-	public float getPatientRespiratoryRate() {
-		return patientRespiratoryRate;
-	}
-	public void setPatientRespiratoryRate(float patientRespiratoryRate) {
-		this.patientRespiratoryRate = patientRespiratoryRate;
-	}
-	public float getPatientHeartRate() {
-		return patientHeartRate;
-	}
-	public void setPatientHearRate(float patientHearRate) {
-		this.patientHeartRate = patientHearRate;
-	}
-	public float getPatientWeight() {
-		return patientWeight;
-	}
-	public void setPatientWeight(float patientWeight) {
-		this.patientWeight = patientWeight;
-	}
-	private float patientWeight; 
-	
-	
-	
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
 
-	
-	
+@Entity
+public class ClinicalRecord {
+
+  @Id
+  @GeneratedValue
+  private int clinicalRecordId;
+  private int patientId;
+  
+  private String anamnesis;
+  private String veterinarian;
+  private String clinicalHistory;
+  private String diagnosis;
+  private float patientTemperature;
+  private float capillaryFill;
+  private String patientPulse;
+  private String mucosasApparent;
+  private float patientRespiratoryRate;
+  private float patientHeartRate;
+  private float patientWeight; 
+
+  public int getClinicalRecordId() {
+    return this.clinicalRecordId;
+  }
+
+  public void setClinicalRecordId(int clinicalRecordId) {
+    this.clinicalRecordId = clinicalRecordId;
+  }
+  
+  public int getPatientId() {
+    return this.patientId;
+  }
+
+  public void setPatientId(int patientId) {
+    this.patientId = patientId;
+  }
+
+  public String getAnamnesis() {
+    return this.anamnesis;
+  }
+
+  public void setAnamnesis(String anamnesis) {
+    this.anamnesis = anamnesis;
+  }
+
+  public String getVeterinarian() {
+    return this.veterinarian;
+  }
+  
+  public void setVeterinarian(String veterinarian) {
+    this.veterinarian = veterinarian;
+  }
+
+  public String getClinicalHistory() {
+    return this.clinicalHistory;
+  }
+
+  public void setClinicalHistory(String clinicalHistory) {
+    this.clinicalHistory = clinicalHistory;
+  }
+
+  public String getDiagnosis() {
+    return this.diagnosis;
+  }
+
+  public void setDiagnosis(String diagnosis) {
+    this.diagnosis = diagnosis;
+  }
+
+  public float getPatientTemperature() {
+    return this.patientTemperature;
+  }
+
+  public void setPatientTemperature(float patientTemperature) {
+    this.patientTemperature = patientTemperature;
+  }
+
+  public float getCapillaryFill() {
+    return this.capillaryFill;
+  }
+
+  public void setCapillaryFill(float capillaryFill) {
+    this.capillaryFill = capillaryFill;
+  }
+
+  public String getPatientPulse() {
+    return this.patientPulse;
+  }
+
+  public void setPatientPulse(String patientPulse) {
+    this.patientPulse = patientPulse;
+  }
+
+  public String getMucosasApparent() {
+    return this.mucosasApparent;
+  }
+
+  public void setMucosasApparent(String mucosasApparent) {
+    this.mucosasApparent = mucosasApparent;
+  }
+
+  public float getPatientRespiratoryRate() {
+    return this.patientRespiratoryRate;
+  }
+
+  public void setPatientRespiratoryRate(float patientRespiratoryRate) {
+    this.patientRespiratoryRate = patientRespiratoryRate;
+  }
+
+  public float getPatientHeartRate() {
+    return this.patientHeartRate;
+  }
+
+  public void setPatientHeartRate(float patientHearRate) {
+    this.patientHeartRate = patientHearRate;
+  }
+
+  public float getPatientWeight() {
+    return this.patientWeight;
+  }
+
+  public void setPatientWeight(float patientWeight) {
+    this.patientWeight = patientWeight;
+  }
 
 }
