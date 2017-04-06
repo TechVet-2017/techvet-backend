@@ -8,13 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+//import java.text.SimpleDateFormat; 
 
 import br.com.bovdog.bean.Patient;
 
 // create class Patient DAO for database communication.
 public class PatientDAO {
 	private final String USER = "root";
-	private final String PASSWORD = "root";
+	private final String PASSWORD = "16182534";
 	private final String URL = "jdbc:mysql://localhost/techvet?useSSL=false&serverTimezone=UTC";
 	
 	// create method getAllPatients to return list of Patients.
@@ -158,16 +159,19 @@ public class PatientDAO {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			String sql = "INSERT INTO patient (name_patient, specie, breed, size, gender, birthday, coat) "
-					   + "VALUES (?, ?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO patient (name_patient, specie, breed, size, gender, coat) "
+					   + "VALUES (?, ?, ?, ?, ?, ?);";
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, patient.getPatientName());
 			preparedStatement.setString(2, patient.getSpecie());
 			preparedStatement.setString(3, patient.getBreed());
 			preparedStatement.setString(4, String.valueOf(patient.getSize()));
 			preparedStatement.setString(5, String.valueOf(patient.getGender()));
-			preparedStatement.setDate(6, new java.sql.Date(patient.getBirthday().getTime()));
-			preparedStatement.setString(7, patient.getCoat());
+//			SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+//			java.util.Date util = format.parse("20170405");
+//			
+//			preparedStatement.setDate(6, new Date(util.getTime()));
+			preparedStatement.setString(6, patient.getCoat());
 			preparedStatement.executeUpdate();
 			
 		// return error if caught SQL exception.

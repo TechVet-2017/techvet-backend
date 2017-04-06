@@ -6,7 +6,7 @@ CREATE TABLE `patient`(
 	`breed` varchar(20) NOT NULL,
 	`size` char(1) NOT NULL,
 	`gender` char(1) NOT NULL,
-	`birthday` DATE NOT NULL,
+	`birthday` DATE,
 	`coat` varchar(10) NOT NULL,	
 	PRIMARY KEY(`id_patient`)
 );

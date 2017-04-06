@@ -1,5 +1,6 @@
 package br.com.bovdog.service;
 
+//import java.sql.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -12,9 +13,11 @@ import javax.ws.rs.Produces;
 import br.com.bovdog.bean.Patient;
 import br.com.bovdog.dao.PatientDAO;
 
+// create Patient service 
 @Path("/PatientService")
 public class PatientService {
 	
+	// create method to get all patients registered in database
 	@GET
 	@Path("/patients")
 	@Produces("application/json")
@@ -23,6 +26,7 @@ public class PatientService {
 		return dao.getAllPatients();
 	}
 	
+	// create method to get patient by id
 	@POST
 	@Path("/patients/getPatient")
 	@Consumes("application/x-www-form-urlencoded")
@@ -31,4 +35,31 @@ public class PatientService {
 		PatientDAO dao = new PatientDAO();
 		return dao.getPatientById(id);
 	}
+	
+	@POST
+	@Path("/patients/newPatient")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public Patient newPatient(@FormParam(value = "patientName") String patientName,
+							  @FormParam(value = "specie") String specie,
+							  @FormParam(value = "breed") String breed,
+							  @FormParam(value = "size") char size,
+							  @FormParam(value = "gender") char gender,
+//							  @FormParam(value = "birthday") Date birthday,
+							  @FormParam(value = "coat") String coat){
+		
+		Patient patient = new Patient();
+		patient.setPatientName(patientName);
+		patient.setSpecie(specie);
+		patient.setBreed(breed);
+		patient.setSize(size);
+		patient.setGender(gender);
+//		patient.setBirthday(birthday);
+		patient.setCoat(coat);
+		
+		PatientDAO dao = new PatientDAO();
+		dao.createPatient(patient);
+		return patient;
+	}
+	
 }
