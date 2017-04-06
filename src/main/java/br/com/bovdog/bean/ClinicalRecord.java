@@ -14,7 +14,7 @@ public class ClinicalRecord {
 	
 	private String anamnesis;
 	private String veterinarian;
-	private String clinical_history;
+	private String clinicalHistory;
 	private String diagnosis;
 	private float patientTemperature;
 	private float capillaryFill;
@@ -56,12 +56,12 @@ public class ClinicalRecord {
 		this.veterinarian = veterinarian;
 	}
 
-	public String getClinical_history() {
-		return this.clinical_history;
+	public String getClinicalHistory() {
+		return this.clinicalHistory;
 	}
 
-	public void setClinical_history(String clinical_history) {
-		this.clinical_history = clinical_history;
+	public void setClinicalHistory(String clinicalHistory) {
+		this.clinicalHistory = clinicalHistory;
 	}
 
 	public String getDiagnosis() {
@@ -116,7 +116,7 @@ public class ClinicalRecord {
 		return this.patientHeartRate;
 	}
 
-	public void setPatientHearRate(float patientHearRate) {
+	public void setPatientHeartRate(float patientHearRate) {
 		this.patientHeartRate = patientHearRate;
 	}
 
