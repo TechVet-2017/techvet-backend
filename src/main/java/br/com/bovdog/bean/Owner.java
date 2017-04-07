@@ -11,10 +11,10 @@ public class Owner {
 	@GeneratedValue
 	private int ownerId;
 	@Id
-	private Long cpf; //Individual Registry in Brazil
+	private String cpf; //Individual Registry in Brazil
 	private String ownerName; 
 	private String ownerLastName;
-	private Long phoneNumber;
+	private String phoneNumber;
 	private Long zipCode;
 	private String district;
 	private String publicPlace;
@@ -27,10 +27,10 @@ public class Owner {
 	public void setOwnerId(int ownerId) {
 		this.ownerId = ownerId;
 	}
-	public Long getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(Long cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public String getOwnerName() {
@@ -45,10 +45,10 @@ public class Owner {
 	public void setOwnerLastName(String ownerLastName) {
 		this.ownerLastName = ownerLastName;
 	}
-	public Long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(Long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public Long getZipCode() {

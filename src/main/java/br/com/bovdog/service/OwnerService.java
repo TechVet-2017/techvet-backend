@@ -37,7 +37,7 @@ public class OwnerService {
 	@Path("/owners/findbycpf")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") Long insertedCpf){
+	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") String insertedCpf){
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByCpf(insertedCpf);
 	}
@@ -46,7 +46,7 @@ public class OwnerService {
 	@Path("/owners/findbyphone")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") Long insertedPhoneNumber){
+	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") String insertedPhoneNumber){
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
 	}
@@ -54,10 +54,10 @@ public class OwnerService {
 	@Path("/owners/create")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public Owner createOwner(@FormParam(value = "cpf") Long cpf ,
+	public Owner createOwner(@FormParam(value = "cpf") String cpf ,
 								   @FormParam(value = "ownerName") String ownerName ,
 								   @FormParam(value = "ownerLastName") String ownerLastName ,
-								   @FormParam(value = "phoneNumber") Long phoneNumber ,
+								   @FormParam(value = "phoneNumber") String phoneNumber ,
 								   @FormParam(value = "zipCode") Long zipCode ,
 								   @FormParam(value = "district") String district ,
 								   @FormParam(value = "publicPlace") String publicPlace ,
@@ -81,10 +81,10 @@ public class OwnerService {
 	@POST
 	@Path("/owners/update")
 	@Consumes("application/x-www-form-urlencoded")
-	public void updateOwner(@FormParam(value = "cpf") Long cpf ,
+	public void updateOwner(@FormParam(value = "cpf") String cpf ,
 								   @FormParam(value = "ownerName") String ownerName ,
 								   @FormParam(value = "ownerLastName") String ownerLastName ,
-								   @FormParam(value = "phoneNumber") Long phoneNumber ,
+								   @FormParam(value = "phoneNumber") String phoneNumber ,
 								   @FormParam(value = "zipCode") Long zipCode ,
 								   @FormParam(value = "district") String district ,
 								   @FormParam(value = "publicPlace") String publicPlace ,
