@@ -1,4 +1,0 @@
-INSERT INTO `owner` (cpf, owner_name, owner_last_name, phone_number, zip_code, district, public_place, address_number) VALUES (11111111111, "João Paulo", "Ferreira", 62982182377, 72992864, "Gama","Avenida", 20);
-INSERT INTO `owner` (cpf, owner_name, owner_last_name, phone_number, zip_code, district, public_place, address_number) VALUES (22222222222, "Adalto", "Santos", 61999999999, 72212823, "Recanto","Setor", 8);
-INSERT INTO `owner` (cpf, owner_name, owner_last_name, phone_number, zip_code, district, public_place, address_number) VALUES (33333333333, "Nicácio", "Estagiário", 61111111111, 72639121, "Gama","Setor", 35);
-INSERT INTO `owner` (cpf, owner_name, owner_last_name, phone_number, zip_code, district, public_place, address_number) VALUES (44444444444, "Amoedo", "Lucas", 61961616161, 72661289, "Gama","Quadra", 23);
