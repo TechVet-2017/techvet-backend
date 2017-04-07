@@ -42,7 +42,7 @@ public class OwnerDAO {
 	public void updateOwner(Owner owner){
 		try{
 			entityManager.getTransaction().begin();
-		    entityManager.persist(owner);
+		    entityManager.merge(owner);
 		    entityManager.getTransaction().commit();			
 		} catch(Exception exception) {
 			exception.printStackTrace();
@@ -64,7 +64,7 @@ public class OwnerDAO {
 	}
 	
 	// Find owner using his cpf.
-	public List<Owner> findOwnerByCpf(String insertedCpf){
+	public List<Owner> findOwnerByCpf(Long insertedCpf){
 	    List<Owner> owners = entityManager.createQuery("SELECT * FROM owner WHERE phoneNumber = :cpf")
 	    		.setParameter("cpf", "insertedCpf").getResultList();
 		return owners;	
