@@ -64,23 +64,23 @@ public class OwnerDAO {
 	}
 	
 	// Find owner using his cpf.
-	public List<Owner> findOwnerByCpf(Long insertedCpf){
-	    List<Owner> owners = entityManager.createQuery("SELECT * FROM owner WHERE phoneNumber = :cpf")
-	    		.setParameter("cpf", "insertedCpf").getResultList();
+	public List<Owner> findOwnerByCpf(String insertedCpf){
+	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.cpf LIKE :cpf")
+	    		.setParameter("cpf", "%"+insertedCpf+"%").getResultList();
 		return owners;	
 	}	
 	
 	// Find owner using his name.
 	public List<Owner> findOwnerByName(String insertedName){
-	    List<Owner> owners = entityManager.createQuery("SELECT * FROM owner WHERE phoneNumber = :name")
-	    		.setParameter("name", "insertedName").getResultList();
+	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.ownerName LIKE :name")
+	    		.setParameter("name","%"+insertedName+"%").getResultList();
 		return owners;	
 	}	
 	
 	// Find owner using his phone number.
-	public List<Owner> findOwnerByPhoneNumber(Long insertedPhoneNumber){
-	    List<Owner> owners = entityManager.createQuery("SELECT * FROM owner WHERE phoneNumber = :phone")
-	    		.setParameter("phone", "insertedPhoneNumber").getResultList();
+	public List<Owner> findOwnerByPhoneNumber(String insertedPhoneNumber){
+	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.phoneNumber LIKE :phone")
+	    		.setParameter("phone", "%"+insertedPhoneNumber+"%").getResultList();
 		return owners;	
 	}
 	
