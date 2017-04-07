@@ -1,11 +1,14 @@
 package br.com.bovdog.bean;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-//create Owner class.
-@XmlRootElement
+@Entity
 public class Owner {
 
+	@Id
+	@GeneratedValue
 	private int ownerId;
 	private Long cpf; //Individual Registry in Brazil
 	private String ownerName; 
