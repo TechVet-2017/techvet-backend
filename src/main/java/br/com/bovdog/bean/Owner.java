@@ -1,5 +1,6 @@
 package br.com.bovdog.bean;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,9 +8,9 @@ import javax.persistence.Id;
 @Entity
 public class Owner {
 
-	@Id
 	@GeneratedValue
 	private int ownerId;
+	@Id
 	private Long cpf; //Individual Registry in Brazil
 	private String ownerName; 
 	private String ownerLastName;

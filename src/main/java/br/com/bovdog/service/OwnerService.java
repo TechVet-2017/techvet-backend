@@ -15,7 +15,7 @@ import br.com.bovdog.dao.OwnerDAO;
 @Path("/OwnerService")
 
 public class OwnerService {
-	
+
 	@GET
 	@Path("/owners")
 	@Produces("application/json")
@@ -106,9 +106,9 @@ public class OwnerService {
 	
 	@DELETE
 	@Path("/owners/delete")
-	public void deleteOwner(@FormParam(value = "cpf") Long cpf ){
+	public void deleteOwner(@FormParam(value = "id") int id ){
 		OwnerDAO dao = new OwnerDAO();
-		dao.deleteOwner(cpf);
+		dao.deleteOwner(id);
 	}
 	
 
