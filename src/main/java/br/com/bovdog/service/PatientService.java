@@ -1,6 +1,7 @@
 package br.com.bovdog.service;
 
 //import java.sql.Date;
+//import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -17,7 +18,7 @@ import br.com.bovdog.dao.PatientDAO;
 @Path("/PatientService")
 public class PatientService {
 	
-	// create method to get all patients registered in database
+	// create method to get all patients registered 
 	@GET
 	@Path("/patients")
 	@Produces("application/json")
@@ -26,27 +27,19 @@ public class PatientService {
 		return dao.getAllPatients();
 	}
 	
-	// create method to get patient by id
+	// create method to create a new patient 
 	@POST
-	@Path("/patients/getPatient")
+	@Path("/patients/create")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public Patient getPatient(@FormParam(value = "id") int id) {
-		PatientDAO dao = new PatientDAO();
-		return dao.getPatientById(id);
-	}
-	
-	@POST
-	@Path("/patients/newPatient")
-	@Consumes("application/x-www-form-urlencoded")
-	@Produces("application/json")
-	public Patient newPatient(@FormParam(value = "patientName") String patientName,
-							  @FormParam(value = "specie") String specie,
-							  @FormParam(value = "breed") String breed,
-							  @FormParam(value = "size") char size,
-							  @FormParam(value = "gender") char gender,
-//							  @FormParam(value = "birthday") Date birthday,
-							  @FormParam(value = "coat") String coat){
+	public Patient createPatient(@FormParam(value = "patienId") int patientID,
+							 	 @FormParam(value = "patientName") String patientName,
+							 	 @FormParam(value = "specie") String specie,
+							 	 @FormParam(value = "breed") String breed,
+							 	 @FormParam(value = "size") char size,
+							 	 @FormParam(value = "gender") char gender,
+//							 	 @FormParam(value = "birthday") Date birthday,
+							 	 @FormParam(value = "coat") String coat) {
 		
 		Patient patient = new Patient();
 		patient.setPatientName(patientName);

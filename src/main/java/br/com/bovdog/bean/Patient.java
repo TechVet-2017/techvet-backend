@@ -1,26 +1,41 @@
 package br.com.bovdog.bean;
 
 import java.util.Date;
-import javax.xml.bind.annotation.XmlRootElement;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 // create Patient object.
-@XmlRootElement
-public class Patient { 
-	private int idPatient;
+@Entity
+public class Patient {
+	
+	// notation to identify primary key and auto increment the same
+	@Id
+	@GeneratedValue
+	private int patientId;
+	
+	// notation to set not null columns attributes
+	@Column(nullable = false)
 	private String patientName;
+	@Column(nullable = false)
 	private String specie;
+	@Column(nullable = false)
 	private String breed;
 	private char size;
 	private char gender;
+	@Column(nullable = false)
 	private Date birthday;
+	@Column(nullable = false)
 	private String coat;
 	
 	// getters and setters for Patients attributes.
-	public int getIdPatient() {
-		return idPatient;
+	public int getPatientId() {
+		return patientId;
 	}
-	public void setIdPatient(int idPatient) {
-		this.idPatient = idPatient;
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
 	}
 	public String getPatientName() {
 		return patientName;
