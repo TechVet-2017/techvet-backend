@@ -9,10 +9,6 @@ import javax.persistence.Id;
 @Entity
 public class ClinicalRecordVaccination extends ClinicalRecord {
 	
-	@Id
-	@GeneratedValue
-	private int clinicalRecordVaccinationId;
-	
 	private Date vaccinationApplicationDate;
 	private String vaccinationName;
 	private Date vaccinationReturnDate;
@@ -22,13 +18,6 @@ public class ClinicalRecordVaccination extends ClinicalRecord {
 	private String vermifugeDosage;
 	private Date vermifugationReturnDate;
 	
-	
-	public int getClinicalRecordVaccinationId() {
-		return clinicalRecordVaccinationId;
-	}
-	public void setClinicalRecordVaccinationId(int clinicalRecordVaccinationId) {
-		this.clinicalRecordVaccinationId = clinicalRecordVaccinationId;
-	}
 	public Date getVaccinationApplicationDate() {
 		return vaccinationApplicationDate;
 	}
