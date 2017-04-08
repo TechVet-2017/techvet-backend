@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 // create Patient object.
@@ -12,8 +13,7 @@ import javax.persistence.Id;
 public class Patient {
 	
 	// notation to identify primary key and auto increment the same
-	@Id
-	@GeneratedValue
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private int patientId;
 	
 	// notation to set not null columns attributes
