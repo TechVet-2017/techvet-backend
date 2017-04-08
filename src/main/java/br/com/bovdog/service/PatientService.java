@@ -55,4 +55,14 @@ public class PatientService {
 		return patient;
 	}
 	
+	@POST
+	@Path("/patients/getPatientById")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public Patient getPatientById(@FormParam(value = "patientId") int patientId) {
+		PatientDAO dao = new PatientDAO();
+		return dao.getPatientById(patientId);
+		
+	}
+	
 }

@@ -44,4 +44,10 @@ public class PatientDAO {
 		return patients;
 	}
 	
+	// create method getPatientById to return a specific patient.
+	public Patient getPatientById(int id) {
+		Patient patient = entityManager.find(Patient.class, id);
+		return patient;
+	}
+	
 }
