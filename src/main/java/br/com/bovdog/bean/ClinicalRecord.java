@@ -2,9 +2,12 @@ package br.com.bovdog.bean;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.GeneratedValue;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class ClinicalRecord {
 
   @Id
