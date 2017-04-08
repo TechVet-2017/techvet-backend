@@ -1,5 +1,8 @@
 package br.com.bovdog.bean;
 
+import javax.persistence.Entity;
+
+@Entity
 public class ClinicalRecordAppointment extends ClinicalRecord {
 
     private String procedure;

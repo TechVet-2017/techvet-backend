@@ -12,16 +12,11 @@ import java.util.List;
 
 import br.com.bovdog.dao.ClinicalRecordDAO;
 import br.com.bovdog.bean.ClinicalRecord;
+import br.com.bovdog.bean.ClinicalRecordAppointment;
 import br.com.bovdog.bean.ClinicalRecordVaccination;
 
 @Path("/ClinicalRecordService")
 public class ClinicalRecordService {
-
-    private ClinicalRecordDAO dao = null;
-
-    public ClinicalRecordService() {
-        ClinicalRecordDAO dao = new ClinicalRecordDAO();
-    }
 
     @POST
     @Path("/getById")
@@ -51,7 +46,7 @@ public class ClinicalRecordService {
     }
 
     @POST
-    @Path("/{method:create|update}")
+    @Path("/{type:vaccination|appointment}/{method:create|update}")
     @Consumes("application/x-www-form-urlencoded")
     @Produces("application/json")
     public List<ClinicalRecord> createOrUpdateClinicalRecord(
@@ -67,11 +62,26 @@ public class ClinicalRecordService {
             @FormParam("patientRespiratoryRate") float patientRespiratoryRate,
             @FormParam("patientHeartRate") float patientHeartRate,
             @FormParam("patientWeight") float patientWeight,
-            @PathParam("method") String method
+            @PathParam("method") String method,
+            @PathParam("type") String type
             ) {
+    	
+    	
+    	ClinicalRecord record = null;
+    	
+    	if(type.equalsIgnoreCase("vaccination")) {
+    		
+    		record = new ClinicalRecordVaccination();
+    		
+    	} 
+    	
+    	if(type.equalsIgnoreCase("appointment")) {
+    		
+    		record = new ClinicalRecordAppointment();
+    		
+    	}
 
         ClinicalRecordDAO dao = new ClinicalRecordDAO();
-        ClinicalRecordVaccination record = new ClinicalRecordVaccination();
         record.setAnamnesis(anamnesis);
         record.setVeterinarian(veterinarian);
         record.setClinicalHistory(clinicalHistory);
@@ -84,7 +94,6 @@ public class ClinicalRecordService {
         record.setPatientHeartRate(patientHeartRate);
         record.setPatientWeight(patientWeight);
 
-        createClinicalRecordVaccination(record);
 
         /*if (method.equalsIgnoreCase("update")) {
             record.setClinicalRecordId(clinicalRecordId);
