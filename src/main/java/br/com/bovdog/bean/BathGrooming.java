@@ -1,6 +1,13 @@
 package br.com.bovdog.bean;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class BathGrooming {
+	@Id
+	@GeneratedValue
 	private int idBathGrooming;
 	private String serviceBathGrooming;
 	
