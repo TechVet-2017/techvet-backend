@@ -5,10 +5,12 @@ package br.com.bovdog.service;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import br.com.bovdog.bean.Patient;
@@ -67,7 +69,6 @@ public class PatientService {
 	@POST
 	@Path("/patients/updatePatient")
 	@Consumes("application/x-www-form-urlencoded")
-//	@Produces("application/json")
 	public void updatePatient(@FormParam(value = "patientId") int patientID,
 							  @FormParam(value = "patientName") String patientName,
 							  @FormParam(value = "specie") String specie,
@@ -89,6 +90,14 @@ public class PatientService {
 		
 		PatientDAO dao = new PatientDAO();
 		dao.updatePatient(patient);
+	}
+	
+	// create method to delete one patient
+	@DELETE
+	@Path("/patients/{patientId:[0-9]+}/delete")
+	public void deletePatient(@PathParam("patientId") int patientId) {
+		PatientDAO dao = new PatientDAO();
+		dao.deletePatient(patientId);
 	}
 	
 }

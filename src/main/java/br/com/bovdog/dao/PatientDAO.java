@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 import br.com.bovdog.bean.Patient;
 
-// create class Patient DAO for database communication.
+// create class Patient DAO for database communication
 public class PatientDAO {
 	
 	private EntityManager entityManager = null;
@@ -37,14 +37,14 @@ public class PatientDAO {
 		}
 	}
 	
-	// create method getAllPatients to return list of Patients.
+	// create method getAllPatients to return list of Patients
 	public List<Patient> getAllPatients() {
 		List<Patient> patients = new ArrayList<Patient>();
 		patients = entityManager.createQuery("FROM " + Patient.class.getName()).getResultList();
 		return patients;
 	}
 	
-	// create method getPatientById to return a specific patient.
+	// create method getPatientById to return a specific patient
 	public Patient getPatientById(int id) {
 		Patient patient = entityManager.find(Patient.class, id);
 		return patient;
@@ -52,13 +52,30 @@ public class PatientDAO {
 	
 	public void updatePatient(Patient patient) {
 		
-		// treatment to update a patient.
+		// treatment to update a patient
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(patient);
 			entityManager.getTransaction().commit();
 		
-		// return error if caught SQL exception.
+		// return error if caught SQL exception
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	// create method to delete patient
+	public void deletePatient(int patientId) {
+		
+		// search patient by id to remove that patient
+		Patient patient = getPatientById(patientId);
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.remove(patient);
+			entityManager.getTransaction().commit();
+		
+		// return error if caught SQL exception
 		} catch (Exception e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
