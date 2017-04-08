@@ -25,7 +25,7 @@ public class Patient {
 	private String breed;
 	private char size;
 	private char gender;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;

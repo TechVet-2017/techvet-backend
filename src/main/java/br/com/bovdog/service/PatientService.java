@@ -32,8 +32,7 @@ public class PatientService {
 	@Path("/patients/create")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public Patient createPatient(@FormParam(value = "patienId") int patientID,
-							 	 @FormParam(value = "patientName") String patientName,
+	public Patient createPatient(@FormParam(value = "patientName") String patientName,
 							 	 @FormParam(value = "specie") String specie,
 							 	 @FormParam(value = "breed") String breed,
 							 	 @FormParam(value = "size") char size,
@@ -63,6 +62,33 @@ public class PatientService {
 		PatientDAO dao = new PatientDAO();
 		return dao.getPatientById(patientId);
 		
+	}
+	
+	@POST
+	@Path("/patients/updatePatient")
+	@Consumes("application/x-www-form-urlencoded")
+//	@Produces("application/json")
+	public void updatePatient(@FormParam(value = "patientId") int patientID,
+							  @FormParam(value = "patientName") String patientName,
+							  @FormParam(value = "specie") String specie,
+							  @FormParam(value = "breed") String breed,
+							  @FormParam(value = "size") char size,
+							  @FormParam(value = "gender") char gender,
+//		 	 				  @FormParam(value = "birthday") Date birthday,
+							  @FormParam(value = "coat") String coat) {
+		
+		Patient patient = new Patient();
+		patient.setPatientId(patientID);
+		patient.setPatientName(patientName);
+		patient.setSpecie(specie);
+		patient.setBreed(breed);
+		patient.setSize(size);
+		patient.setGender(gender);
+//		patient.setBirthday(birthday);
+		patient.setCoat(coat);
+		
+		PatientDAO dao = new PatientDAO();
+		dao.updatePatient(patient);
 	}
 	
 }

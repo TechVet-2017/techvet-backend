@@ -50,4 +50,18 @@ public class PatientDAO {
 		return patient;
 	}
 	
+	public void updatePatient(Patient patient) {
+		
+		// treatment to update a patient.
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.merge(patient);
+			entityManager.getTransaction().commit();
+		
+		// return error if caught SQL exception.
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
 }
