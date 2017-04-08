@@ -1,122 +1,68 @@
 package br.com.bovdog.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import br.com.bovdog.bean.BathGrooming;
+
 public class BathGroomingDAO {
-	private final String URL = "jdbc:mysql://localhost:3306/techvet?useSSL=false&serverTimezone=UTC";
-	private final String USER = "root";
-	private final String PASSWORD = "root";
 	
-	public List<BathGrooming> getAllBathGrooming(){
-		List<BathGrooming> services = new ArrayList<BathGrooming>();
-		
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM bathGrooming");
-			ResultSet results = statement.executeQuery();
-			
-			while(results.next()){
-				BathGrooming service = new BathGrooming();
-				service.setIdBathGrooming(results.getInt("idBathGrooming"));
-				service.setServiceBathGrooming(results.getString("serviceBathGrooming"));
-				services.add(service);
-			}
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}	
-	return services;
+	private EntityManager entityManager = null;
+
+	public BathGroomingDAO(){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("techvet-unit");
+	    this.entityManager = factory.createEntityManager();
 	}
 	
-	public void createBathGrooming(BathGrooming bathGrooming){
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		try{
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection(URL, USER, PASSWORD);
-			String sql = "INSERT INTO bathGrooming (serviceBathGrooming) VALUES (?);";
-			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, bathGrooming.getServiceBathGrooming());
-			preparedStatement.executeUpdate();
-			
-			}catch(SQLException e) {
-				e.printStackTrace();
-			} catch(ClassNotFoundException e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					if (preparedStatement!= null) preparedStatement.close();
-				} catch(SQLException e) {
-						e.printStackTrace();
-					};
-				try {
-					if (connection != null) connection.close();
-				} catch(SQLException e) {
-					e.printStackTrace();
-				};
-			}
-	}
+	public BathGrooming getBathGroomingById(int id) {
+	    BathGrooming bathGrooming = entityManager.find(BathGrooming.class, id);
+	    return bathGrooming;
+	  }
 	
-	public void updateBathGrooming(int idBathGrooming, String serviceBathGrooming) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		String sql = "UPDATE bathGrooming SET text = ? WHERE idBathGrooming = ?";
-		 		
+	public List<BathGrooming> getAllBathGroomings() {
+	    List<BathGrooming> bathGroomings = new ArrayList<BathGrooming>();
+	    bathGroomings = entityManager.createQuery("FROM " + BathGrooming.class.getName()).getResultList();
+	    return bathGroomings;
+	  }
+	
+	public void createBathGrooming(BathGrooming bathGrooming) {
+	    try {
+	      entityManager.getTransaction().begin();
+	      entityManager.persist(bathGrooming);
+	      entityManager.getTransaction().commit();
+	    } catch(Exception e) {
+	      e.printStackTrace();
+	      entityManager.getTransaction().rollback();
+	    }
+	  }
+	
+	public void updateBathGrooming(BathGrooming bathGrooming){
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		 	connection = DriverManager.getConnection(URL, USER, PASSWORD);
-		 	preparedStatement = connection.prepareStatement(sql);
-		 	preparedStatement.setString(1, serviceBathGrooming);
-		 	preparedStatement.setInt(2, idBathGrooming);
-			preparedStatement.executeUpdate();
-		} catch(SQLException e) {	
-			e.printStackTrace();
-		} catch(ClassNotFoundException e) {
-		 	e.printStackTrace();
-		} finally {
-		try { if(preparedStatement!= null) preparedStatement.close(); } catch(SQLException e) {e.printStackTrace();}
-		try { if(connection != null) connection.close(); } catch(SQLException e) {e.printStackTrace();}
-		 	
-		}
-	}
-		 	
-	public void deleteBathGrooming(int idBathGrooming) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
- 		String sql = "DELETE FROM bathGrooming WHERE idBathGrooming = ?";
-		 		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		 	connection = DriverManager.getConnection(URL, USER, PASSWORD);
-		 	preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, idBathGrooming);
-		 	preparedStatement.executeUpdate();
-		 } catch(SQLException e) {
-			e.printStackTrace();
-		 } catch(ClassNotFoundException e) {
-		 	e.printStackTrace();
-		 } finally {
-			 try { 
-				 if(preparedStatement!= null) preparedStatement.close(); 
-			 } catch(SQLException e) {
-				 e.printStackTrace();
-			 }
-			 try { 
-				 if(connection != null) connection.close(); 
-			 } catch(SQLException e) {
-				 e.printStackTrace();
-			 }
-		 }
+		      entityManager.getTransaction().begin();
+		      entityManager.merge(bathGrooming);
+		      entityManager.getTransaction().commit();
+		    } catch(Exception e) {
+		      e.printStackTrace();
+		      entityManager.getTransaction().rollback();
+		    }
 	}
 	
+	public void deleteBathGrooming(int id) {
+	    BathGrooming bathGrooming = getBathGroomingById(id);
+	    try {
+	      entityManager.getTransaction().begin();
+	      entityManager.remove(bathGrooming);
+	      entityManager.getTransaction().commit();
+	    } catch(Exception e) {
+	      e.printStackTrace();
+	      entityManager.getTransaction().rollback();
+	    }
+	  }
+
 	
 }
