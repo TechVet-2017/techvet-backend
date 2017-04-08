@@ -1,20 +1,26 @@
 package br.com.bovdog.bean;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@XmlRootElement
+
+@Entity
 public class User {
-	private int idUser;
+	
+	@Id
+	@GeneratedValue
+	private int userId;
 	private String userFullName;
 	private String userName;
 	private String userPassword;
 	
 	// getters and setters for user attributes.
-	public int getIdUser() {
-		return idUser;
+	public int getuserId() {
+		return userId;
 	}
-	public void setIdUser(int idUser) {
-		this.idUser = idUser;
+	public void setuserId(int userId) {
+		this.userId = userId;
 	}
 	public String getUserFullName() {
 		return userFullName;
