@@ -19,7 +19,7 @@ public class OwnerService {
 	@GET
 	@Path("/owners")
 	@Produces("application/json")
-	public List<Owner> getAllOwners(){
+	public List<Owner> getAllOwners(){ // Creating the listing for all the owner DAO
 		OwnerDAO dao = new OwnerDAO();
 		return dao.getAllOwners();
 	}
@@ -72,7 +72,7 @@ public class OwnerService {
 		owner.setDistrict(district);
 		owner.setPublicPlace(publicPlace);
 		owner.setAddressNumber(addressNumber);
-		// creating the data acess object for the owner class
+
 		OwnerDAO dao = new OwnerDAO();
 		dao.createOwner(owner);
 		return owner;

@@ -24,7 +24,7 @@ public class ClinicalRecordDAO {
     ClinicalRecord record = entityManager.find(ClinicalRecord.class, id);
     return record;
   }
-	// Listing all the records in the database
+	// Listing all the records in the database.
   public List<ClinicalRecord> getAllClinicalRecords() {
     List<ClinicalRecord> records = new ArrayList<ClinicalRecord>();
     records = entityManager.createQuery("FROM " + ClinicalRecord.class.getName()).getResultList();

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 
 @Entity
- // creating clinical record class and setting it's parameters
+ // Creating clinical record class and setting it's parameters
  public class ClinicalRecord {
 
   @Id
@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
   private int clinicalRecordId;
   private int patientId;
 
-  private String anamnesis; //medical history
+  private String anamnesis; //Medical history
   private String veterinarian;
   private String clinicalHistory;
   private String diagnosis;
@@ -24,7 +24,7 @@ import javax.persistence.GeneratedValue;
   private float patientRespiratoryRate;
   private float patientHeartRate;
   private float patientWeight;
-  // getters and setters for ClinicalRecord attributes.
+  // Getters and setters for ClinicalRecord attributes.
   public int getClinicalRecordId() {
     return this.clinicalRecordId;
   }

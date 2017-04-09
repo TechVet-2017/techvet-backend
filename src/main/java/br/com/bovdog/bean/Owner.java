@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-// creating owner class and setting it's parameters
+// Creating owner class and setting it's parameters
 public class Owner {
 
 	@GeneratedValue
@@ -21,7 +21,7 @@ public class Owner {
 	private String publicPlace;
 	private Long addressNumber;
 
-	// getters and setters for Owner attributes.
+	// Getters and setters for Owner attributes.
 	public int getOwnerId() {
 		return ownerId;
 	}

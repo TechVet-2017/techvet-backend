@@ -26,7 +26,7 @@ public class OwnerDAO {
 	    return owner;
 	}
 
-	// Create Owner in database.
+	// Create owner in database.
 	public void createOwner(Owner owner){
 		try{
 			entityManager.getTransaction().begin();
