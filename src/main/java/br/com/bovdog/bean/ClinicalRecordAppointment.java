@@ -5,14 +5,14 @@ import javax.persistence.Entity;
 @Entity
 public class ClinicalRecordAppointment extends ClinicalRecord {
 
-    private String procedure;
+    private String clinicalProcedure;
     private String observations;
     private String exam;
     private String informations;
     private String preliminaryMedication;
     private float medicationDosage;
     private String medicationFrequency;
-    private String diagnostic; 
+    private String diagnostic;
     private String prognostic;
     private String homeMedicationName;
     private String homeMedicationDosage;
@@ -21,12 +21,11 @@ public class ClinicalRecordAppointment extends ClinicalRecord {
     private String clinicMedicationDosage;
     private String clinicMedicationFrequency;
 
-
-    public String getProcedure() {
-        return this.procedure;
+    public String getClinicalProcedure() {
+        return this.clinicalProcedure;
     }
-    public void setProcedure(String procedure) {
-        this.procedure = procedure;
+    public void setClinicalProcedure(String procedure) {
+        this.clinicalProcedure = procedure;
     }
     public String getObservations() {
         return this.observations;
