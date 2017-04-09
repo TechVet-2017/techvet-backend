@@ -9,9 +9,9 @@ import javax.persistence.EntityManager;
 
 import br.com.bovdog.bean.ClinicalRecord;
 
-
+// Create class Owner DAO for database communication.
 public class ClinicalRecordDAO {
-	
+
   private EntityManager entityManager = null;
 
   public ClinicalRecordDAO() {
@@ -19,18 +19,18 @@ public class ClinicalRecordDAO {
     this.entityManager = factory.createEntityManager();
 
   }
-
+	// Find the record in database using his id.
   public ClinicalRecord getClinicalRecordById(int id) {
     ClinicalRecord record = entityManager.find(ClinicalRecord.class, id);
     return record;
   }
-
+	// Listing all the records in the database.
   public List<ClinicalRecord> getAllClinicalRecords() {
     List<ClinicalRecord> records = new ArrayList<ClinicalRecord>();
     records = entityManager.createQuery("FROM " + ClinicalRecord.class.getName()).getResultList();
     return records;
   }
-
+	// Create record in database.
   public void createClinicalRecord(ClinicalRecord record) {
     try {
       entityManager.getTransaction().begin();
@@ -41,7 +41,7 @@ public class ClinicalRecordDAO {
       entityManager.getTransaction().rollback();
     }
   }
-
+	// Update record in database.
   public void updateClinicalRecord(ClinicalRecord record) {
     try {
       entityManager.getTransaction().begin();
@@ -52,8 +52,8 @@ public class ClinicalRecordDAO {
       entityManager.getTransaction().rollback();
     }
   }
-
-  public void deleteClinicalRecord(int id) {
+	// Delete record in database using his id.
+	public void deleteClinicalRecord(int id) {
     ClinicalRecord record = getClinicalRecordById(id);
     try {
       entityManager.getTransaction().begin();

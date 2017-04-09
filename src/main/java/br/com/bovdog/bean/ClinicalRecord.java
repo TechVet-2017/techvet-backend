@@ -4,8 +4,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.MappedSuperclass;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
 public abstract class ClinicalRecord {
 
     @Id
@@ -23,7 +25,7 @@ public abstract class ClinicalRecord {
     private String mucosasApparent;
     private float patientRespiratoryRate;
     private float patientHeartRate;
-    private float patientWeight; 
+    private float patientWeight;
 
     public int getClinicalRecordId() {
         return this.clinicalRecordId;
