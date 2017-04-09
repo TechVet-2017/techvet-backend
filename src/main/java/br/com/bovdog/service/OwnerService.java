@@ -23,7 +23,7 @@ public class OwnerService {
 		OwnerDAO dao = new OwnerDAO();
 		return dao.getAllOwners();
 	}
-	
+
 	@POST
 	@Path("/owners/findbyname")
 	@Consumes("application/x-www-form-urlencoded")
@@ -41,7 +41,7 @@ public class OwnerService {
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByCpf(insertedCpf);
 	}
-	
+
 	@POST
 	@Path("/owners/findbyphone")
 	@Consumes("application/x-www-form-urlencoded")
@@ -62,7 +62,7 @@ public class OwnerService {
 								   @FormParam(value = "district") String district ,
 								   @FormParam(value = "publicPlace") String publicPlace ,
 								   @FormParam(value = "addressNumber") Long addressNumber){
-		
+
 		Owner owner = new Owner();
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
@@ -71,13 +71,13 @@ public class OwnerService {
 		owner.setZipCode(zipCode);
 		owner.setDistrict(district);
 		owner.setPublicPlace(publicPlace);
-		owner.setAddressNumber(addressNumber);		
-		
+		owner.setAddressNumber(addressNumber);
+		// creating the data acess object for the owner class
 		OwnerDAO dao = new OwnerDAO();
 		dao.createOwner(owner);
 		return owner;
 	}
-	
+
 	@POST
 	@Path("/owners/update")
 	@Consumes("application/x-www-form-urlencoded")
@@ -89,7 +89,7 @@ public class OwnerService {
 								   @FormParam(value = "district") String district ,
 								   @FormParam(value = "publicPlace") String publicPlace ,
 								   @FormParam(value = "addressNumber") Long addressNumber){
-		
+
 		Owner owner = new Owner();
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
@@ -99,17 +99,17 @@ public class OwnerService {
 		owner.setDistrict(district);
 		owner.setPublicPlace(publicPlace);
 		owner.setAddressNumber(addressNumber);
-		
+
 		OwnerDAO dao = new OwnerDAO();
 		dao.updateOwner(owner);
 	}
-	
+
 	@DELETE
 	@Path("/owners/delete")
 	public void deleteOwner(@FormParam(value = "id") int id ){
 		OwnerDAO dao = new OwnerDAO();
 		dao.deleteOwner(id);
 	}
-	
+
 
 }

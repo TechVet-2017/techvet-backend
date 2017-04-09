@@ -5,14 +5,15 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 
 @Entity
-public class ClinicalRecord {
+ // creating clinical record class and setting it's parameters
+ public class ClinicalRecord {
 
   @Id
   @GeneratedValue
   private int clinicalRecordId;
   private int patientId;
-  
-  private String anamnesis;
+
+  private String anamnesis; //medical history
   private String veterinarian;
   private String clinicalHistory;
   private String diagnosis;
@@ -22,8 +23,8 @@ public class ClinicalRecord {
   private String mucosasApparent;
   private float patientRespiratoryRate;
   private float patientHeartRate;
-  private float patientWeight; 
-
+  private float patientWeight;
+  // getters and setters for ClinicalRecord attributes.
   public int getClinicalRecordId() {
     return this.clinicalRecordId;
   }
@@ -31,7 +32,7 @@ public class ClinicalRecord {
   public void setClinicalRecordId(int clinicalRecordId) {
     this.clinicalRecordId = clinicalRecordId;
   }
-  
+
   public int getPatientId() {
     return this.patientId;
   }
@@ -51,7 +52,7 @@ public class ClinicalRecord {
   public String getVeterinarian() {
     return this.veterinarian;
   }
-  
+
   public void setVeterinarian(String veterinarian) {
     this.veterinarian = veterinarian;
   }

@@ -17,7 +17,7 @@ import br.com.bovdog.bean.ClinicalRecord;
 public class ClinicalRecordService {
 
   private ClinicalRecordDAO dao = null;
-
+  // Creating the data acess object for the clinical record class
   public ClinicalRecordService() {
     ClinicalRecordDAO dao = new ClinicalRecordDAO();
   }
@@ -83,10 +83,10 @@ public class ClinicalRecordService {
 
     if (method.equalsIgnoreCase("update")) {
       record.setClinicalRecordId(clinicalRecordId);
-      dao.updateClinicalRecord(record);    
+      dao.updateClinicalRecord(record);
     } else {
       if (method.equalsIgnoreCase("create")) {
-        dao.createClinicalRecord(record);    
+        dao.createClinicalRecord(record);
       }
     }
 
