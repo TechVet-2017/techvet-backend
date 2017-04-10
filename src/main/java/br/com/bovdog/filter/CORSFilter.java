@@ -14,7 +14,7 @@ public class CORSFilter implements ContainerResponseFilter {
 	// provides proper permissions for inter-server communications.
     public void filter(ContainerRequestContext request, ContainerResponseContext response) throws IOException {
         response.getHeaders().add("Access-Control-Allow-Origin", "*");
-        response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE");
+        response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
     }
 
 }

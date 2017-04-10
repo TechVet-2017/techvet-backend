@@ -13,7 +13,7 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
 
     @Id
     @GeneratedValue
-    private int clinicalRecordId;
+    private int id;
     private int patientId;
 
     private String anamnesis;
@@ -29,12 +29,12 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
     private float patientWeight;
 
     // Getters and setters for clinical record attributes.
-    public int getClinicalRecordId() {
-        return this.clinicalRecordId;
+    public int getId() {
+        return this.id;
     }
 
-    public void setClinicalRecordId(int clinicalRecordId) {
-        this.clinicalRecordId = clinicalRecordId;
+    public void setId(int clinicalRecordId) {
+        this.id = clinicalRecordId;
     }
 
     public int getPatientId() {

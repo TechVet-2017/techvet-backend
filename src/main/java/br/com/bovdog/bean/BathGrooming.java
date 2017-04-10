@@ -8,15 +8,15 @@ import javax.persistence.Id;
 public class BathGrooming {
 	@Id
 	@GeneratedValue
-	private int idBathGrooming;
+	private int id;
 	private String serviceBathGrooming;
 	
 	// getters and setters for BathGrooming attributes.
-	public int getIdBathGrooming() {
-		return idBathGrooming;
+	public int getId() {
+		return id;
 	}
-	public void setIdBathGrooming(int idBathGrooming){
-		this.idBathGrooming = idBathGrooming;
+	public void setId(int idBathGrooming){
+		this.id = idBathGrooming;
 	}
 	
 	public String getServiceBathGrooming() {
