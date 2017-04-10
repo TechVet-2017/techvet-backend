@@ -56,6 +56,7 @@ public class PatientService {
 		return patient;
 	}
 	
+	// create method to retrieve a patient by it's id from the database
 	@POST
 	@Path("/patients/getPatientById")
 	@Consumes("application/x-www-form-urlencoded")
@@ -66,6 +67,7 @@ public class PatientService {
 		
 	}
 	
+	// create a method to update the information of an existing patient
 	@POST
 	@Path("/patients/updatePatient")
 	@Consumes("application/x-www-form-urlencoded")
