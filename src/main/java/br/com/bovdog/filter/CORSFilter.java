@@ -11,7 +11,6 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class CORSFilter implements ContainerResponseFilter {
 
-<<<<<<< HEAD
 	// provides proper permissions for inter-server communications.
     public void filter(ContainerRequestContext request, ContainerResponseContext response) throws IOException {
         response.getHeaders().add("Access-Control-Allow-Origin", "*");
@@ -19,10 +18,3 @@ public class CORSFilter implements ContainerResponseFilter {
     }
 
 }
-=======
-	public void filter(ContainerRequestContext request, ContainerResponseContext response) throws IOException {
-		response.getHeaders().add("Access-Control-Allow-Origin", "*");
-		response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, DELETE");
-	}
-}
->>>>>>> development
