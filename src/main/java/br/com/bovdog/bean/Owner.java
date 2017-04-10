@@ -9,9 +9,10 @@ import javax.persistence.Id;
 // Creating owner class and setting it's parameters
 public class Owner {
 
-	@GeneratedValue
-	private int ownerId;
 	@Id
+	@GeneratedValue
+    @Column(name="id")
+	private int ownerId;
 	private String cpf; //Individual Registry in Brazil
 	private String ownerName;
 	private String ownerLastName;

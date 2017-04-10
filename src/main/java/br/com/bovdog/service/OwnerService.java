@@ -3,9 +3,11 @@ package br.com.bovdog.service;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,7 +15,7 @@ import br.com.bovdog.bean.Owner;
 import br.com.bovdog.dao.OwnerDAO;
 import org.apache.log4j.Logger;
 
-@Path("/OwnerService")
+@Path("/owners")
 
 public class OwnerService{
 	
@@ -21,7 +23,7 @@ public class OwnerService{
 	final static Logger logger = Logger.getLogger(OwnerDAO.class);
 	
 	@GET
-	@Path("/owners")
+	@Path("/")
 	@Produces("application/json")
 	public List<Owner> getAllOwners(){ // Listing all the DAO owners
 		OwnerDAO dao = new OwnerDAO();
@@ -59,7 +61,7 @@ public class OwnerService{
 		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
 	}
 	@POST
-	@Path("/owners/create")
+	@Path("/")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
 	public Owner createOwner(@FormParam(value = "cpf") String cpf ,
@@ -96,10 +98,11 @@ public class OwnerService{
 		return owner;
 	}
 
-	@POST
-	@Path("/owners/update")
+	@PUT
+	@Path("/{id:[0-9]+}")
 	@Consumes("application/x-www-form-urlencoded")
-	public void updateOwner(@FormParam(value = "cpf") String cpf ,
+	public void updateOwner(@PathParam("id") int id,
+                                   @FormParam(value = "cpf") String cpf ,
 								   @FormParam(value = "ownerName") String ownerName ,
 								   @FormParam(value = "ownerLastName") String ownerLastName ,
 								   @FormParam(value = "phoneNumber") String phoneNumber ,
@@ -117,6 +120,7 @@ public class OwnerService{
 		logger.debug("POST /owners/update with district = "+ district);
 		logger.debug("POST /owners/update with publicPlace = "+ publicPlace);
 		logger.debug("POST /owners/update with addressNumber = "+ addressNumber);
+        owner.setOwnerId(id);
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
 		owner.setOwnerLastName(ownerLastName);
@@ -134,8 +138,8 @@ public class OwnerService{
 	}
 
 	@DELETE
-	@Path("/owners/delete")
-	public void deleteOwner(@FormParam(value = "ownerId") int id ){
+	@Path("/{id: [0-9]+}")
+	public void deleteOwner(@PathParam("id") int id ){
 		OwnerDAO dao = new OwnerDAO();
 		logger.debug("DELETE /owners/delete with dao object = "+ dao);
 		logger.debug("DELETE /owners/delete with id object = "+ id);
