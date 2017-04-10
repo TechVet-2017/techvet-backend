@@ -15,6 +15,8 @@ import org.apache.log4j.Logger;
 
 @Path("/OwnerService")
 
+public class OwnerService{
+	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(OwnerDAO.class);
 	
