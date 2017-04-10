@@ -14,21 +14,21 @@ import br.com.bovdog.dao.OwnerDAO;
 
 @Path("/OwnerService")
 
-public class OwnerService {
+public class OwnerService {  // Creating owner service class
 
 	@GET
 	@Path("/owners")
 	@Produces("application/json")
-	public List<Owner> getAllOwners(){
+	public List<Owner> getAllOwners(){ // Listing all the DAO owners
 		OwnerDAO dao = new OwnerDAO();
 		return dao.getAllOwners();
 	}
-	
+
 	@POST
 	@Path("/owners/findbyname")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByName(@FormParam(value = "insertedName") String insertedName){
+	public List<Owner> findOwnerByName(@FormParam(value = "insertedName") String insertedName){ // Finding owner DAO by it's name
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByName(insertedName);
 	}
@@ -37,16 +37,16 @@ public class OwnerService {
 	@Path("/owners/findbycpf")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") String insertedCpf){
+	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") String insertedCpf){ // Finding owner DAO by it's cpf
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByCpf(insertedCpf);
 	}
-	
+
 	@POST
 	@Path("/owners/findbyphone")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") String insertedPhoneNumber){
+	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") String insertedPhoneNumber){ // Finding owner DAO by its phone number
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
 	}
@@ -62,7 +62,7 @@ public class OwnerService {
 								   @FormParam(value = "district") String district ,
 								   @FormParam(value = "publicPlace") String publicPlace ,
 								   @FormParam(value = "addressNumber") Long addressNumber){
-		
+
 		Owner owner = new Owner();
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
@@ -71,13 +71,13 @@ public class OwnerService {
 		owner.setZipCode(zipCode);
 		owner.setDistrict(district);
 		owner.setPublicPlace(publicPlace);
-		owner.setAddressNumber(addressNumber);		
-		
+		owner.setAddressNumber(addressNumber);
+
 		OwnerDAO dao = new OwnerDAO();
 		dao.createOwner(owner);
 		return owner;
 	}
-	
+
 	@POST
 	@Path("/owners/update")
 	@Consumes("application/x-www-form-urlencoded")
@@ -89,7 +89,7 @@ public class OwnerService {
 								   @FormParam(value = "district") String district ,
 								   @FormParam(value = "publicPlace") String publicPlace ,
 								   @FormParam(value = "addressNumber") Long addressNumber){
-		
+
 		Owner owner = new Owner();
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
@@ -99,17 +99,17 @@ public class OwnerService {
 		owner.setDistrict(district);
 		owner.setPublicPlace(publicPlace);
 		owner.setAddressNumber(addressNumber);
-		
+
 		OwnerDAO dao = new OwnerDAO();
 		dao.updateOwner(owner);
 	}
-	
+
 	@DELETE
 	@Path("/owners/delete")
-	public void deleteOwner(@FormParam(value = "id") int id ){
+	public void deleteOwner(@FormParam(value = "id") int id ){  //Deleting the owner DAO by it's id
 		OwnerDAO dao = new OwnerDAO();
 		dao.deleteOwner(id);
 	}
-	
+
 
 }
