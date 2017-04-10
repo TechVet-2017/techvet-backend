@@ -19,11 +19,13 @@ import br.com.bovdog.dao.OwnerDAO;
 public class BathGroomingService {
 	
 	private BathGroomingDAO dao = null;
-
+	
+	// creating the data access object for the BathGrooming class.
 	public BathGroomingService() {
 		BathGroomingDAO dao = new BathGroomingDAO();
 	}
 	
+	// creating the method to find a specific object.
 	@POST
 	@Path("/getById")
 	@Consumes("application/x-www-form-urlencoded")
@@ -33,37 +35,39 @@ public class BathGroomingService {
 	    return dao.getBathGroomingById(id);
 	}
 
-	  @GET
-	  @Path("/getAll")
-	  @Produces("application/json")
-	  public List<BathGrooming> getAllBathGroomings() {
-	    BathGroomingDAO dao = new BathGroomingDAO();
-	    return dao.getAllBathGroomings();
-	  }
+	// creating the method to return all BathGroomings objects.
+	@GET
+	@Path("/getAll")
+	@Produces("application/json")
+	public List<BathGrooming> getAllBathGroomings() {
+		BathGroomingDAO dao = new BathGroomingDAO();
+	 	return dao.getAllBathGroomings();
+	}
 	
-	  @POST
-	  @Path("/delete")
-	  @Consumes("application/x-www-form-urlencoded")
-	  @Produces("application/json")
-	  public List<BathGrooming> deleteBathGroomingById(@FormParam("id") int id) {
-	    BathGroomingDAO dao = new BathGroomingDAO();
-	    dao.deleteBathGrooming(id);
-	    return dao.getAllBathGroomings();
-	  }
+	// creating the method to delete a specific object.
+	@POST
+	@Path("/delete")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<BathGrooming> deleteBathGroomingById(@FormParam("id") int id) {
+		BathGroomingDAO dao = new BathGroomingDAO();
+		dao.deleteBathGrooming(id);
+		return dao.getAllBathGroomings();
+	}
 	  
-	  @POST
-		@Path("/update")
-		@Consumes("application/x-www-form-urlencoded")
-		public void updateBathGrooming(@FormParam(value = "idBathGrooming") int idBathGrooming ,
-									   @FormParam(value = "serviceBathGrooming") String serviceBathGrooming){
+	// creating the method to update an object.
+	@POST
+	@Path("/update")
+	@Consumes("application/x-www-form-urlencoded")
+	public void updateBathGrooming(@FormParam(value = "idBathGrooming") int idBathGrooming ,
+									@FormParam(value = "serviceBathGrooming") String serviceBathGrooming){
 			
-			BathGrooming bathGrooming = new BathGrooming();
-			bathGrooming.setIdBathGrooming(idBathGrooming);
-			bathGrooming.setServiceBathGrooming(serviceBathGrooming);
+		BathGrooming bathGrooming = new BathGrooming();
+		bathGrooming.setIdBathGrooming(idBathGrooming);
+		bathGrooming.setServiceBathGrooming(serviceBathGrooming);
 			
-			BathGroomingDAO dao = new BathGroomingDAO();
-			dao.updateBathGrooming(bathGrooming);
-		}
-	
+		BathGroomingDAO dao = new BathGroomingDAO();
+		dao.updateBathGrooming(bathGrooming);
+	}
 	
 }
