@@ -11,6 +11,7 @@ public class BathGrooming {
 	private int idBathGrooming;
 	private String serviceBathGrooming;
 	
+	// getters and setters for BathGrooming attributes.
 	public int getIdBathGrooming() {
 		return idBathGrooming;
 	}

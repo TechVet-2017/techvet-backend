@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 
 import br.com.bovdog.bean.BathGrooming;
 
+// create class BathGrooming DAO for database communication.
 public class BathGroomingDAO {
 	
 	private EntityManager entityManager = null;
@@ -19,6 +20,7 @@ public class BathGroomingDAO {
 	    this.entityManager = factory.createEntityManager();
 	}
 	
+	// find the owner in database using his id.
 	public BathGrooming getBathGroomingById(int id) {
 	    BathGrooming bathGrooming = entityManager.find(BathGrooming.class, id);
 	    return bathGrooming;
@@ -29,7 +31,7 @@ public class BathGroomingDAO {
 	    bathGroomings = entityManager.createQuery("FROM " + BathGrooming.class.getName()).getResultList();
 	    return bathGroomings;
 	  }
-	
+	// create method for creation of BathGooming in database.
 	public void createBathGrooming(BathGrooming bathGrooming) {
 	    try {
 	      entityManager.getTransaction().begin();
@@ -41,6 +43,7 @@ public class BathGroomingDAO {
 	    }
 	  }
 	
+	// method for update BathGrooming service in database.
 	public void updateBathGrooming(BathGrooming bathGrooming){
 		try {
 		      entityManager.getTransaction().begin();
@@ -51,7 +54,7 @@ public class BathGroomingDAO {
 		      entityManager.getTransaction().rollback();
 		    }
 	}
-	
+	// method to delete a specific BathGrooming service.
 	public void deleteBathGrooming(int id) {
 	    BathGrooming bathGrooming = getBathGroomingById(id);
 	    try {
