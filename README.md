@@ -93,23 +93,31 @@ There are some levels of logs as we can see in .properties file:
 ##### Usage
 In order to use the logger in your .java file you need to first import the logger with:
 `import org.apache.log4j.Logger;`
+
 After that you need to instantiate a logger object with:
 `final static Logger logger = Logger.getLogger(yourclassname.class);`
+
 We can set the log locations with the following codes:
+
 **TRACE:**
 `logger.trace("this is trace");`
+
 **DEBUG** checking if the debug level is on:
 `if(logger.isDebugEnabled()){
 	logger.debug("This is debug");
 }`
+
 **INFO** checking if the info level is on:
 `if(logger.isInfoEnabled()){
 	logger.info("This is info");
 }`
+
 **WARN**
 `logger.warn("This is warn");`
+
 **ERROR**
 `logger.error("This is error");`
+
 **FATAL**
 `logger.fatal("This is fatal");`
 
