@@ -1,131 +1,136 @@
 package br.com.bovdog.bean;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-public class ClinicalRecord {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@MappedSuperclass
+public abstract class ClinicalRecord { // Creating clinical record class and setting it's parameters
 
-  @Id
-  @GeneratedValue
-  private int clinicalRecordId;
-  private int patientId;
-  
-  private String anamnesis;
-  private String veterinarian;
-  private String clinicalHistory;
-  private String diagnosis;
-  private float patientTemperature;
-  private float capillaryFill;
-  private String patientPulse;
-  private String mucosasApparent;
-  private float patientRespiratoryRate;
-  private float patientHeartRate;
-  private float patientWeight; 
 
-  public int getClinicalRecordId() {
-    return this.clinicalRecordId;
-  }
+    @Id
+    @GeneratedValue
+    private int clinicalRecordId;
+    private int patientId;
 
-  public void setClinicalRecordId(int clinicalRecordId) {
-    this.clinicalRecordId = clinicalRecordId;
-  }
-  
-  public int getPatientId() {
-    return this.patientId;
-  }
+    private String anamnesis;
+    private String veterinarian;
+    private String clinicalHistory;
+    private String diagnosis;
+    private float patientTemperature;
+    private float capillaryFill;
+    private String patientPulse;
+    private String mucosasApparent;
+    private float patientRespiratoryRate;
+    private float patientHeartRate;
+    private float patientWeight;
 
-  public void setPatientId(int patientId) {
-    this.patientId = patientId;
-  }
+    // Getters and setters for clinical record attributes.
+    public int getClinicalRecordId() {
+        return this.clinicalRecordId;
+    }
 
-  public String getAnamnesis() {
-    return this.anamnesis;
-  }
+    public void setClinicalRecordId(int clinicalRecordId) {
+        this.clinicalRecordId = clinicalRecordId;
+    }
 
-  public void setAnamnesis(String anamnesis) {
-    this.anamnesis = anamnesis;
-  }
+    public int getPatientId() {
+        return this.patientId;
+    }
 
-  public String getVeterinarian() {
-    return this.veterinarian;
-  }
-  
-  public void setVeterinarian(String veterinarian) {
-    this.veterinarian = veterinarian;
-  }
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
 
-  public String getClinicalHistory() {
-    return this.clinicalHistory;
-  }
+    public String getAnamnesis() {
+        return this.anamnesis;
+    }
 
-  public void setClinicalHistory(String clinicalHistory) {
-    this.clinicalHistory = clinicalHistory;
-  }
+    public void setAnamnesis(String anamnesis) {
+        this.anamnesis = anamnesis;
+    }
 
-  public String getDiagnosis() {
-    return this.diagnosis;
-  }
+    public String getVeterinarian() {
+        return this.veterinarian;
+    }
 
-  public void setDiagnosis(String diagnosis) {
-    this.diagnosis = diagnosis;
-  }
+    public void setVeterinarian(String veterinarian) {
+        this.veterinarian = veterinarian;
+    }
 
-  public float getPatientTemperature() {
-    return this.patientTemperature;
-  }
+    public String getClinicalHistory() {
+        return this.clinicalHistory;
+    }
 
-  public void setPatientTemperature(float patientTemperature) {
-    this.patientTemperature = patientTemperature;
-  }
+    public void setClinicalHistory(String clinicalHistory) {
+        this.clinicalHistory = clinicalHistory;
+    }
 
-  public float getCapillaryFill() {
-    return this.capillaryFill;
-  }
+    public String getDiagnosis() {
+        return this.diagnosis;
+    }
 
-  public void setCapillaryFill(float capillaryFill) {
-    this.capillaryFill = capillaryFill;
-  }
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
 
-  public String getPatientPulse() {
-    return this.patientPulse;
-  }
+    public float getPatientTemperature() {
+        return this.patientTemperature;
+    }
 
-  public void setPatientPulse(String patientPulse) {
-    this.patientPulse = patientPulse;
-  }
+    public void setPatientTemperature(float patientTemperature) {
+        this.patientTemperature = patientTemperature;
+    }
 
-  public String getMucosasApparent() {
-    return this.mucosasApparent;
-  }
+    public float getCapillaryFill() {
+        return this.capillaryFill;
+    }
 
-  public void setMucosasApparent(String mucosasApparent) {
-    this.mucosasApparent = mucosasApparent;
-  }
+    public void setCapillaryFill(float capillaryFill) {
+        this.capillaryFill = capillaryFill;
+    }
 
-  public float getPatientRespiratoryRate() {
-    return this.patientRespiratoryRate;
-  }
+    public String getPatientPulse() {
+        return this.patientPulse;
+    }
 
-  public void setPatientRespiratoryRate(float patientRespiratoryRate) {
-    this.patientRespiratoryRate = patientRespiratoryRate;
-  }
+    public void setPatientPulse(String patientPulse) {
+        this.patientPulse = patientPulse;
+    }
 
-  public float getPatientHeartRate() {
-    return this.patientHeartRate;
-  }
+    public String getMucosasApparent() {
+        return this.mucosasApparent;
+    }
 
-  public void setPatientHeartRate(float patientHearRate) {
-    this.patientHeartRate = patientHearRate;
-  }
+    public void setMucosasApparent(String mucosasApparent) {
+        this.mucosasApparent = mucosasApparent;
+    }
 
-  public float getPatientWeight() {
-    return this.patientWeight;
-  }
+    public float getPatientRespiratoryRate() {
+        return this.patientRespiratoryRate;
+    }
 
-  public void setPatientWeight(float patientWeight) {
-    this.patientWeight = patientWeight;
-  }
+    public void setPatientRespiratoryRate(float patientRespiratoryRate) {
+        this.patientRespiratoryRate = patientRespiratoryRate;
+    }
+
+    public float getPatientHeartRate() {
+        return this.patientHeartRate;
+    }
+
+    public void setPatientHeartRate(float patientHearRate) {
+        this.patientHeartRate = patientHearRate;
+    }
+
+    public float getPatientWeight() {
+        return this.patientWeight;
+    }
+
+    public void setPatientWeight(float patientWeight) {
+        this.patientWeight = patientWeight;
+    }
 
 }
