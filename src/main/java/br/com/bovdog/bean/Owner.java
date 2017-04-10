@@ -6,21 +6,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
+// Creating owner class and setting it's parameters
 public class Owner {
 
 	@GeneratedValue
 	private int ownerId;
 	@Id
 	private String cpf; //Individual Registry in Brazil
-	private String ownerName; 
+	private String ownerName;
 	private String ownerLastName;
 	private String phoneNumber;
 	private Long zipCode;
 	private String district;
 	private String publicPlace;
-	private Long addressNumber;	
-	
-	// getters and setters for Owner attributes.
+	private Long addressNumber;
+
+	// Getters and setters for Owner attributes.
 	public int getOwnerId() {
 		return ownerId;
 	}

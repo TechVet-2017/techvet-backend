@@ -15,9 +15,9 @@ public class OwnerDAO {
 	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(OwnerDAO.class);
-	
+
 	private EntityManager entityManager = null;
-	
+
 	public OwnerDAO(){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("techvet-unit");
 		this.entityManager = factory.createEntityManager();
@@ -30,14 +30,16 @@ public class OwnerDAO {
 	    logger.debug("getOwnerById method with id "+ id +" and object owner = " + owner);
 	    return owner;
 	}
-	
-	// Create Owner in database.
+
+	// Create owner in database.
 	public void createOwner(Owner owner){
 		try{
 			entityManager.getTransaction().begin();
 		    entityManager.persist(owner);
+      
 		    logger.debug("createOwner method with object owner = " + owner);
 		    entityManager.getTransaction().commit();			
+
 		} catch(Exception exception) {
 			exception.printStackTrace();
 			logger.fatal("catch statement on createOwner with exception = " + exception);
@@ -58,7 +60,7 @@ public class OwnerDAO {
 			entityManager.getTransaction().rollback();
 		}
 	}
-	
+
 	// Delete owner in database using his id.
 	public void deleteOwner(int id){
 	    Owner owner = getOwnerById(id);
@@ -73,7 +75,7 @@ public class OwnerDAO {
 	      entityManager.getTransaction().rollback();
 	    }
 	}
-	
+
 	// Find owner using his cpf.
 	public List<Owner> findOwnerByCpf(String insertedCpf){
 	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.cpf LIKE :cpf")
@@ -86,18 +88,20 @@ public class OwnerDAO {
 	public List<Owner> findOwnerByName(String insertedName){
 	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.ownerName LIKE :name")
 	    		.setParameter("name","%"+insertedName+"%").getResultList();
+
 	    logger.debug("findOwnerByName method with name = ("+ insertedName +") and object owners = " + owners);
 		return owners;	
 	}	
-	
+
 	// Find owner using his phone number.
 	public List<Owner> findOwnerByPhoneNumber(String insertedPhoneNumber){
 	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.phoneNumber LIKE :phone")
 	    		.setParameter("phone", "%"+insertedPhoneNumber+"%").getResultList();
+
 	    logger.debug("findOwnerByPhoneNumber method with phone = ("+ insertedPhoneNumber +") and object owners = " + owners);
 		return owners;	
 	}
-	
+
 	// Return all owners that exist in database
 	public List<Owner> getAllOwners(){
 	    List<Owner> owners = new ArrayList<Owner>();
