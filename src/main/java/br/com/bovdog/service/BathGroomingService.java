@@ -10,7 +10,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import br.com.bovdog.bean.BathGrooming;
+import br.com.bovdog.bean.Owner;
 import br.com.bovdog.dao.BathGroomingDAO;
+import br.com.bovdog.dao.OwnerDAO;
 
 
 @Path("/BathGroomingService")
@@ -48,6 +50,20 @@ public class BathGroomingService {
 	    dao.deleteBathGrooming(id);
 	    return dao.getAllBathGroomings();
 	  }
+	  
+	  @POST
+		@Path("/update")
+		@Consumes("application/x-www-form-urlencoded")
+		public void updateBathGrooming(@FormParam(value = "idBathGrooming") int idBathGrooming ,
+									   @FormParam(value = "serviceBathGrooming") String serviceBathGrooming){
+			
+			BathGrooming bathGrooming = new BathGrooming();
+			bathGrooming.setIdBathGrooming(idBathGrooming);
+			bathGrooming.setServiceBathGrooming(serviceBathGrooming);
+			
+			BathGroomingDAO dao = new BathGroomingDAO();
+			dao.updateBathGrooming(bathGrooming);
+		}
 	
 	
 }
