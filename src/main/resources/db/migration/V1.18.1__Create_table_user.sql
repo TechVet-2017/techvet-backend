@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS user (
+id_user INT NOT NULL AUTO_INCREMENT,
+user_full_name VARCHAR(255) NOT NULL,
+user_name VARCHAR(255) NOT NULL UNIQUE,
+user_password VARCHAR(255) NOT NULL,
+PRIMARY KEY (id_user)
+);
