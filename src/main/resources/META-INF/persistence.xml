@@ -8,6 +8,8 @@
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>br.com.bovdog.bean.ClinicalRecord</class>
     <class>br.com.bovdog.bean.Owner</class>
+    <class>br.com.bovdog.bean.BathGrooming</class>
+
     <properties>
       <property name="javax.persistence.jdbc.driver" 
                 value="com.mysql.cj.jdbc.Driver" />
