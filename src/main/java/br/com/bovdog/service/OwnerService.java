@@ -14,12 +14,12 @@ import br.com.bovdog.dao.OwnerDAO;
 
 @Path("/OwnerService")
 
-public class OwnerService {
+public class OwnerService {  // Creating owner service class
 
 	@GET
 	@Path("/owners")
 	@Produces("application/json")
-	public List<Owner> getAllOwners(){ // Creating the listing for all the owner DAO
+	public List<Owner> getAllOwners(){ // Listing all the DAO owners
 		OwnerDAO dao = new OwnerDAO();
 		return dao.getAllOwners();
 	}
@@ -28,7 +28,7 @@ public class OwnerService {
 	@Path("/owners/findbyname")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByName(@FormParam(value = "insertedName") String insertedName){
+	public List<Owner> findOwnerByName(@FormParam(value = "insertedName") String insertedName){ // Finding owner DAO by it's name
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByName(insertedName);
 	}
@@ -37,7 +37,7 @@ public class OwnerService {
 	@Path("/owners/findbycpf")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") String insertedCpf){
+	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") String insertedCpf){ // Finding owner DAO by it's cpf
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByCpf(insertedCpf);
 	}
@@ -46,7 +46,7 @@ public class OwnerService {
 	@Path("/owners/findbyphone")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") String insertedPhoneNumber){
+	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") String insertedPhoneNumber){ // Finding owner DAO by its phone number
 		OwnerDAO dao = new OwnerDAO();
 		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
 	}
@@ -106,7 +106,7 @@ public class OwnerService {
 
 	@DELETE
 	@Path("/owners/delete")
-	public void deleteOwner(@FormParam(value = "id") int id ){
+	public void deleteOwner(@FormParam(value = "id") int id ){  //Deleting the owner DAO by it's id
 		OwnerDAO dao = new OwnerDAO();
 		dao.deleteOwner(id);
 	}

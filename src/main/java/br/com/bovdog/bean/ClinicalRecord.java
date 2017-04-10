@@ -8,7 +8,8 @@ import javax.persistence.MappedSuperclass;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @MappedSuperclass
-public abstract class ClinicalRecord {
+public abstract class ClinicalRecord { // Creating clinical record class and setting it's parameters
+
 
     @Id
     @GeneratedValue
@@ -27,6 +28,7 @@ public abstract class ClinicalRecord {
     private float patientHeartRate;
     private float patientWeight;
 
+    // Getters and setters for clinical record attributes.
     public int getClinicalRecordId() {
         return this.clinicalRecordId;
     }

@@ -3,7 +3,7 @@ package br.com.bovdog.bean;
 import javax.persistence.Entity;
 
 @Entity
-public class ClinicalRecordAppointment extends ClinicalRecord {
+public class ClinicalRecordAppointment extends ClinicalRecord { // Creating clinical record appointment class inheriting from ClinicalRecord class
 
     private String clinicalProcedure;
     private String observations;
@@ -21,6 +21,7 @@ public class ClinicalRecordAppointment extends ClinicalRecord {
     private String clinicMedicationDosage;
     private String clinicMedicationFrequency;
 
+    // Getters and setters for clinical record appointment attributes.
     public String getClinicalProcedure() {
         return this.clinicalProcedure;
     }

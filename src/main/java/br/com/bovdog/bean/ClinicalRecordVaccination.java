@@ -5,8 +5,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 @Entity
-public class ClinicalRecordVaccination extends ClinicalRecord {
-	
+public class ClinicalRecordVaccination extends ClinicalRecord { // Creating clinical record vaccination class inheriting from ClinicalRecord class
+
 	private Date vaccinationApplicationDate;
 	private String vaccinationName;
 	private Date vaccinationReturnDate;
@@ -15,7 +15,8 @@ public class ClinicalRecordVaccination extends ClinicalRecord {
 	private String vermifugeName;
 	private String vermifugeDosage;
 	private Date vermifugationReturnDate;
-	
+
+	// Getters and setters for clinical record vaccination attributes.
 	public Date getVaccinationApplicationDate() {
 		return vaccinationApplicationDate;
 	}
@@ -64,5 +65,5 @@ public class ClinicalRecordVaccination extends ClinicalRecord {
 	public void setVermifugationReturnDate(Date vermifugationReturnDate) {
 		this.vermifugationReturnDate = vermifugationReturnDate;
 	}
-	
+
 }

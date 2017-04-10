@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 
 import br.com.bovdog.bean.ClinicalRecord;
 
-// Create class Owner DAO for database communication.
+// Create class record DAO for database communication.
 public class ClinicalRecordDAO {
 
   private EntityManager entityManager = null;

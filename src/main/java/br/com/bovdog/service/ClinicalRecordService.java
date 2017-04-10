@@ -17,13 +17,13 @@ import br.com.bovdog.bean.ClinicalRecordAppointment;
 import br.com.bovdog.bean.ClinicalRecordVaccination;
 
 @Path("/ClinicalRecordService")
-public class ClinicalRecordService {
+public class ClinicalRecordService { // Creating clinical record service class
 
 	@POST
 	@Path("/getById")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public ClinicalRecord getClinicalRecordById(@FormParam("id") int id) {
+	public ClinicalRecord getClinicalRecordById(@FormParam("id") int id) { // Getting the clinical record DAO by it's id
 		ClinicalRecordDAO dao = new ClinicalRecordDAO();
 		return dao.getClinicalRecordById(id);
 	}
@@ -32,7 +32,7 @@ public class ClinicalRecordService {
 	@Path("/getAll")
 	@Produces("application/json")
 	public List<ClinicalRecord> getAllClinicalRecords() {
-		ClinicalRecordDAO dao = new ClinicalRecordDAO();
+		ClinicalRecordDAO dao = new ClinicalRecordDAO(); // Listing all the DAO clinical records
 		return dao.getAllClinicalRecords();
 	}
 
@@ -40,7 +40,7 @@ public class ClinicalRecordService {
 	@Path("/delete")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<ClinicalRecord> deleteClinicalRecordById(@FormParam("id") int id) {
+	public List<ClinicalRecord> deleteClinicalRecordById(@FormParam("id") int id) { //Deleting the clinical record DAO by it's id
 		ClinicalRecordDAO dao = new ClinicalRecordDAO();
 		dao.deleteClinicalRecord(id);
 		return dao.getAllClinicalRecords();
@@ -52,7 +52,7 @@ public class ClinicalRecordService {
 	@Path("/{type:vaccination|appointment}/{method:create|update}")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public List<ClinicalRecord> createOrUpdateClinicalRecord(
+	public List<ClinicalRecord> createOrUpdateClinicalRecord( 
 			@FormParam("clinicalRecordId") int clinicalRecordId,
 			@FormParam("anamnesis") String anamnesis,
 			@FormParam("veterinarian") String veterinarian,
