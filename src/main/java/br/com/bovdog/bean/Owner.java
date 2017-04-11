@@ -11,8 +11,7 @@ public class Owner {
 
 	@Id
 	@GeneratedValue
-    @Column(name="id")
-	private int ownerId;
+	private int id;
 	private String cpf; //Individual Registry in Brazil
 	private String ownerName;
 	private String ownerLastName;
@@ -23,11 +22,11 @@ public class Owner {
 	private Long addressNumber;
 
 	// Getters and setters for Owner attributes.
-	public int getOwnerId() {
-		return ownerId;
+	public int getId() {
+		return id;
 	}
-	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
+	public void setId(int ownerId) {
+		this.id = ownerId;
 	}
 	public String getCpf() {
 		return cpf;

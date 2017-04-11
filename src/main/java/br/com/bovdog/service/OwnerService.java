@@ -120,7 +120,7 @@ public class OwnerService{
 		logger.debug("POST /owners/update with district = "+ district);
 		logger.debug("POST /owners/update with publicPlace = "+ publicPlace);
 		logger.debug("POST /owners/update with addressNumber = "+ addressNumber);
-        owner.setOwnerId(id);
+        owner.setId(id);
 		owner.setCpf(cpf);
 		owner.setOwnerName(ownerName);
 		owner.setOwnerLastName(ownerLastName);
