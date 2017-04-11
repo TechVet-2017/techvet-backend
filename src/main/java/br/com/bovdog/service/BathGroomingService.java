@@ -63,7 +63,7 @@ public class BathGroomingService {
 									@FormParam(value = "serviceBathGrooming") String serviceBathGrooming){
 			
 		BathGrooming bathGrooming = new BathGrooming();
-		bathGrooming.setIdBathGrooming(idBathGrooming);
+		bathGrooming.setId(idBathGrooming);
 		bathGrooming.setServiceBathGrooming(serviceBathGrooming);
 			
 		BathGroomingDAO dao = new BathGroomingDAO();

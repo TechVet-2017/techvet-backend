@@ -61,7 +61,7 @@ public class UserService {
 																@FormParam(value = "userPassword")String userPassword){
 
 		User user = new User();
-		user.setuserId(userId);
+		user.setId(userId);
 		user.setUserFullName(userFullName);
 		user.setUserName(userName);
 		user.setUserPassword(userPassword);	
