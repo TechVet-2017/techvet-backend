@@ -13,8 +13,9 @@ import javax.persistence.Id;
 public class Patient {
 	
 	// notation to identify primary key and auto increment the same
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private int patientId;
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	// notation to set not null columns attributes
 	@Column(nullable = false)
@@ -31,11 +32,11 @@ public class Patient {
 	private String coat;
 	
 	// getters and setters for Patients attributes.
-	public int getPatientId() {
-		return patientId;
+	public int getId() {
+		return id;
 	}
-	public void setPatientId(int patientId) {
-		this.patientId = patientId;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getPatientName() {
 		return patientName;
