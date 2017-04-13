@@ -28,6 +28,21 @@ public class BathGroomingService {
 		BathGroomingDAO dao = new BathGroomingDAO();
 	}
 	
+	@POST
+	@Path("/")
+	@Consumes("application/json")
+	@Produces("application/json")
+	public BathGrooming createBathGrooming(BathGrooming request){
+
+		BathGrooming bathGrooming = new BathGrooming();
+		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
+
+		BathGroomingDAO dao = new BathGroomingDAO();
+		dao.createBathGrooming(bathGrooming);
+		
+		return bathGrooming;
+	}
+	
 	// creating the method to find a specific object.
 	@GET
 	@Path("/{id:[0-9]+}")
