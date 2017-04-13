@@ -12,6 +12,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import org.apache.log4j.Logger;
+
 import br.com.bovdog.bean.BathGrooming;
 import br.com.bovdog.bean.Owner;
 import br.com.bovdog.dao.BathGroomingDAO;
@@ -20,6 +22,9 @@ import br.com.bovdog.dao.OwnerDAO;
 
 @Path("/bathAndGrooming")
 public class BathGroomingService {
+	
+	// Initializing the log service
+	final static Logger logger = Logger.getLogger(BathGroomingDAO.class);
 	
 	private BathGroomingDAO dao = null;
 	
@@ -35,6 +40,7 @@ public class BathGroomingService {
 	public BathGrooming createBathGrooming(BathGrooming request){
 
 		BathGrooming bathGrooming = new BathGrooming();
+		logger.debug("POST /bathAndGrooming/create with serviceBathGrooming = "+ request.getServiceBathGrooming());
 		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
 
 		BathGroomingDAO dao = new BathGroomingDAO();
@@ -59,6 +65,7 @@ public class BathGroomingService {
 	@Produces("application/json")
 	public List<BathGrooming> getAllBathGroomings() {
 		BathGroomingDAO dao = new BathGroomingDAO();
+		logger.debug("GET /bathAndGrooming calling dao object = " + dao);
 	 	return dao.getAllBathGroomings();
 	}
 	
@@ -69,6 +76,8 @@ public class BathGroomingService {
 	@Produces("application/json")
 	public List<BathGrooming> deleteBathGroomingById(@PathParam("id") int id) {
 		BathGroomingDAO dao = new BathGroomingDAO();
+		logger.debug("DELETE /bathAndGrooming/delete with dao object = "+ dao);
+		logger.debug("DELETE /bathAndGrooming/delete with id object = "+ id);
 		dao.deleteBathGrooming(id);
 		return dao.getAllBathGroomings();
 	}
@@ -79,8 +88,9 @@ public class BathGroomingService {
 	@Consumes("application/json")
 	public BathGrooming updateBathGrooming(BathGrooming request){
 			
-		
 		BathGrooming bathGrooming = new BathGrooming();
+		logger.debug("POST /bathAndGrooming/update with id = "+ request.getId());
+		logger.debug("POST /bathAndGrooming/update with ownerName = "+ request.getServiceBathGrooming());
 		bathGrooming.setId(request.getId());
 		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
 			
