@@ -31,7 +31,7 @@ public class BathGroomingService {
 	// creating the method to find a specific object.
 	@GET
 	@Path("/{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes("application/json")
 	@Produces("application/json")
 	public BathGrooming getBathGroomingById(@PathParam("id") int id) {
 		BathGroomingDAO dao = new BathGroomingDAO();
@@ -50,7 +50,7 @@ public class BathGroomingService {
 	// creating the method to delete a specific object.
 	@DELETE
 	@Path("/{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes("application/json")
 	@Produces("application/json")
 	public List<BathGrooming> deleteBathGroomingById(@PathParam("id") int id) {
 		BathGroomingDAO dao = new BathGroomingDAO();
@@ -61,16 +61,18 @@ public class BathGroomingService {
 	// creating the method to update an object.
 	@PUT
 	@Path("//{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
-	public void updateBathGrooming(@PathParam("id") int idBathGrooming ,
-									@FormParam("serviceBathGrooming") String serviceBathGrooming){
+	@Consumes("application/json")
+	public BathGrooming updateBathGrooming(BathGrooming request){
 			
+		
 		BathGrooming bathGrooming = new BathGrooming();
-		bathGrooming.setId(idBathGrooming);
-		bathGrooming.setServiceBathGrooming(serviceBathGrooming);
+		bathGrooming.setId(request.getId());
+		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
 			
 		BathGroomingDAO dao = new BathGroomingDAO();
 		dao.updateBathGrooming(bathGrooming);
+		
+		return dao.getBathGroomingById(request.getId());
 	}
 	
 }
