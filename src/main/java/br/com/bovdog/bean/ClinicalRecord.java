@@ -1,13 +1,13 @@
 package br.com.bovdog.bean;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.MappedSuperclass;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@MappedSuperclass
+@Entity
 public abstract class ClinicalRecord { // Creating clinical record class and setting it's parameters
 
 
