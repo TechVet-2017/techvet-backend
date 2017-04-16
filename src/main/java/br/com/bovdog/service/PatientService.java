@@ -14,7 +14,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import br.com.bovdog.bean.Owner;
 import br.com.bovdog.bean.Patient;
+import br.com.bovdog.dao.OwnerDAO;
 import br.com.bovdog.dao.PatientDAO;
 
 // create Patient service 
@@ -65,6 +67,16 @@ public class PatientService {
 		PatientDAO dao = new PatientDAO();
 		return dao.getPatientById(patientId);
 		
+	}
+	
+	// create method to search patients by name 
+	@POST
+	@Path("/findbyname")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<Patient> findPatientByName(@FormParam(value = "insertedName") String insertedName){
+		PatientDAO dao = new PatientDAO();
+		return dao.findPatientByName(insertedName);
 	}
 	
 	// create a method to update the information of an existing patient
