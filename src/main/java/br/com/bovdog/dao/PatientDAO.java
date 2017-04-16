@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import br.com.bovdog.bean.Owner;
 import br.com.bovdog.bean.Patient;
 
 // create class Patient DAO for database communication
@@ -48,6 +49,13 @@ public class PatientDAO {
 	public Patient getPatientById(int id) {
 		Patient patient = entityManager.find(Patient.class, id);
 		return patient;
+	}
+	
+	// create method getPatientByName to return list of patients registered in database with same name
+	public List<Patient> findPatientByName(String insertedName){
+	    List<Patient> patients = entityManager.createQuery("SELECT t FROM Patient t WHERE t.patientName LIKE :name")
+	    		.setParameter("name","%"+insertedName+"%").getResultList();
+		return patients;
 	}
 	
 	public void updatePatient(Patient patient) {
