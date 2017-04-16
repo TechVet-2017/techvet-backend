@@ -65,28 +65,15 @@ public class PatientService {
 	// create a method to update the information of an existing patient
 	@PUT
 	@Path("/{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
-	public void updatePatient(@PathParam("id") int patientID,
-							  @FormParam("patientName") String patientName,
-							  @FormParam("specie") String specie,
-							  @FormParam("breed") String breed,
-							  @FormParam("size") char size,
-							  @FormParam("gender") char gender,
-//		 	 				  @FormParam("birthday") Date birthday,
-							  @FormParam("coat") String coat) {
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Patient updatePatient(@PathParam("id") int patientID, Patient request) {
 		
-		Patient patient = new Patient();
-		patient.setId(patientID);
-		patient.setPatientName(patientName);
-		patient.setSpecie(specie);
-		patient.setBreed(breed);
-		patient.setSize(size);
-		patient.setGender(gender);
-//		patient.setBirthday(birthday);
-		patient.setCoat(coat);
-		
+		request.setId(patientID);
 		PatientDAO dao = new PatientDAO();
-		dao.updatePatient(patient);
+		dao.updatePatient(request);
+		
+		return dao.getPatientById(patientID);
 	}
 	
 	// create method to delete one patient
