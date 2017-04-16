@@ -117,7 +117,7 @@ public class ClinicalRecordService { // Creating clinical record service class
 			recordVaccination.setPatientWeight(patientWeight);
 
 			if (method.equalsIgnoreCase("update")) {
-				recordVaccination.setClinicalRecordId(clinicalRecordId);
+				recordVaccination.setId(clinicalRecordId);
 				dao.updateClinicalRecord(recordVaccination);
 			}
 
@@ -157,7 +157,7 @@ public class ClinicalRecordService { // Creating clinical record service class
 			recordAppointment.setPatientWeight(patientWeight);
 
 			if (method.equalsIgnoreCase("update")) {
-				recordAppointment.setClinicalRecordId(clinicalRecordId);
+				recordAppointment.setId(clinicalRecordId);
 				dao.updateClinicalRecord(recordAppointment);
 			}
 

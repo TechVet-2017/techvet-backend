@@ -10,17 +10,17 @@ public class User {
 	
 	@Id
 	@GeneratedValue
-	private int userId;
+	private int id;
 	private String userFullName;
 	private String userName;
 	private String userPassword;
 	
 	// getters and setters for user attributes.
-	public int getuserId() {
-		return userId;
+	public int getId() {
+		return id;
 	}
-	public void setuserId(int userId) {
-		this.userId = userId;
+	public void setId(int userId) {
+		this.id = userId;
 	}
 	public String getUserFullName() {
 		return userFullName;

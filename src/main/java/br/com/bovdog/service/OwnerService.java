@@ -3,9 +3,11 @@ package br.com.bovdog.service;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -13,7 +15,7 @@ import br.com.bovdog.bean.Owner;
 import br.com.bovdog.dao.OwnerDAO;
 import org.apache.log4j.Logger;
 
-@Path("/OwnerService")
+@Path("/owners")
 
 public class OwnerService{
 	
@@ -21,12 +23,20 @@ public class OwnerService{
 	final static Logger logger = Logger.getLogger(OwnerDAO.class);
 	
 	@GET
-	@Path("/owners")
+	@Path("/")
 	@Produces("application/json")
 	public List<Owner> getAllOwners(){ // Listing all the DAO owners
 		OwnerDAO dao = new OwnerDAO();
 		logger.debug("GET /owners calling dao object = " + dao);
 		return dao.getAllOwners();
+	}
+	
+	@GET
+	@Path("/{id: [0-9]+}")
+	@Produces("application/json")
+	public Owner getOwnerById(@PathParam("id") int id) {
+		OwnerDAO dao = new OwnerDAO();
+		return dao.getOwnerById(id);
 	}
 
 	@POST
@@ -59,35 +69,28 @@ public class OwnerService{
 		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
 	}
 	@POST
-	@Path("/owners/create")
-	@Consumes("application/x-www-form-urlencoded")
+	@Path("/")
+	@Consumes("application/json")
 	@Produces("application/json")
-	public Owner createOwner(@FormParam(value = "cpf") String cpf ,
-								   @FormParam(value = "ownerName") String ownerName ,
-								   @FormParam(value = "ownerLastName") String ownerLastName ,
-								   @FormParam(value = "phoneNumber") String phoneNumber ,
-								   @FormParam(value = "zipCode") Long zipCode ,
-								   @FormParam(value = "district") String district ,
-								   @FormParam(value = "publicPlace") String publicPlace ,
-								   @FormParam(value = "addressNumber") Long addressNumber){
+	public Owner createOwner(Owner request){
 
 		Owner owner = new Owner();
-		logger.debug("POST /owners/create with cpf = "+ cpf);
-		logger.debug("POST /owners/create with ownerName = "+ ownerName);
-		logger.debug("POST /owners/create with ownerLastName = "+ ownerLastName);
-		logger.debug("POST /owners/create with phoneNumber = "+ phoneNumber);
-		logger.debug("POST /owners/create with zipCode = "+ zipCode);
-		logger.debug("POST /owners/create with district = "+ district);
-		logger.debug("POST /owners/create with publicPlace = "+ publicPlace);
-		logger.debug("POST /owners/create with addressNumber = "+ addressNumber);
-		owner.setCpf(cpf);
-		owner.setOwnerName(ownerName);
-		owner.setOwnerLastName(ownerLastName);
-		owner.setPhoneNumber(phoneNumber);
-		owner.setZipCode(zipCode);
-		owner.setDistrict(district);
-		owner.setPublicPlace(publicPlace);
-		owner.setAddressNumber(addressNumber);
+		logger.debug("POST /owners/create with cpf = "+ request.getCpf());
+		logger.debug("POST /owners/create with ownerName = "+ request.getOwnerName());
+		logger.debug("POST /owners/create with ownerLastName = "+ request.getOwnerLastName());
+		logger.debug("POST /owners/create with phoneNumber = "+ request.getPhoneNumber());
+		logger.debug("POST /owners/create with zipCode = "+ request.getZipCode());
+		logger.debug("POST /owners/create with district = "+ request.getDistrict());
+		logger.debug("POST /owners/create with publicPlace = "+ request.getPublicPlace());
+		logger.debug("POST /owners/create with addressNumber = "+ request.getAddressNumber());
+		owner.setCpf(request.getCpf());
+		owner.setOwnerName(request.getOwnerName());
+		owner.setOwnerLastName(request.getOwnerLastName());
+		owner.setPhoneNumber(request.getPhoneNumber());
+		owner.setZipCode(request.getZipCode());
+		owner.setDistrict(request.getDistrict());
+		owner.setPublicPlace(request.getPublicPlace());
+		owner.setAddressNumber(request.getAddressNumber());
 
 		OwnerDAO dao = new OwnerDAO();
 		dao.createOwner(owner);
@@ -96,46 +99,41 @@ public class OwnerService{
 		return owner;
 	}
 
-	@POST
-	@Path("/owners/update")
-	@Consumes("application/x-www-form-urlencoded")
-	public void updateOwner(@FormParam(value = "cpf") String cpf ,
-								   @FormParam(value = "ownerName") String ownerName ,
-								   @FormParam(value = "ownerLastName") String ownerLastName ,
-								   @FormParam(value = "phoneNumber") String phoneNumber ,
-								   @FormParam(value = "zipCode") Long zipCode ,
-								   @FormParam(value = "district") String district ,
-								   @FormParam(value = "publicPlace") String publicPlace ,
-								   @FormParam(value = "addressNumber") Long addressNumber){
+	@PUT
+	@Path("/{id:[0-9]+}")
+	@Consumes("application/json")
+	public Owner updateOwner(Owner request){
 
 		Owner owner = new Owner();
-		logger.debug("POST /owners/update with cpf = "+ cpf);
-		logger.debug("POST /owners/update with ownerName = "+ ownerName);
-		logger.debug("POST /owners/update with ownerLastName = "+ ownerLastName);
-		logger.debug("POST /owners/update with phoneNumber = "+ phoneNumber);
-		logger.debug("POST /owners/update with zipCode = "+ zipCode);
-		logger.debug("POST /owners/update with district = "+ district);
-		logger.debug("POST /owners/update with publicPlace = "+ publicPlace);
-		logger.debug("POST /owners/update with addressNumber = "+ addressNumber);
-		owner.setCpf(cpf);
-		owner.setOwnerName(ownerName);
-		owner.setOwnerLastName(ownerLastName);
-		owner.setPhoneNumber(phoneNumber);
-		owner.setZipCode(zipCode);
-		owner.setDistrict(district);
-		owner.setPublicPlace(publicPlace);
-		owner.setAddressNumber(addressNumber);
+		logger.debug("POST /owners/update with cpf = "+ request.getCpf());
+		logger.debug("POST /owners/update with ownerName = "+ request.getOwnerName());
+		logger.debug("POST /owners/update with ownerLastName = "+ request.getOwnerLastName());
+		logger.debug("POST /owners/update with phoneNumber = "+ request.getPhoneNumber());
+		logger.debug("POST /owners/update with zipCode = "+ request.getZipCode());
+		logger.debug("POST /owners/update with district = "+ request.getDistrict());
+		logger.debug("POST /owners/update with publicPlace = "+ request.getPublicPlace());
+		logger.debug("POST /owners/update with addressNumber = "+ request.getAddressNumber());
+        owner.setId(request.getId());
+		owner.setCpf(request.getCpf());
+		owner.setOwnerName(request.getOwnerName());
+		owner.setOwnerLastName(request.getOwnerLastName());
+		owner.setPhoneNumber(request.getPhoneNumber());
+		owner.setZipCode(request.getZipCode());
+		owner.setDistrict(request.getDistrict());
+		owner.setPublicPlace(request.getPublicPlace());
+		owner.setAddressNumber(request.getAddressNumber());
 
 		OwnerDAO dao = new OwnerDAO();
 		dao.updateOwner(owner);
 		logger.debug("POST /owners/update with dao object = "+ dao);
 		logger.debug("POST /owners/update with owner object = "+ owner);
+		return dao.getOwnerById(request.getId());
 
 	}
 
 	@DELETE
-	@Path("/owners/delete")
-	public void deleteOwner(@FormParam(value = "ownerId") int id ){
+	@Path("/{id: [0-9]+}")
+	public void deleteOwner(@PathParam("id") int id ){
 		OwnerDAO dao = new OwnerDAO();
 		logger.debug("DELETE /owners/delete with dao object = "+ dao);
 		logger.debug("DELETE /owners/delete with id object = "+ id);

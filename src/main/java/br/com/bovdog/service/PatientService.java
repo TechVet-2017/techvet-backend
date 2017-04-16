@@ -9,6 +9,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -17,12 +18,12 @@ import br.com.bovdog.bean.Patient;
 import br.com.bovdog.dao.PatientDAO;
 
 // create Patient service 
-@Path("/PatientService")
+@Path("/patients")
 public class PatientService {
 	
 	// create method to get all patients registered 
 	@GET
-	@Path("/patients")
+	@Path("/")
 	@Produces("application/json")
 	public List<Patient> getAllPatient() {
 		PatientDAO dao = new PatientDAO();
@@ -31,16 +32,16 @@ public class PatientService {
 	
 	// create method to create a new patient 
 	@POST
-	@Path("/patients/create")
+	@Path("/")
 	@Consumes("application/x-www-form-urlencoded")
 	@Produces("application/json")
-	public Patient createPatient(@FormParam(value = "patientName") String patientName,
-							 	 @FormParam(value = "specie") String specie,
-							 	 @FormParam(value = "breed") String breed,
-							 	 @FormParam(value = "size") char size,
-							 	 @FormParam(value = "gender") char gender,
-//							 	 @FormParam(value = "birthday") Date birthday,
-							 	 @FormParam(value = "coat") String coat) {
+	public Patient createPatient(@FormParam("patientName") String patientName,
+							 	 @FormParam("specie") String specie,
+							 	 @FormParam("breed") String breed,
+							 	 @FormParam("size") char size,
+							 	 @FormParam("gender") char gender,
+//							 	 @FormParam("birthday") Date birthday,
+							 	 @FormParam("coat") String coat) {
 		
 		Patient patient = new Patient();
 		patient.setPatientName(patientName);
@@ -57,31 +58,30 @@ public class PatientService {
 	}
 	
 	// create method to retrieve a patient by it's id from the database
-	@POST
-	@Path("/patients/getPatientById")
-	@Consumes("application/x-www-form-urlencoded")
+	@GET
+	@Path("/{id:[0-9]+}")
 	@Produces("application/json")
-	public Patient getPatientById(@FormParam(value = "patientId") int patientId) {
+	public Patient getPatientById(@PathParam("id") int patientId) {
 		PatientDAO dao = new PatientDAO();
 		return dao.getPatientById(patientId);
 		
 	}
 	
 	// create a method to update the information of an existing patient
-	@POST
-	@Path("/patients/updatePatient")
+	@PUT
+	@Path("/{id:[0-9]+}")
 	@Consumes("application/x-www-form-urlencoded")
-	public void updatePatient(@FormParam(value = "patientId") int patientID,
-							  @FormParam(value = "patientName") String patientName,
-							  @FormParam(value = "specie") String specie,
-							  @FormParam(value = "breed") String breed,
-							  @FormParam(value = "size") char size,
-							  @FormParam(value = "gender") char gender,
-//		 	 				  @FormParam(value = "birthday") Date birthday,
-							  @FormParam(value = "coat") String coat) {
+	public void updatePatient(@PathParam("id") int patientID,
+							  @FormParam("patientName") String patientName,
+							  @FormParam("specie") String specie,
+							  @FormParam("breed") String breed,
+							  @FormParam("size") char size,
+							  @FormParam("gender") char gender,
+//		 	 				  @FormParam("birthday") Date birthday,
+							  @FormParam("coat") String coat) {
 		
 		Patient patient = new Patient();
-		patient.setPatientId(patientID);
+		patient.setId(patientID);
 		patient.setPatientName(patientName);
 		patient.setSpecie(specie);
 		patient.setBreed(breed);
@@ -96,8 +96,8 @@ public class PatientService {
 	
 	// create method to delete one patient
 	@DELETE
-	@Path("/patients/{patientId:[0-9]+}/delete")
-	public void deletePatient(@PathParam("patientId") int patientId) {
+	@Path("/{id:[0-9]+}")
+	public void deletePatient(@PathParam("id") int patientId) {
 		PatientDAO dao = new PatientDAO();
 		dao.deletePatient(patientId);
 	}
