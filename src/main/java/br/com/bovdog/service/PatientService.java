@@ -14,9 +14,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import br.com.bovdog.bean.Owner;
 import br.com.bovdog.bean.Patient;
-import br.com.bovdog.dao.OwnerDAO;
 import br.com.bovdog.dao.PatientDAO;
 
 // create Patient service 
@@ -35,28 +33,13 @@ public class PatientService {
 	// create method to create a new patient 
 	@POST
 	@Path("/")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes("application/json")
 	@Produces("application/json")
-	public Patient createPatient(@FormParam("patientName") String patientName,
-							 	 @FormParam("specie") String specie,
-							 	 @FormParam("breed") String breed,
-							 	 @FormParam("size") char size,
-							 	 @FormParam("gender") char gender,
-//							 	 @FormParam("birthday") Date birthday,
-							 	 @FormParam("coat") String coat) {
-		
-		Patient patient = new Patient();
-		patient.setPatientName(patientName);
-		patient.setSpecie(specie);
-		patient.setBreed(breed);
-		patient.setSize(size);
-		patient.setGender(gender);
-//		patient.setBirthday(birthday);
-		patient.setCoat(coat);
-		
+	public Patient createPatient(Patient request) {
+
 		PatientDAO dao = new PatientDAO();
-		dao.createPatient(patient);
-		return patient;
+		dao.createPatient(request);
+		return request;
 	}
 	
 	// create method to retrieve a patient by it's id from the database
