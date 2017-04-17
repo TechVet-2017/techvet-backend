@@ -66,7 +66,6 @@ public class PatientService {
 	@PUT
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
-	@Produces("application/json")
 	public Patient updatePatient(@PathParam("id") int patientID, Patient request) {
 		
 		request.setId(patientID);
