@@ -33,9 +33,9 @@ public class BathGroomingService {
 		BathGroomingDAO dao = new BathGroomingDAO();
 	}
 	
+	// creating the method to create BathGrooming object.
 	@POST
 	@Path("/")
-	//@Consumes("application/json")
 	@Produces("application/json")
 	public BathGrooming createBathGrooming(BathGrooming request){
 		
