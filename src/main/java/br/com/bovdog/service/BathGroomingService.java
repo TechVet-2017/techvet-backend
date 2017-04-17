@@ -35,18 +35,15 @@ public class BathGroomingService {
 	
 	@POST
 	@Path("/")
-	@Consumes("application/json")
+	//@Consumes("application/json")
 	@Produces("application/json")
 	public BathGrooming createBathGrooming(BathGrooming request){
-
-		BathGrooming bathGrooming = new BathGrooming();
-		logger.debug("POST /bathAndGrooming/create with serviceBathGrooming = "+ request.getServiceBathGrooming());
-		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
-
-		BathGroomingDAO dao = new BathGroomingDAO();
-		dao.createBathGrooming(bathGrooming);
 		
-		return bathGrooming;
+		BathGroomingDAO dao = new BathGroomingDAO();	
+		dao.createBathGrooming(request);
+		logger.debug("POST /bathAndGrooming/create with serviceBathGrooming = "+ request.getServiceBathGrooming());
+		
+		return request;
 	}
 	
 	// creating the method to find a specific object.
