@@ -15,9 +15,7 @@ import javax.ws.rs.Produces;
 import org.apache.log4j.Logger;
 
 import br.com.bovdog.bean.BathGrooming;
-import br.com.bovdog.bean.Owner;
 import br.com.bovdog.dao.BathGroomingDAO;
-import br.com.bovdog.dao.OwnerDAO;
 
 
 @Path("/bathAndGrooming")
