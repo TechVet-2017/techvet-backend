@@ -38,8 +38,8 @@ public class PatientService {
 	public Patient createPatient(Patient request) {
 
 		PatientDAO dao = new PatientDAO();
-		dao.createPatient(request);
-		return request;
+		request = dao.createPatient(request);
+		return dao.getPatientById(request.getId());
 	}
 	
 	// create method to retrieve a patient by it's id from the database

@@ -9,7 +9,6 @@ import javax.persistence.Persistence;
 
 import org.apache.log4j.Logger;
 
-import br.com.bovdog.bean.Owner;
 import br.com.bovdog.bean.Patient;
 
 // create class Patient DAO for database communication
@@ -28,13 +27,14 @@ public class PatientDAO {
 	}
 	
 	// create method to create a new patient
-	public void createPatient(Patient patient) {
+	public Patient createPatient(Patient patient) {
 		
 		// treatment to persist new patient data in database 
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(patient);
 			logger.debug("createPatient method with object patient = " + patient);
+			entityManager.flush();
 			entityManager.getTransaction().commit();
 			
 		// return error if caught SQL exception
@@ -43,6 +43,7 @@ public class PatientDAO {
 			logger.debug("createPatient method with object patient = " + patient);
 			entityManager.getTransaction().rollback();
 		}
+		return patient;
 	}
 	
 	// create method getAllPatients to return list of Patients
