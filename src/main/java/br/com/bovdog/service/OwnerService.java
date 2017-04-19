@@ -68,6 +68,7 @@ public class OwnerService{
 		logger.debug("POST /owners/findbyphone with phone ("+ insertedPhoneNumber +") calling dao object = " + dao);
 		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
 	}
+	
 	@POST
 	@Path("/")
 	@Consumes("application/json")
