@@ -31,15 +31,17 @@ public class ClinicalRecordDAO {
     return records;
   }
 	// Create record in database.
-  public void createClinicalRecord(ClinicalRecord record) {
+  public ClinicalRecord createClinicalRecord(ClinicalRecord record) {
     try {
       entityManager.getTransaction().begin();
       entityManager.persist(record);
+      entityManager.flush();
       entityManager.getTransaction().commit();
     } catch(Exception e) {
       e.printStackTrace();
       entityManager.getTransaction().rollback();
     }
+    return record;
   }
 	// Update record in database.
   public void updateClinicalRecord(ClinicalRecord record) {

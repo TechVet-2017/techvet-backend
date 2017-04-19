@@ -41,11 +41,11 @@ public class ClinicalRecordAppointmentService {
 	@Path("/")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public List<ClinicalRecord> createClinicalRecordAppointment(ClinicalRecordAppointment request){
+	public ClinicalRecord createClinicalRecordAppointment(ClinicalRecordAppointment request){
 		ClinicalRecordDAO dao = new ClinicalRecordDAO();
-		dao.createClinicalRecord(request);
+		request = (ClinicalRecordAppointment)dao.createClinicalRecord(request);
 	
-		return dao.getAllClinicalRecords();
+		return dao.getClinicalRecordById(request.getId());
 	}
 	
 	// Creating method to update a clinical record for appointment
