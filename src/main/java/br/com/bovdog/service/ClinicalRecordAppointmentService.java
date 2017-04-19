@@ -22,9 +22,9 @@ public class ClinicalRecordAppointmentService {
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public List<ClinicalRecord> getAllClinicalRecords() {
+	public List<ClinicalRecordAppointment> getAllClinicalRecords() {
 		ClinicalRecordDAO dao = new ClinicalRecordDAO(); // Listing all the DAO clinical records
-		return dao.getAllClinicalRecords();
+		return dao.getAllClinicalRecordsAppointment();
 	}
 
 	// Creating clinical record service class

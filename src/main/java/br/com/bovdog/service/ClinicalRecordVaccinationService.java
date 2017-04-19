@@ -21,9 +21,9 @@ public class ClinicalRecordVaccinationService { // Creating clinical record serv
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public List<ClinicalRecord> getAllClinicalRecords() {
+	public List<ClinicalRecordVaccination> getAllClinicalRecords() {
 		ClinicalRecordDAO dao = new ClinicalRecordDAO(); // Listing all the DAO clinical records
-		return dao.getAllClinicalRecords();
+		return dao.getAllClinicalRecordsVaccination();
 	}
 
 	// Creating clinical record service class
@@ -40,11 +40,11 @@ public class ClinicalRecordVaccinationService { // Creating clinical record serv
 	@Path("/")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public List<ClinicalRecord> createClinicalRecordVaccination(ClinicalRecordVaccination request){
+	public List<ClinicalRecordVaccination> createClinicalRecordVaccination(ClinicalRecordVaccination request){
 		ClinicalRecordDAO dao = new ClinicalRecordDAO();
 		dao.createClinicalRecord(request);
 	
-		return dao.getAllClinicalRecords();
+		return dao.getAllClinicalRecordsVaccination();
 	}
 	
 	@PUT
