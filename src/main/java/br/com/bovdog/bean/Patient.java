@@ -18,15 +18,15 @@ public class Patient {
 	private int id;
 
 	// notation to set not null columns attributes
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String patientName;
 	@Column(nullable = false)
 	private String species;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String breed;
 	private char size;
 	private char gender;
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
