@@ -24,6 +24,7 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
     private float capillaryFill;
     private String patientPulse;
     private String mucosasApparent;
+    private String hydrationState;
     private float patientRespiratoryRate;
     private float patientHeartRate;
     private float patientWeight;
@@ -109,7 +110,15 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
         this.mucosasApparent = mucosasApparent;
     }
 
-    public float getPatientRespiratoryRate() {
+    public String getHydrationState() {
+		return hydrationState;
+	}
+
+	public void setHydrationState(String hydrationState) {
+		this.hydrationState = hydrationState;
+	}
+
+	public float getPatientRespiratoryRate() {
         return this.patientRespiratoryRate;
     }
 
