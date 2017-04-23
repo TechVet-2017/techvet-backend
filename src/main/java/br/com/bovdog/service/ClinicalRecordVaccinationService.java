@@ -40,11 +40,11 @@ public class ClinicalRecordVaccinationService { // Creating clinical record serv
 	@Path("/")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public List<ClinicalRecordVaccination> createClinicalRecordVaccination(ClinicalRecordVaccination request){
+	public ClinicalRecord createClinicalRecordVaccination(ClinicalRecordVaccination request){
 		ClinicalRecordDAO dao = new ClinicalRecordDAO();
-		dao.createClinicalRecord(request);
-	
-		return dao.getAllClinicalRecordsVaccination();
+		request = (ClinicalRecordVaccination) dao.createClinicalRecord(request);
+		
+		return dao.getClinicalRecordById(request.getId());
 	}
 	
 	@PUT
