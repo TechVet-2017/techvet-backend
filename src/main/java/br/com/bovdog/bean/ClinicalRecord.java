@@ -28,6 +28,8 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
     private float patientRespiratoryRate;
     private float patientHeartRate;
     private float patientWeight;
+    private String bloodPressure;
+    private String veterinarianIdentification;
 
     // Getters and setters for clinical record attributes.
     public int getId() {
@@ -141,5 +143,21 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
     public void setPatientWeight(float patientWeight) {
         this.patientWeight = patientWeight;
     }
+
+	public String getBloodPressure() {
+		return bloodPressure;
+	}
+
+	public void setBloodPressure(String bloodPressure) {
+		this.bloodPressure = bloodPressure;
+	}
+
+	public String getVeterinarianIdentification() {
+		return veterinarianIdentification;
+	}
+
+	public void setVeterinarianIdentification(String veterinarianIdentification) {
+		this.veterinarianIdentification = veterinarianIdentification;
+	}
 
 }
