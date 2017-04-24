@@ -16,10 +16,13 @@ import javax.ws.rs.Produces;
 
 import br.com.bovdog.bean.Patient;
 import br.com.bovdog.dao.PatientDAO;
-
+import org.apache.log4j.Logger;
 // create Patient service 
 @Path("/patients")
 public class PatientService {
+	
+	// Initializing the log service
+	final static Logger logger = Logger.getLogger(PatientDAO.class);
 	
 	// create method to get all patients registered 
 	@GET
@@ -27,6 +30,7 @@ public class PatientService {
 	@Produces("application/json")
 	public List<Patient> getAllPatient() {
 		PatientDAO dao = new PatientDAO();
+		logger.debug("GET /patients calling dao object = " + dao);
 		return dao.getAllPatients();
 	}
 	
@@ -39,6 +43,14 @@ public class PatientService {
 
 		PatientDAO dao = new PatientDAO();
 		request = dao.createPatient(request);
+		logger.debug("POST /patients create patient name = " + request.getPatientName());
+		logger.debug("POST /patients create patient size = " + request.getSize());
+		logger.debug("POST /patients create patient gender = " + request.getGender());
+		logger.debug("POST /patients create patient species = " + request.getSpecies());
+		logger.debug("POST /patients create patient birthday = " + request.getBirthday());
+		logger.debug("POST /patients create patient breed = " + request.getBreed());
+		logger.debug("POST /patients create patient coat = " + request.getCoat());
+		logger.debug("POST /patients create patient id = " + request.getId());
 		return dao.getPatientById(request.getId());
 	}
 	
@@ -48,6 +60,7 @@ public class PatientService {
 	@Produces("application/json")
 	public Patient getPatientById(@PathParam("id") int patientId) {
 		PatientDAO dao = new PatientDAO();
+		logger.debug("GET /patients/("+ patientId +") find patient by id = " + dao);
 		return dao.getPatientById(patientId);
 		
 	}
@@ -59,6 +72,7 @@ public class PatientService {
 	@Produces("application/json")
 	public List<Patient> findPatientByName(@FormParam(value = "insertedName") String insertedName){
 		PatientDAO dao = new PatientDAO();
+		logger.debug("POST /patients/findbyname with name ("+ insertedName +")calling dao object = " + dao);
 		return dao.findPatientByName(insertedName);
 	}
 	
@@ -71,7 +85,7 @@ public class PatientService {
 		request.setId(patientID);
 		PatientDAO dao = new PatientDAO();
 		dao.updatePatient(request);
-		
+		logger.debug("PUT /patients/("+ patientID +") update patient by id = " + dao);
 		return dao.getPatientById(patientID);
 	}
 	
@@ -80,6 +94,8 @@ public class PatientService {
 	@Path("/{id:[0-9]+}")
 	public void deletePatient(@PathParam("id") int patientId) {
 		PatientDAO dao = new PatientDAO();
+		logger.debug("DELETE /patients/("+ patientId +") with dao object = "+ dao);
+		logger.debug("DELETE /patients/("+ patientId +") with id object = "+ patientId);
 		dao.deletePatient(patientId);
 	}
 	
