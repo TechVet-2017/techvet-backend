@@ -24,8 +24,8 @@ public class Patient {
 	private String species;
 	@Column(nullable = true)
 	private String breed;
-	private char size;
-	private char gender;
+	private String size;
+	private String gender;
 	@Column(nullable = false)
 	private Date birthday;
 	@Column(nullable = false)
@@ -64,19 +64,19 @@ public class Patient {
 		this.breed = breed;
 	}
 
-	public char getSize() {
+	public String getSize() {
 		return size;
 	}
 
-	public void setSize(char size) {
+	public void setSize(String size) {
 		this.size = size;
 	}
 
-	public char getGender() {
+	public String getGender() {
 		return gender;
 	}
 
-	public void setGender(char gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
