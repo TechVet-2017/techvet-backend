@@ -32,10 +32,11 @@ public class OwnerDAO {
 	}
 
 	// Create owner in database.
-	public void createOwner(Owner owner){
+	public Owner createOwner(Owner owner){
 		try{
 			entityManager.getTransaction().begin();
 		    entityManager.persist(owner);
+		    entityManager.flush();
       
 		    logger.debug("createOwner method with object owner = " + owner);
 		    entityManager.getTransaction().commit();			
@@ -45,6 +46,7 @@ public class OwnerDAO {
 			logger.fatal("catch statement on createOwner with exception = " + exception);
 			entityManager.getTransaction().rollback();
 		}
+		return owner;
 	}
 
 	// Update owner in database.

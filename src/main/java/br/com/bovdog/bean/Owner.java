@@ -1,6 +1,5 @@
 package br.com.bovdog.bean;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,13 +16,29 @@ public class Owner {
 	private String ownerLastName;
 	private String phoneNumber;
 	private Long zipCode;
-	private String district;
 	private String publicPlace;
 	private Long addressNumber;
+	private String neighborhood;
+	private String city;
+	private String district;
+	
+	
 
 	// Getters and setters for Owner attributes.
 	public int getId() {
 		return id;
+	}
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 	public void setId(int ownerId) {
 		this.id = ownerId;

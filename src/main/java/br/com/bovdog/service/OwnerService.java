@@ -74,59 +74,23 @@ public class OwnerService{
 	@Produces("application/json")
 	public Owner createOwner(Owner request){
 
-		Owner owner = new Owner();
-		logger.debug("POST /owners/create with cpf = "+ request.getCpf());
-		logger.debug("POST /owners/create with ownerName = "+ request.getOwnerName());
-		logger.debug("POST /owners/create with ownerLastName = "+ request.getOwnerLastName());
-		logger.debug("POST /owners/create with phoneNumber = "+ request.getPhoneNumber());
-		logger.debug("POST /owners/create with zipCode = "+ request.getZipCode());
-		logger.debug("POST /owners/create with district = "+ request.getDistrict());
-		logger.debug("POST /owners/create with publicPlace = "+ request.getPublicPlace());
-		logger.debug("POST /owners/create with addressNumber = "+ request.getAddressNumber());
-		owner.setCpf(request.getCpf());
-		owner.setOwnerName(request.getOwnerName());
-		owner.setOwnerLastName(request.getOwnerLastName());
-		owner.setPhoneNumber(request.getPhoneNumber());
-		owner.setZipCode(request.getZipCode());
-		owner.setDistrict(request.getDistrict());
-		owner.setPublicPlace(request.getPublicPlace());
-		owner.setAddressNumber(request.getAddressNumber());
-
 		OwnerDAO dao = new OwnerDAO();
-		dao.createOwner(owner);
+		request = dao.createOwner(request);
 		logger.debug("POST /owners/create with dao object = "+ dao);
-		logger.debug("POST /owners/create with owner object = "+ owner);
-		return owner;
+		logger.debug("POST /owners/create with owner object = "+ request);
+		return request;
 	}
 
 	@PUT
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
-	public Owner updateOwner(Owner request){
-
-		Owner owner = new Owner();
-		logger.debug("POST /owners/update with cpf = "+ request.getCpf());
-		logger.debug("POST /owners/update with ownerName = "+ request.getOwnerName());
-		logger.debug("POST /owners/update with ownerLastName = "+ request.getOwnerLastName());
-		logger.debug("POST /owners/update with phoneNumber = "+ request.getPhoneNumber());
-		logger.debug("POST /owners/update with zipCode = "+ request.getZipCode());
-		logger.debug("POST /owners/update with district = "+ request.getDistrict());
-		logger.debug("POST /owners/update with publicPlace = "+ request.getPublicPlace());
-		logger.debug("POST /owners/update with addressNumber = "+ request.getAddressNumber());
-        owner.setId(request.getId());
-		owner.setCpf(request.getCpf());
-		owner.setOwnerName(request.getOwnerName());
-		owner.setOwnerLastName(request.getOwnerLastName());
-		owner.setPhoneNumber(request.getPhoneNumber());
-		owner.setZipCode(request.getZipCode());
-		owner.setDistrict(request.getDistrict());
-		owner.setPublicPlace(request.getPublicPlace());
-		owner.setAddressNumber(request.getAddressNumber());
+	public Owner updateOwner(Owner request, @PathParam("id") int id){
 
 		OwnerDAO dao = new OwnerDAO();
-		dao.updateOwner(owner);
+		request.setId(id);
+		dao.updateOwner(request);
 		logger.debug("POST /owners/update with dao object = "+ dao);
-		logger.debug("POST /owners/update with owner object = "+ owner);
+		logger.debug("POST /owners/update with owner object = "+ request);
 		return dao.getOwnerById(request.getId());
 
 	}
