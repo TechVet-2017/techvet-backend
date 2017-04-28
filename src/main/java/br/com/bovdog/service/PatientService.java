@@ -92,11 +92,12 @@ public class PatientService {
 	// create method to delete one patient
 	@DELETE
 	@Path("/{id:[0-9]+}")
-	public void deletePatient(@PathParam("id") int patientId) {
+	public List<Patient> deletePatient(@PathParam("id") int patientId) {
 		PatientDAO dao = new PatientDAO();
 		logger.debug("DELETE /patients/("+ patientId +") with dao object = "+ dao);
 		logger.debug("DELETE /patients/("+ patientId +") with id object = "+ patientId);
 		dao.deletePatient(patientId);
+		return dao.getAllPatients();
 	}
 	
 }
