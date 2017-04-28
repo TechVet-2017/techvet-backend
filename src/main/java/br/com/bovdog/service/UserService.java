@@ -89,6 +89,7 @@ public class UserService {
 	@PUT
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
+	@Produces("application/json")
 	public User updateUser(@PathParam("id") int userID, User request) {
 		logger.debug("POST /users/update with userName = "+ request.getUserName());
 		logger.debug("POST /users/update with userFullName = "+ request.getUserFullName());
@@ -105,10 +106,11 @@ public class UserService {
 	// Creating a method to delete a user
 	@DELETE
 	@Path("/{id: [0-9]+}")
-	public void deleteUser(@PathParam("id") int id ){
+	public List<User> deleteUser(@PathParam("id") int id ){
 		UserDAO dao = new UserDAO();
 		logger.debug("DELETE /users/delete with dao object = "+ dao);
 		logger.debug("DELETE /users/delete with id object = "+ id);
 		dao.deleteUser(id);
+		return dao.getAllUsers();
 	}
 }
