@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-// Creating owner class and setting it's parameters
 public class Owner {
 
 	@Id
@@ -19,12 +18,10 @@ public class Owner {
 	private String publicPlace;
 	private Long addressNumber;
 	private String neighborhood;
+	private String complement;
 	private String city;
 	private String district;
-	
-	
 
-	// Getters and setters for Owner attributes.
 	public int getId() {
 		return id;
 	}
@@ -90,5 +87,11 @@ public class Owner {
 	}
 	public void setAddressNumber(Long addressNumber) {
 		this.addressNumber = addressNumber;
+	}
+	public String getComplement() {
+		return this.complement;
+	}
+	public void setComplement(String complement) {
+		this.complement = complement;
 	}
 }
