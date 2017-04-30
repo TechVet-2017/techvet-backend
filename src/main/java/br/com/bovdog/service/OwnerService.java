@@ -38,36 +38,7 @@ public class OwnerService{
 		OwnerDAO dao = new OwnerDAO();
 		return dao.getOwnerById(id);
 	}
-
-	@POST
-	@Path("/owners/findbyname")
-	@Consumes("application/x-www-form-urlencoded")
-	@Produces("application/json")
-	public List<Owner> findOwnerByName(@FormParam(value = "insertedName") String insertedName){ // Finding owner DAO by it's name
-		OwnerDAO dao = new OwnerDAO();
-		logger.debug("POST /owners/findbyname with name ("+ insertedName +")calling dao object = " + dao);
-		return dao.findOwnerByName(insertedName);
-	}
-
-	@POST
-	@Path("/owners/findbycpf")
-	@Consumes("application/x-www-form-urlencoded")
-	@Produces("application/json")
-	public List<Owner> findOwnerByCpf(@FormParam(value = "insertedCpf") String insertedCpf){ // Finding owner DAO by it's cpf
-		OwnerDAO dao = new OwnerDAO();
-		logger.debug("POST /owners/findbycpf with cpf ("+ insertedCpf +") calling dao object = " + dao);
-		return dao.findOwnerByCpf(insertedCpf);
-	}
-
-	@POST
-	@Path("/owners/findbyphone")
-	@Consumes("application/x-www-form-urlencoded")
-	@Produces("application/json")
-	public List<Owner> findOwnerByPhoneNumber(@FormParam(value = "insertedPhoneNumber") String insertedPhoneNumber){ // Finding owner DAO by its phone number
-		OwnerDAO dao = new OwnerDAO();
-		logger.debug("POST /owners/findbyphone with phone ("+ insertedPhoneNumber +") calling dao object = " + dao);
-		return dao.findOwnerByPhoneNumber(insertedPhoneNumber);
-	}
+	
 	@POST
 	@Path("/")
 	@Consumes("application/json")
