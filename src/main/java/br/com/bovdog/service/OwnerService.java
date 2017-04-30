@@ -97,11 +97,12 @@ public class OwnerService{
 
 	@DELETE
 	@Path("/{id: [0-9]+}")
-	public void deleteOwner(@PathParam("id") int id ){
+	public List<Owner> deleteOwner(@PathParam("id") int id ){
 		OwnerDAO dao = new OwnerDAO();
 		logger.debug("DELETE /owners/delete with dao object = "+ dao);
 		logger.debug("DELETE /owners/delete with id object = "+ id);
 		dao.deleteOwner(id);
+		return dao.getAllOwners();
 	}
 
 

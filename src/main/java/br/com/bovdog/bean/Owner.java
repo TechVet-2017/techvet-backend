@@ -14,7 +14,7 @@ public class Owner {
 	private String ownerName;
 	private String ownerLastName;
 	private String phoneNumber;
-	private Long zipCode;
+	private String zipCode;
 	private String publicPlace;
 	private Long addressNumber;
 	private String neighborhood;
@@ -64,10 +64,10 @@ public class Owner {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public Long getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
-	public void setZipCode(Long zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 	public String getDistrict() {
