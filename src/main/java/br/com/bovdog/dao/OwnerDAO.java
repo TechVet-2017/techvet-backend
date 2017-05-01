@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 
 import br.com.bovdog.bean.ClinicalRecord;
 import br.com.bovdog.bean.Owner;
+
 import org.apache.log4j.Logger;
 //create class Owner DAO for database communication.
 public class OwnerDAO {
@@ -78,36 +79,17 @@ public class OwnerDAO {
 	    }
 	}
 
-	// Find owner using his cpf.
-	public List<Owner> findOwnerByCpf(String insertedCpf){
-	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.cpf LIKE :cpf")
-	    		.setParameter("cpf", "%"+insertedCpf+"%").getResultList();
-	    logger.debug("findOwnerByCpf method with cpf = ("+ insertedCpf +") and object owners = " + owners);
-		return owners;	
-	}	
-	
-	// Find owner using his name.
-	public List<Owner> findOwnerByName(String insertedName){
-	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.ownerName LIKE :name")
-	    		.setParameter("name","%"+insertedName+"%").getResultList();
-
-	    logger.debug("findOwnerByName method with name = ("+ insertedName +") and object owners = " + owners);
-		return owners;	
-	}	
-
-	// Find owner using his phone number.
-	public List<Owner> findOwnerByPhoneNumber(String insertedPhoneNumber){
-	    List<Owner> owners = entityManager.createQuery("SELECT t FROM Owner t WHERE t.phoneNumber LIKE :phone")
-	    		.setParameter("phone", "%"+insertedPhoneNumber+"%").getResultList();
-
-	    logger.debug("findOwnerByPhoneNumber method with phone = ("+ insertedPhoneNumber +") and object owners = " + owners);
-		return owners;	
-	}
-
 	// Return all owners that exist in database
-	public List<Owner> getAllOwners(){
+	public List<Owner> getAllOwners(String sort, String order){
+		if (sort == null) {
+			sort = "id";
+		}
+		if (order == null) {
+			order = "ASC";
+		}
 	    List<Owner> owners = new ArrayList<Owner>();
-	    owners = entityManager.createQuery("FROM " + Owner.class.getName()).getResultList();
+	    String query = "SELECT o FROM Owner o ORDER BY " +sort+ " " +order;
+	    owners = entityManager.createQuery(query).getResultList();
 	    logger.debug("getAllOwners method with and object owners = " + owners);
 	    return owners;
 	}
