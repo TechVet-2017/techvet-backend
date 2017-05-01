@@ -11,6 +11,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 
 import br.com.bovdog.bean.Owner;
 import br.com.bovdog.dao.OwnerDAO;
@@ -29,10 +32,13 @@ public class OwnerService{
 	@Produces("application/json")
 	public List<Owner> getAllOwners(
 			@QueryParam("_sort") String sort,
-			@QueryParam("_order") String order){ // Listing all the DAO owners
+			@QueryParam("_order") String order,
+			@QueryParam("cpf") String cpf,
+			@Context UriInfo ui){
 		OwnerDAO dao = new OwnerDAO();
+		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /owners calling dao object = " + dao);
-		return dao.getAllOwners(sort, order);
+		return dao.getAllOwners(queryParameters);
 	}
 	
 	@GET
@@ -77,7 +83,7 @@ public class OwnerService{
 		logger.debug("DELETE /owners/delete with dao object = "+ dao);
 		logger.debug("DELETE /owners/delete with id object = "+ id);
 		dao.deleteOwner(id);
-		return dao.getAllOwners(null, null);
+		return dao.getAllOwners(null);
 	}
 
 
