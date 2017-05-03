@@ -1,12 +1,10 @@
 package br.com.bovdog.bean;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-// Creating owner class and setting it's parameters
 public class Owner {
 
 	@Id
@@ -16,14 +14,28 @@ public class Owner {
 	private String ownerName;
 	private String ownerLastName;
 	private String phoneNumber;
-	private Long zipCode;
-	private String district;
+	private String zipCode;
 	private String publicPlace;
 	private Long addressNumber;
+	private String neighborhood;
+	private String complement;
+	private String city;
+	private String district;
 
-	// Getters and setters for Owner attributes.
 	public int getId() {
 		return id;
+	}
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
 	}
 	public void setId(int ownerId) {
 		this.id = ownerId;
@@ -52,10 +64,10 @@ public class Owner {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	public Long getZipCode() {
+	public String getZipCode() {
 		return zipCode;
 	}
-	public void setZipCode(Long zipCode) {
+	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 	public String getDistrict() {
@@ -75,5 +87,11 @@ public class Owner {
 	}
 	public void setAddressNumber(Long addressNumber) {
 		this.addressNumber = addressNumber;
+	}
+	public String getComplement() {
+		return this.complement;
+	}
+	public void setComplement(String complement) {
+		this.complement = complement;
 	}
 }
