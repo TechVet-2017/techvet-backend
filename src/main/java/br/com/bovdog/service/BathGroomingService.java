@@ -12,14 +12,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
+import org.apache.log4j.Logger;
+
 import br.com.bovdog.bean.BathGrooming;
-import br.com.bovdog.bean.Owner;
 import br.com.bovdog.dao.BathGroomingDAO;
-import br.com.bovdog.dao.OwnerDAO;
 
 
 @Path("/bathAndGrooming")
 public class BathGroomingService {
+	
+	// Initializing the log service
+	final static Logger logger = Logger.getLogger(BathGroomingDAO.class);
 	
 	private BathGroomingDAO dao = null;
 	
@@ -28,10 +31,23 @@ public class BathGroomingService {
 		BathGroomingDAO dao = new BathGroomingDAO();
 	}
 	
+	// creating the method to create BathGrooming object.
+	@POST
+	@Path("/")
+	@Produces("application/json")
+	public BathGrooming createBathGrooming(BathGrooming request){
+		
+		BathGroomingDAO dao = new BathGroomingDAO();	
+		dao.createBathGrooming(request);
+		logger.debug("POST /bathAndGrooming/create with serviceBathGrooming = "+ request.getServiceBathGrooming());
+		
+		return request;
+	}
+	
 	// creating the method to find a specific object.
 	@GET
 	@Path("/{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes("application/json")
 	@Produces("application/json")
 	public BathGrooming getBathGroomingById(@PathParam("id") int id) {
 		BathGroomingDAO dao = new BathGroomingDAO();
@@ -44,16 +60,19 @@ public class BathGroomingService {
 	@Produces("application/json")
 	public List<BathGrooming> getAllBathGroomings() {
 		BathGroomingDAO dao = new BathGroomingDAO();
+		logger.debug("GET /bathAndGrooming calling dao object = " + dao);
 	 	return dao.getAllBathGroomings();
 	}
 	
 	// creating the method to delete a specific object.
 	@DELETE
 	@Path("/{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes("application/json")
 	@Produces("application/json")
 	public List<BathGrooming> deleteBathGroomingById(@PathParam("id") int id) {
 		BathGroomingDAO dao = new BathGroomingDAO();
+		logger.debug("DELETE /bathAndGrooming/delete with dao object = "+ dao);
+		logger.debug("DELETE /bathAndGrooming/delete with id object = "+ id);
 		dao.deleteBathGrooming(id);
 		return dao.getAllBathGroomings();
 	}
@@ -61,16 +80,19 @@ public class BathGroomingService {
 	// creating the method to update an object.
 	@PUT
 	@Path("//{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
-	public void updateBathGrooming(@PathParam("id") int idBathGrooming ,
-									@FormParam("serviceBathGrooming") String serviceBathGrooming){
+	@Consumes("application/json")
+	public BathGrooming updateBathGrooming(BathGrooming request){
 			
 		BathGrooming bathGrooming = new BathGrooming();
-		bathGrooming.setId(idBathGrooming);
-		bathGrooming.setServiceBathGrooming(serviceBathGrooming);
+		logger.debug("POST /bathAndGrooming/update with id = "+ request.getId());
+		logger.debug("POST /bathAndGrooming/update with ownerName = "+ request.getServiceBathGrooming());
+		bathGrooming.setId(request.getId());
+		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
 			
 		BathGroomingDAO dao = new BathGroomingDAO();
 		dao.updateBathGrooming(bathGrooming);
+		
+		return dao.getBathGroomingById(request.getId());
 	}
 	
 }
