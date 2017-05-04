@@ -16,10 +16,13 @@ import javax.ws.rs.Produces;
 
 import br.com.bovdog.bean.Patient;
 import br.com.bovdog.dao.PatientDAO;
-
+import org.apache.log4j.Logger;
 // create Patient service 
 @Path("/patients")
 public class PatientService {
+	
+	// Initializing the log service
+	final static Logger logger = Logger.getLogger(PatientDAO.class);
 	
 	// create method to get all patients registered 
 	@GET
@@ -27,34 +30,28 @@ public class PatientService {
 	@Produces("application/json")
 	public List<Patient> getAllPatient() {
 		PatientDAO dao = new PatientDAO();
+		logger.debug("GET /patients calling dao object = " + dao);
 		return dao.getAllPatients();
 	}
 	
 	// create method to create a new patient 
 	@POST
 	@Path("/")
-	@Consumes("application/x-www-form-urlencoded")
+	@Consumes("application/json")
 	@Produces("application/json")
-	public Patient createPatient(@FormParam("patientName") String patientName,
-							 	 @FormParam("specie") String specie,
-							 	 @FormParam("breed") String breed,
-							 	 @FormParam("size") char size,
-							 	 @FormParam("gender") char gender,
-//							 	 @FormParam("birthday") Date birthday,
-							 	 @FormParam("coat") String coat) {
-		
-		Patient patient = new Patient();
-		patient.setPatientName(patientName);
-		patient.setSpecie(specie);
-		patient.setBreed(breed);
-		patient.setSize(size);
-		patient.setGender(gender);
-//		patient.setBirthday(birthday);
-		patient.setCoat(coat);
-		
+	public Patient createPatient(Patient request) {
+
 		PatientDAO dao = new PatientDAO();
-		dao.createPatient(patient);
-		return patient;
+		request = dao.createPatient(request);
+		logger.debug("POST /patients create patient name = " + request.getPatientName());
+		logger.debug("POST /patients create patient size = " + request.getSize());
+		logger.debug("POST /patients create patient gender = " + request.getGender());
+		logger.debug("POST /patients create patient species = " + request.getSpecies());
+		logger.debug("POST /patients create patient birthday = " + request.getBirthday());
+		logger.debug("POST /patients create patient breed = " + request.getBreed());
+		logger.debug("POST /patients create patient coat = " + request.getCoat());
+		logger.debug("POST /patients create patient id = " + request.getId());
+		return dao.getPatientById(request.getId());
 	}
 	
 	// create method to retrieve a patient by it's id from the database
@@ -63,43 +60,44 @@ public class PatientService {
 	@Produces("application/json")
 	public Patient getPatientById(@PathParam("id") int patientId) {
 		PatientDAO dao = new PatientDAO();
+		logger.debug("GET /patients/("+ patientId +") find patient by id = " + dao);
 		return dao.getPatientById(patientId);
 		
+	}
+	
+	// create method to search patients by name 
+	@POST
+	@Path("/findbyname")
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public List<Patient> findPatientByName(@FormParam(value = "insertedName") String insertedName){
+		PatientDAO dao = new PatientDAO();
+		logger.debug("POST /patients/findbyname with name ("+ insertedName +")calling dao object = " + dao);
+		return dao.findPatientByName(insertedName);
 	}
 	
 	// create a method to update the information of an existing patient
 	@PUT
 	@Path("/{id:[0-9]+}")
-	@Consumes("application/x-www-form-urlencoded")
-	public void updatePatient(@PathParam("id") int patientID,
-							  @FormParam("patientName") String patientName,
-							  @FormParam("specie") String specie,
-							  @FormParam("breed") String breed,
-							  @FormParam("size") char size,
-							  @FormParam("gender") char gender,
-//		 	 				  @FormParam("birthday") Date birthday,
-							  @FormParam("coat") String coat) {
+	@Consumes("application/json")
+	public Patient updatePatient(@PathParam("id") int patientID, Patient request) {
 		
-		Patient patient = new Patient();
-		patient.setId(patientID);
-		patient.setPatientName(patientName);
-		patient.setSpecie(specie);
-		patient.setBreed(breed);
-		patient.setSize(size);
-		patient.setGender(gender);
-//		patient.setBirthday(birthday);
-		patient.setCoat(coat);
-		
+		request.setId(patientID);
 		PatientDAO dao = new PatientDAO();
-		dao.updatePatient(patient);
+		dao.updatePatient(request);
+		logger.debug("PUT /patients/("+ patientID +") update patient by id = " + dao);
+		return dao.getPatientById(patientID);
 	}
 	
 	// create method to delete one patient
 	@DELETE
 	@Path("/{id:[0-9]+}")
-	public void deletePatient(@PathParam("id") int patientId) {
+	public List<Patient> deletePatient(@PathParam("id") int patientId) {
 		PatientDAO dao = new PatientDAO();
+		logger.debug("DELETE /patients/("+ patientId +") with dao object = "+ dao);
+		logger.debug("DELETE /patients/("+ patientId +") with id object = "+ patientId);
 		dao.deletePatient(patientId);
+		return dao.getAllPatients();
 	}
 	
 }

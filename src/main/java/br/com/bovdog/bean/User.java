@@ -19,8 +19,8 @@ public class User {
 	public int getId() {
 		return id;
 	}
-	public void setId(int userId) {
-		this.id = userId;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getUserFullName() {
 		return userFullName;
