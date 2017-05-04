@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.EntityManager;
 
 import br.com.bovdog.bean.ClinicalRecord;
+import br.com.bovdog.bean.ClinicalRecordAppointment;
+import br.com.bovdog.bean.ClinicalRecordVaccination;
 
 // Create class record DAO for database communication.
 public class ClinicalRecordDAO {
@@ -25,21 +27,31 @@ public class ClinicalRecordDAO {
     return record;
   }
 	// Listing all the records in the database.
-  public List<ClinicalRecord> getAllClinicalRecords() {
-    List<ClinicalRecord> records = new ArrayList<ClinicalRecord>();
-    records = entityManager.createQuery("FROM " + ClinicalRecord.class.getName()).getResultList();
+  public List<ClinicalRecordAppointment> getAllClinicalRecordsAppointment() {
+    List<ClinicalRecordAppointment> records = new ArrayList<ClinicalRecordAppointment>();
+    records = entityManager.createQuery("FROM " + ClinicalRecordAppointment.class.getName()).getResultList();
     return records;
   }
+  
+	//Listing all the records in the database.
+  public List<ClinicalRecordVaccination> getAllClinicalRecordsVaccination() {
+	 List<ClinicalRecordVaccination> records = new ArrayList<ClinicalRecordVaccination>();
+	 records = entityManager.createQuery("FROM " + ClinicalRecordVaccination.class.getName()).getResultList();
+	 return records;
+  }
+ 
 	// Create record in database.
-  public void createClinicalRecord(ClinicalRecord record) {
+  public ClinicalRecord createClinicalRecord(ClinicalRecord record) {
     try {
       entityManager.getTransaction().begin();
       entityManager.persist(record);
+      entityManager.flush();
       entityManager.getTransaction().commit();
     } catch(Exception e) {
       e.printStackTrace();
       entityManager.getTransaction().rollback();
     }
+    return record;
   }
 	// Update record in database.
   public void updateClinicalRecord(ClinicalRecord record) {
