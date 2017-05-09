@@ -10,13 +10,12 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
 import br.com.bovdog.bean.Owner;
-import br.com.bovdog.dao.OwnerDAO;
+import br.com.bovdog.dao.DataAccessObject;
 
 import org.apache.log4j.Logger;
 
@@ -25,28 +24,24 @@ import org.apache.log4j.Logger;
 public class OwnerService{
 	
 	// Initializing the log service
-	final static Logger logger = Logger.getLogger(OwnerDAO.class);
+	final static Logger logger = Logger.getLogger(DataAccessObject.class);
 	
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public List<Owner> getAllOwners(
-			@QueryParam("_sort") String sort,
-			@QueryParam("_order") String order,
-			@QueryParam("cpf") String cpf,
-			@Context UriInfo ui){
-		OwnerDAO dao = new OwnerDAO();
+	public List<Owner> getAllOwners(@Context UriInfo ui) {
+		DataAccessObject dao = new DataAccessObject();
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /owners calling dao object = " + dao);
-		return dao.getAllOwners(queryParameters);
+		return dao.getAllObjects(queryParameters, Owner.class);
 	}
 	
 	@GET
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public Owner getOwnerById(@PathParam("id") int id) {
-		OwnerDAO dao = new OwnerDAO();
-		return dao.getOwnerById(id);
+		DataAccessObject dao = new DataAccessObject();
+		return dao.getObjectById(id, Owner.class);
 	}
 	
 	@POST
@@ -55,8 +50,8 @@ public class OwnerService{
 	@Produces("application/json")
 	public Owner createOwner(Owner request){
 
-		OwnerDAO dao = new OwnerDAO();
-		request = dao.createOwner(request);
+		DataAccessObject dao = new DataAccessObject();
+		request = dao.createObject(request);
 		logger.debug("POST /owners/create with dao object = "+ dao);
 		logger.debug("POST /owners/create with owner object = "+ request);
 		return request;
@@ -67,23 +62,24 @@ public class OwnerService{
 	@Consumes("application/json")
 	public Owner updateOwner(Owner request, @PathParam("id") int id){
 
-		OwnerDAO dao = new OwnerDAO();
+		DataAccessObject dao = new DataAccessObject();
 		request.setId(id);
-		dao.updateOwner(request);
+		dao.updateObject(request);
 		logger.debug("POST /owners/update with dao object = "+ dao);
 		logger.debug("POST /owners/update with owner object = "+ request);
-		return dao.getOwnerById(request.getId());
+		return dao.getObjectById(request.getId(), Owner.class);
 
 	}
 
 	@DELETE
 	@Path("/{id: [0-9]+}")
+	@Produces("application/json")
 	public List<Owner> deleteOwner(@PathParam("id") int id ){
-		OwnerDAO dao = new OwnerDAO();
+		DataAccessObject dao = new DataAccessObject();
 		logger.debug("DELETE /owners/delete with dao object = "+ dao);
 		logger.debug("DELETE /owners/delete with id object = "+ id);
-		dao.deleteOwner(id);
-		return dao.getAllOwners(null);
+		dao.deleteObject(id, Owner.class);
+		return dao.getAllObjects(null, Owner.class);
 	}
 
 
