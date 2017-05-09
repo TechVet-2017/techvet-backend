@@ -24,13 +24,21 @@ import org.apache.log4j.Logger;
 public class OwnerService{
 	
 	// Initializing the log service
-	final static Logger logger = Logger.getLogger(DataAccessObject.class);
+	private DataAccessObject dao;
+	private final static Logger logger = Logger.getLogger(DataAccessObject.class);
+	
+	public OwnerService() {
+		dao = new DataAccessObject();
+	}
+	
+	public OwnerService(DataAccessObject dao) {
+		this.dao = dao;
+	}
 	
 	@GET
 	@Path("/")
 	@Produces("application/json")
 	public List<Owner> getAllOwners(@Context UriInfo ui) {
-		DataAccessObject dao = new DataAccessObject();
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /owners calling dao object = " + dao);
 		return dao.getAllObjects(queryParameters, Owner.class);
@@ -40,7 +48,6 @@ public class OwnerService{
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public Owner getOwnerById(@PathParam("id") int id) {
-		DataAccessObject dao = new DataAccessObject();
 		return dao.getObjectById(id, Owner.class);
 	}
 	
@@ -50,7 +57,6 @@ public class OwnerService{
 	@Produces("application/json")
 	public Owner createOwner(Owner request){
 
-		DataAccessObject dao = new DataAccessObject();
 		request = dao.createObject(request);
 		logger.debug("POST /owners/create with dao object = "+ dao);
 		logger.debug("POST /owners/create with owner object = "+ request);
@@ -62,7 +68,6 @@ public class OwnerService{
 	@Consumes("application/json")
 	public Owner updateOwner(Owner request, @PathParam("id") int id){
 
-		DataAccessObject dao = new DataAccessObject();
 		request.setId(id);
 		dao.updateObject(request);
 		logger.debug("POST /owners/update with dao object = "+ dao);
@@ -75,12 +80,10 @@ public class OwnerService{
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public List<Owner> deleteOwner(@PathParam("id") int id ){
-		DataAccessObject dao = new DataAccessObject();
 		logger.debug("DELETE /owners/delete with dao object = "+ dao);
 		logger.debug("DELETE /owners/delete with id object = "+ id);
 		dao.deleteObject(id, Owner.class);
 		return dao.getAllObjects(null, Owner.class);
 	}
-
 
 }

@@ -12,9 +12,15 @@ import javax.ws.rs.core.MultivaluedMap;
 public class DataAccessObject {
 	
 	private EntityManager entityManager = null;
+	private final String TECHVET_UNIT = "techvet-unit";
 
 	public DataAccessObject(){
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("techvet-unit");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(TECHVET_UNIT);
+		this.entityManager = factory.createEntityManager();
+	}
+	
+	public DataAccessObject(String persistenceUnit) {
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(persistenceUnit);
 		this.entityManager = factory.createEntityManager();
 	}
 			
