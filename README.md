@@ -1,6 +1,7 @@
 # techvet-backend
 Backend TechVet repository
 
+[![Build Status](https://travis-ci.org/TechVet-2017/techvet-backend.svg?branch=development)](https://travis-ci.org/TechVet-2017/techvet-backend)
 
 ## Instructions for Development Team:
 
