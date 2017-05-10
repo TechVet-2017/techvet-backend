@@ -10,22 +10,22 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.core.MultivaluedMap;
 
 public class DataAccessObject {
-	private DataAccessObject instance;
+	public static DataAccessObject instance;
 	private EntityManager entityManager = null;
 
-	public DataAccessObject(){
+	protected DataAccessObject(){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("techvet-unit");
 		this.entityManager = factory.createEntityManager();
 	}
 	
 	// singleton pattern for Data Access Object
-	protected <T> T getObjectById(int id, Class<T> bean){
+	public <T> T getObjectById(int id, Class<T> bean){
 	    T beanInstance = entityManager.find(bean, id);
 	    return beanInstance;
 	}
 
 	// create getInstance method to create a new instance of DAO if it's null 
-	public DataAccessObject getInstance() {
+	public static DataAccessObject getInstance() {
 		if (instance == null) {
 			instance = new DataAccessObject();
 		} else {
