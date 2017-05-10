@@ -29,7 +29,7 @@ public class ClinicalRecordVaccinationService { // Creating clinical record
 			@Context UriInfo ui) {
 		MultivaluedMap<String, String> queryParameters = ui
 				.getQueryParameters();
-		DataAccessObject dao = new DataAccessObject(); // Listing all the DAO
+		DataAccessObject dao = DataAccessObject.getInstance(); // Listing all the DAO
 														// clinical records
 		return dao.getAllObjects(queryParameters,
 				ClinicalRecordVaccination.class);
@@ -48,7 +48,7 @@ public class ClinicalRecordVaccinationService { // Creating clinical record
 																			// by
 																			// it's
 																			// id
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		return dao.getObjectById(id, ClinicalRecordVaccination.class);
 	}
 
@@ -58,7 +58,7 @@ public class ClinicalRecordVaccinationService { // Creating clinical record
 	@Produces("application/json")
 	public ClinicalRecord createClinicalRecordVaccination(
 			ClinicalRecordVaccination request) {
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		request = dao.createObject(request);
 
 		return dao.getObjectById(request.getId(),
@@ -71,7 +71,7 @@ public class ClinicalRecordVaccinationService { // Creating clinical record
 	@Produces("application/json")
 	public ClinicalRecord updateClinicalRecordVaccination(
 			@PathParam("id") int id, ClinicalRecordVaccination request) {
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		request.setId(id);
 		dao.updateObject(request);
 		return dao.getObjectById(id, ClinicalRecordVaccination.class);
@@ -86,7 +86,7 @@ public class ClinicalRecordVaccinationService { // Creating clinical record
 																	// record
 																	// DAO by
 																	// it's id
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		dao.deleteObject(id, ClinicalRecordVaccination.class);
 		return dao.getAllObjects(null, ClinicalRecordVaccination.class);
 	}

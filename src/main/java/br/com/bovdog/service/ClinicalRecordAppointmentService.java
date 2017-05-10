@@ -20,14 +20,14 @@ import br.com.bovdog.dao.DataAccessObject;
 
 @Path("/appointmentRecords")
 public class ClinicalRecordAppointmentService { 
-
+	
 	// Creating function to get all clinical records by id
 	@GET
 	@Path("/")
 	@Produces("application/json")
 	public List<ClinicalRecordAppointment> getAllClinicalRecords(@Context UriInfo ui) {
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
-		DataAccessObject dao = new DataAccessObject(); // Listing all the DAO clinical records
+		DataAccessObject dao = DataAccessObject.getInstance(); // Listing all the DAO clinical records
 		return dao.getAllObjects(queryParameters, ClinicalRecordAppointment.class);
 	}
 
@@ -36,7 +36,7 @@ public class ClinicalRecordAppointmentService {
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public ClinicalRecord getClinicalRecordById(@PathParam("id") int id) { // Getting the clinical record DAO by it's id
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		return dao.getObjectById(id, ClinicalRecordAppointment.class);
 	}
 
@@ -46,7 +46,7 @@ public class ClinicalRecordAppointmentService {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public ClinicalRecord createClinicalRecordAppointment(ClinicalRecordAppointment request){
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		request = (ClinicalRecordAppointment)dao.createObject(request);
 	
 		return dao.getObjectById(request.getId(), ClinicalRecordAppointment.class);
@@ -58,7 +58,7 @@ public class ClinicalRecordAppointmentService {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public ClinicalRecord updateClinicalRecordAppointment(@PathParam("id") int id, ClinicalRecordAppointment request) {
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		request.setId(id);
 		dao.updateObject(request);
 		return dao.getObjectById(id, ClinicalRecordAppointment.class);
@@ -69,7 +69,7 @@ public class ClinicalRecordAppointmentService {
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public List<ClinicalRecordAppointment> deleteClinicalRecordById(@PathParam("id") int id) { //Deleting the clinical record DAO by it's id
-		DataAccessObject dao = new DataAccessObject();
+		DataAccessObject dao = DataAccessObject.getInstance();
 		dao.deleteObject(id, ClinicalRecordAppointment.class);
 		return dao.getAllObjects(null, ClinicalRecordAppointment.class);
 	}
