@@ -23,7 +23,7 @@ import br.com.bovdog.dao.DataAccessObject;
 
 @Path("/users")
 
-public class UserService {
+public class UserService implements ServiceInterface {
 	
 	private DataAccessObject dao;
 	
@@ -31,7 +31,7 @@ public class UserService {
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
 	
 	public UserService() {
-		dao = new DataAccessObject();
+		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
 	public UserService(DataAccessObject dao) {
@@ -42,8 +42,10 @@ public class UserService {
 	@Path("/")
 	@Produces("application/json")
 	public List<User> getAllUsers(@Context UriInfo ui){ // Listing all the DAO users
+
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /users calling dao object = " + dao);
+		
 		return dao.getAllObjects(queryParameters, User.class);
 	}
 	
@@ -51,6 +53,7 @@ public class UserService {
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public User getUserById(@PathParam("id") int id) { // Finding a DAO users by his id
+
 		return dao.getObjectById(id, User.class);
 	}
 	
@@ -69,6 +72,7 @@ public class UserService {
 		request = dao.createObject(request);
 		logger.debug("POST /users/create with dao object = "+ dao);
 		logger.debug("POST /users/create with user object = "+ request);
+		
 		return request;
 	}
 	
@@ -86,17 +90,20 @@ public class UserService {
 		dao.updateObject(request);
 		
 		logger.debug("POST /users/update with dao object = "+ dao);
+		
 		return dao.getObjectById(userID, User.class);
 	}
 	
-	// Creating a method to delete a user
+	// creating a method to delete a user
 	@DELETE
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public List<User> deleteUser(@PathParam("id") int id ){
+
 		logger.debug("DELETE /users/delete with dao object = "+ dao);
 		logger.debug("DELETE /users/delete with id object = "+ id);
 		dao.deleteObject(id, User.class);
+		
 		return dao.getAllObjects(null, User.class);
 	}
 }

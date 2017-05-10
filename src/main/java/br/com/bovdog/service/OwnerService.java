@@ -21,14 +21,14 @@ import org.apache.log4j.Logger;
 
 @Path("/owners")
 
-public class OwnerService{
-	
+public class OwnerService implements ServiceInterface {
+
 	// Initializing the log service
 	private DataAccessObject dao;
 	private final static Logger logger = Logger.getLogger(DataAccessObject.class);
 	
 	public OwnerService() {
-		dao = new DataAccessObject();
+		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
 	public OwnerService(DataAccessObject dao) {
@@ -39,8 +39,10 @@ public class OwnerService{
 	@Path("/")
 	@Produces("application/json")
 	public List<Owner> getAllOwners(@Context UriInfo ui) {
+		
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /owners calling dao object = " + dao);
+		
 		return dao.getAllObjects(queryParameters, Owner.class);
 	}
 	
@@ -48,6 +50,7 @@ public class OwnerService{
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public Owner getOwnerById(@PathParam("id") int id) {
+
 		return dao.getObjectById(id, Owner.class);
 	}
 	
@@ -60,6 +63,7 @@ public class OwnerService{
 		request = dao.createObject(request);
 		logger.debug("POST /owners/create with dao object = "+ dao);
 		logger.debug("POST /owners/create with owner object = "+ request);
+		
 		return request;
 	}
 
@@ -72,6 +76,7 @@ public class OwnerService{
 		dao.updateObject(request);
 		logger.debug("POST /owners/update with dao object = "+ dao);
 		logger.debug("POST /owners/update with owner object = "+ request);
+		
 		return dao.getObjectById(request.getId(), Owner.class);
 
 	}
@@ -80,9 +85,11 @@ public class OwnerService{
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public List<Owner> deleteOwner(@PathParam("id") int id ){
+
 		logger.debug("DELETE /owners/delete with dao object = "+ dao);
 		logger.debug("DELETE /owners/delete with id object = "+ id);
 		dao.deleteObject(id, Owner.class);
+		
 		return dao.getAllObjects(null, Owner.class);
 	}
 
