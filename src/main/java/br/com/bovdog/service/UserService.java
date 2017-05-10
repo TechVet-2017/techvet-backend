@@ -25,8 +25,18 @@ import br.com.bovdog.dao.DataAccessObject;
 
 public class UserService {
 	
+	private DataAccessObject dao;
+	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
+	
+	public UserService() {
+		dao = new DataAccessObject();
+	}
+	
+	public UserService(DataAccessObject dao) {
+		this.dao = dao;
+	}
 	
 	@GET
 	@Path("/")
