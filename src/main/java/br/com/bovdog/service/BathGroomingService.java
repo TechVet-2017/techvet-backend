@@ -21,7 +21,13 @@ import br.com.bovdog.dao.DataAccessObject;
 
 
 @Path("/bathAndGrooming")
-public class BathGroomingService {
+public class BathGroomingService implements ServiceInterface {
+	
+	private DataAccessObject dao;
+	
+	public BathGroomingService() {
+		dao = DataAccessObject.getInstance(TECHVET_UNIT);
+	}
 	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
@@ -31,7 +37,6 @@ public class BathGroomingService {
 	@Path("/")
 	@Produces("application/json")
 	public BathGrooming createBathGrooming(BathGrooming request){
-		DataAccessObject dao = DataAccessObject.getInstance();
 		
 		dao.createObject(request);
 		logger.debug("POST /bathAndGrooming/create with serviceBathGrooming = "+ request.getServiceBathGrooming());
@@ -45,7 +50,6 @@ public class BathGroomingService {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public BathGrooming getBathGroomingById(@PathParam("id") int id) {
-		DataAccessObject dao = DataAccessObject.getInstance();
 	    return dao.getObjectById(id, BathGrooming.class);
 	}
 
@@ -54,7 +58,6 @@ public class BathGroomingService {
 	@Path("/")
 	@Produces("application/json")
 	public List<BathGrooming> getAllBathGroomings(@Context UriInfo ui) {
-		DataAccessObject dao = DataAccessObject.getInstance();
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /bathAndGrooming calling dao object = " + dao);
 	 	return dao.getAllObjects(queryParameters, BathGrooming.class);
@@ -66,7 +69,6 @@ public class BathGroomingService {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public List<BathGrooming> deleteBathGroomingById(@PathParam("id") int id) {
-		DataAccessObject dao = DataAccessObject.getInstance();
 		logger.debug("DELETE /bathAndGrooming/delete with dao object = "+ dao);
 		logger.debug("DELETE /bathAndGrooming/delete with id object = "+ id);
 		dao.deleteObject(id, BathGrooming.class);
@@ -84,8 +86,7 @@ public class BathGroomingService {
 		logger.debug("POST /bathAndGrooming/update with ownerName = "+ request.getServiceBathGrooming());
 		bathGrooming.setId(request.getId());
 		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
-			
-		DataAccessObject dao = DataAccessObject.getInstance();
+		
 		dao.updateObject(bathGrooming);
 		
 		return dao.getObjectById(request.getId(), BathGrooming.class);
