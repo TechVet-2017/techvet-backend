@@ -23,18 +23,29 @@ import br.com.bovdog.dao.DataAccessObject;
 
 @Path("/users")
 
-public class UserService {
+public class UserService implements ServiceInterface {
+	
+	private DataAccessObject dao;
 	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
+	
+	public UserService() {
+		dao = DataAccessObject.getInstance(TECHVET_UNIT);
+	}
+	
+	public UserService(DataAccessObject dao) {
+		this.dao = dao;
+	}
 	
 	@GET
 	@Path("/")
 	@Produces("application/json")
 	public List<User> getAllUsers(@Context UriInfo ui){ // Listing all the DAO users
-		DataAccessObject dao = new DataAccessObject();
+
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /users calling dao object = " + dao);
+		
 		return dao.getAllObjects(queryParameters, User.class);
 	}
 	
@@ -42,7 +53,7 @@ public class UserService {
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public User getUserById(@PathParam("id") int id) { // Finding a DAO users by his id
-		DataAccessObject dao = new DataAccessObject();
+
 		return dao.getObjectById(id, User.class);
 	}
 	
@@ -58,10 +69,10 @@ public class UserService {
 		logger.debug("POST /users/create with userFullName = "+ request.getUserFullName());
 		logger.debug("POST /users/create with userPassword = "+ request.getUserPassword());
 
-		DataAccessObject dao = new DataAccessObject();
 		request = dao.createObject(request);
 		logger.debug("POST /users/create with dao object = "+ dao);
 		logger.debug("POST /users/create with user object = "+ request);
+		
 		return request;
 	}
 	
@@ -76,22 +87,23 @@ public class UserService {
 		logger.debug("POST /users/update with userPassword = "+ request.getUserPassword());
 		
 		request.setId(userID);
-		DataAccessObject dao = new DataAccessObject();
 		dao.updateObject(request);
 		
 		logger.debug("POST /users/update with dao object = "+ dao);
+		
 		return dao.getObjectById(userID, User.class);
 	}
 	
-	// Creating a method to delete a user
+	// creating a method to delete a user
 	@DELETE
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public List<User> deleteUser(@PathParam("id") int id ){
-		DataAccessObject dao = new DataAccessObject();
+
 		logger.debug("DELETE /users/delete with dao object = "+ dao);
 		logger.debug("DELETE /users/delete with id object = "+ id);
 		dao.deleteObject(id, User.class);
+		
 		return dao.getAllObjects(null, User.class);
 	}
 }
