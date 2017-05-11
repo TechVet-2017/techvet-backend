@@ -33,11 +33,15 @@ public class PatientService implements ServiceInterface {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
+	public PatientService(DataAccessObject dao) {
+		this.dao = dao;
+	}
+	
 	// create method to get all patients registered 
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public List<Patient> getAllPatient(@Context UriInfo ui) {
+	public List<Patient> getAllPatients(@Context UriInfo ui) {
 
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /patients calling dao object = " + dao);
