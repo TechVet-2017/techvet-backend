@@ -22,17 +22,23 @@ import br.com.bovdog.dao.DataAccessObject;
 import org.apache.log4j.Logger;
 // create Patient service 
 @Path("/patients")
-public class PatientService {
+public class PatientService implements ServiceInterface {
+	
+	private DataAccessObject dao;
 	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
+
+	public PatientService() {
+		dao = DataAccessObject.getInstance(TECHVET_UNIT);
+	}
 	
 	// create method to get all patients registered 
 	@GET
 	@Path("/")
 	@Produces("application/json")
 	public List<Patient> getAllPatient(@Context UriInfo ui) {
-		DataAccessObject dao = new DataAccessObject();
+
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /patients calling dao object = " + dao);
 		return dao.getAllObjects(queryParameters, Patient.class);
@@ -45,7 +51,6 @@ public class PatientService {
 	@Produces("application/json")
 	public Patient createPatient(Patient request) {
 
-		DataAccessObject dao = new DataAccessObject();
 		request = dao.createObject(request);
 		logger.debug("POST /patients create patient name = " + request.getPatientName());
 		logger.debug("POST /patients create patient size = " + request.getSize());
@@ -55,6 +60,7 @@ public class PatientService {
 		logger.debug("POST /patients create patient breed = " + request.getBreed());
 		logger.debug("POST /patients create patient coat = " + request.getCoat());
 		logger.debug("POST /patients create patient id = " + request.getId());
+		
 		return dao.getObjectById(request.getId(), Patient.class);
 	}
 	
@@ -63,8 +69,9 @@ public class PatientService {
 	@Path("/{id:[0-9]+}")
 	@Produces("application/json")
 	public Patient getPatientById(@PathParam("id") int patientId) {
-		DataAccessObject dao = new DataAccessObject();
+
 		logger.debug("GET /patients/("+ patientId +") find patient by id = " + dao);
+		
 		return dao.getObjectById(patientId, Patient.class);
 		
 	}
@@ -76,9 +83,9 @@ public class PatientService {
 	public Patient updatePatient(@PathParam("id") int patientID, Patient request) {
 		
 		request.setId(patientID);
-		DataAccessObject dao = new DataAccessObject();
 		dao.updateObject(request);
 		logger.debug("PUT /patients/("+ patientID +") update patient by id = " + dao);
+		
 		return dao.getObjectById(patientID, Patient.class);
 	}
 	
@@ -87,10 +94,11 @@ public class PatientService {
 	@Path("/{id:[0-9]+}")
 	@Produces("application/json")
 	public List<Patient> deletePatient(@PathParam("id") int patientId) {
-		DataAccessObject dao = new DataAccessObject();
+
 		logger.debug("DELETE /patients/("+ patientId +") with dao object = "+ dao);
 		logger.debug("DELETE /patients/("+ patientId +") with id object = "+ patientId);
 		dao.deleteObject(patientId, Patient.class);
+		
 		return dao.getAllObjects(null, Patient.class);
 	}
 	
