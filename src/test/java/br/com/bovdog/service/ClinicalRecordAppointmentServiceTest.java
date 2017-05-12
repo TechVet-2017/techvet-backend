@@ -68,6 +68,12 @@ public class ClinicalRecordAppointmentServiceTest {
 	}
 
 	@Test
+	public void creatorTest() {
+		ClinicalRecordAppointmentService clinicalRecordAppointmentService = new ClinicalRecordAppointmentService();
+		Assert.assertNotNull(clinicalRecordAppointmentService);
+	}
+
+	@Test
 	public void getAllClinicalRecordAppointmentTest() {
 		UriInfo ui = Mockito.mock(UriInfo.class);
 		@SuppressWarnings("unchecked")
@@ -118,6 +124,39 @@ public class ClinicalRecordAppointmentServiceTest {
 		Assert.assertEquals("UpdatedVeterinarian", dataAccessObject
 				.getObjectById(id, ClinicalRecordAppointment.class)
 				.getVeterinarian());
+	}
+
+	@Test
+	public void deleteClinicalRecordAppointmentTest() {
+		ClinicalRecordAppointment clinicalRecordAppointment = setupAppointment();
+		clinicalRecordAppointment = dataAccessObject
+				.createObject(clinicalRecordAppointment);
+		int id = clinicalRecordAppointment.getId();
+		Assert.assertEquals(clinicalRecordAppointment, dataAccessObject
+				.getObjectById(id, ClinicalRecordAppointment.class));
+
+		clinicalRecordAppointmentService.deleteClinicalRecordById(id);
+
+		Assert.assertEquals(null, dataAccessObject.getObjectById(id,
+				ClinicalRecordAppointment.class));
+	}
+
+	@Test
+	public void getClinicalRecordAppointmentById() {
+
+		ClinicalRecordAppointment firstRecord = setupAppointment();
+		firstRecord = dataAccessObject.createObject(firstRecord);
+		int firstId = firstRecord.getId();
+
+		ClinicalRecordAppointment secondRecord = setupAppointment();
+		secondRecord = dataAccessObject.createObject(secondRecord);
+		int secondId = secondRecord.getId();
+
+		Assert.assertEquals(firstRecord,
+				clinicalRecordAppointmentService.getClinicalRecordById(firstId));
+		Assert.assertEquals(secondRecord, clinicalRecordAppointmentService
+				.getClinicalRecordById(secondId));
+
 	}
 
 }
