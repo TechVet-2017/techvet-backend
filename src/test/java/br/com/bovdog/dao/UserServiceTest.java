@@ -115,4 +115,12 @@ public class UserServiceTest {
 		assertEquals(testDAO.getObjectById(user.getId(), User.class)
 				.getUserPassword(), user.getUserPassword());
 	}
+
+	@Test
+	public void getUserByIdTest() {
+		User user = setupUser();
+		user = userService.createUser(user);
+
+		assertEquals(userService.getUserById(user.getId()), user);
+	}
 }
