@@ -79,7 +79,8 @@ public class ClinicalRecordVaccinationServiceTest {
 	@Test
 	public void createClinicalReccordVaccinationTest() throws ParseException{
 		ClinicalRecordVaccination clinicalRecordVaccination = setupVaccination();
-		clinicalRecordVaccination = dataAcessObject.createObject(clinicalRecordVaccination);
+		
+		clinicalRecordVaccination = (ClinicalRecordVaccination) clinicalRecordVaccinationService.createClinicalRecordVaccination(clinicalRecordVaccination);
 		int id = clinicalRecordVaccination.getId();
 		Assert.assertEquals(clinicalRecordVaccination, dataAcessObject.getObjectById(id, ClinicalRecordVaccination.class));
 	}
@@ -99,9 +100,46 @@ public class ClinicalRecordVaccinationServiceTest {
 		
 		clinicalRecordVaccination.setVermifugeName(updatedVermifugeName);
 		
-		dataAcessObject.updateObject(clinicalRecordVaccination);
+		clinicalRecordVaccinationService.updateClinicalRecordVaccination(id, clinicalRecordVaccination);
 		
 		Assert.assertEquals(updatedVermifugeName, dataAcessObject.getObjectById(id, ClinicalRecordVaccination.class).getVermifugeName());
 		
+	}
+	
+	@Test
+	public void deleteClinicalRecordVaccinationByIdTest() throws ParseException {
+		ClinicalRecordVaccination clinicalRecordVaccination = setupVaccination();
+		
+		clinicalRecordVaccination = dataAcessObject.createObject(clinicalRecordVaccination);
+		
+		int id = clinicalRecordVaccination.getId();
+		
+		Assert.assertEquals(id, clinicalRecordVaccination.getId());
+		
+		clinicalRecordVaccinationService.deleteClinicalRecordById(id);
+		
+		Assert.assertEquals(null, dataAcessObject.getObjectById(id, ClinicalRecordVaccination.class));		
+	}
+	
+	@Test
+	public void getClinicalRecordByIdTest() throws ParseException {
+		ClinicalRecordVaccination firstRecord = setupVaccination();
+		ClinicalRecordVaccination secondRecord = setupVaccination();
+		
+		firstRecord = dataAcessObject.createObject(firstRecord);
+		secondRecord = dataAcessObject.createObject(secondRecord);
+		
+		int firstId = firstRecord.getId();
+		int secondId = secondRecord.getId();
+		
+		Assert.assertEquals(firstRecord, clinicalRecordVaccinationService.getClinicalRecordById(firstId));
+		Assert.assertEquals(secondRecord, clinicalRecordVaccinationService.getClinicalRecordById(secondId));
+		
+	}
+	
+	@Test
+	public void createTest() {
+		ClinicalRecordVaccinationService clinicalRecordVaccinationService = new ClinicalRecordVaccinationService();
+		Assert.assertNotNull(clinicalRecordVaccinationService);
 	}
 }
