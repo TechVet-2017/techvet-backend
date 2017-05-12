@@ -12,12 +12,14 @@ import javax.ws.rs.core.UriInfo;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import br.com.bovdog.bean.ClinicalRecordVaccination;
 import br.com.bovdog.bean.VaccinationFactory;
 import br.com.bovdog.dao.DataAccessObject;
+import br.com.bovdog.helper.PersistenceHelper;
 
 public class ClinicalRecordVaccinationServiceTest {
 	DataAccessObject dataAcessObject = DataAccessObject.getInstance("test-unit");
@@ -26,7 +28,6 @@ public class ClinicalRecordVaccinationServiceTest {
 	public ClinicalRecordVaccination setupVaccination() throws ParseException {
 		
 		VaccinationFactory vaccinationFactory = new VaccinationFactory();
-		
 		
 		DateFormat formatter = new SimpleDateFormat("dd/MM/YYYY");
 		Date testDate = formatter.parse("01/01/2000");
@@ -44,6 +45,11 @@ public class ClinicalRecordVaccinationServiceTest {
 		record.setVermifugeName("String");
 		
 		return record;
+	}
+	
+	@After
+	public void clearDatabase(){
+		PersistenceHelper.clearDatabase();
 	}
 	
 	@Test
@@ -68,5 +74,34 @@ public class ClinicalRecordVaccinationServiceTest {
 			vaccinations.add(record);
 		}
 		Assert.assertEquals(vaccinations, dataAcessObject.getAllObjects(null, ClinicalRecordVaccination.class));	
+	}
+	
+	@Test
+	public void createClinicalReccordVaccinationTest() throws ParseException{
+		ClinicalRecordVaccination clinicalRecordVaccination = setupVaccination();
+		clinicalRecordVaccination = dataAcessObject.createObject(clinicalRecordVaccination);
+		int id = clinicalRecordVaccination.getId();
+		Assert.assertEquals(clinicalRecordVaccination, dataAcessObject.getObjectById(id, ClinicalRecordVaccination.class));
+	}
+	
+	@Test
+	public void updateClinicalRecordVaccinationTest() throws ParseException{
+		ClinicalRecordVaccination clinicalRecordVaccination = setupVaccination();
+		clinicalRecordVaccination = dataAcessObject.createObject(clinicalRecordVaccination);
+		
+		int id = clinicalRecordVaccination.getId();
+		String vermifugeName = clinicalRecordVaccination.getVermifugeName();
+	
+		Assert.assertEquals(clinicalRecordVaccination, dataAcessObject.getObjectById(id, ClinicalRecordVaccination.class));
+		Assert.assertEquals(vermifugeName, dataAcessObject.getObjectById(id, ClinicalRecordVaccination.class).getVermifugeName());
+		
+		String updatedVermifugeName = "UpdatedVermifugeName";
+		
+		clinicalRecordVaccination.setVermifugeName(updatedVermifugeName);
+		
+		dataAcessObject.updateObject(clinicalRecordVaccination);
+		
+		Assert.assertEquals(updatedVermifugeName, dataAcessObject.getObjectById(id, ClinicalRecordVaccination.class).getVermifugeName());
+		
 	}
 }
