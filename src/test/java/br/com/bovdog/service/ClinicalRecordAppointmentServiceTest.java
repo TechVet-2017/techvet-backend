@@ -6,12 +6,14 @@ import java.util.List;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
+import org.junit.After;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import br.com.bovdog.bean.AppointmentFactory;
 import br.com.bovdog.bean.ClinicalRecordAppointment;
 import br.com.bovdog.dao.DataAccessObject;
+import br.com.bovdog.helper.PersistenceHelper;
 import junit.framework.Assert;
 
 public class ClinicalRecordAppointmentServiceTest {
@@ -20,6 +22,11 @@ public class ClinicalRecordAppointmentServiceTest {
 			.getInstance("test-unit");
 	ClinicalRecordAppointmentService clinicalRecordAppointmentService = new ClinicalRecordAppointmentService(
 			dataAccessObject);
+
+	@After
+	public void cleanDatabase() {
+		PersistenceHelper.clearDatabase();
+	}
 
 	public ClinicalRecordAppointment setupAppointment() {
 		AppointmentFactory appointmentFactory = new AppointmentFactory();
@@ -73,12 +80,44 @@ public class ClinicalRecordAppointmentServiceTest {
 			ClinicalRecordAppointment record = setupAppointment();
 			record.setVeterinarian("String " + i);
 			record = dataAccessObject.createObject(record);
-			
+
 			appointments.add(record);
 
 		}
 		Assert.assertEquals(appointments, dataAccessObject.getAllObjects(null,
 				ClinicalRecordAppointment.class));
+	}
+
+	@Test
+	public void createClinicalRecordAppointmentTest() {
+		ClinicalRecordAppointment clinicalRecordAppointment = setupAppointment();
+		clinicalRecordAppointment = (ClinicalRecordAppointment) clinicalRecordAppointmentService
+				.createClinicalRecordAppointment(clinicalRecordAppointment);
+
+		int id = clinicalRecordAppointment.getId();
+		Assert.assertEquals(clinicalRecordAppointment, dataAccessObject
+				.getObjectById(id, ClinicalRecordAppointment.class));
+
+	}
+
+	@Test
+	public void updateClinicalRecordAppointmentTest() {
+		ClinicalRecordAppointment clinicalRecordAppointment = setupAppointment();
+		clinicalRecordAppointment = dataAccessObject
+				.createObject(clinicalRecordAppointment);
+		int id = clinicalRecordAppointment.getId();
+		Assert.assertEquals(clinicalRecordAppointment, dataAccessObject
+				.getObjectById(id, ClinicalRecordAppointment.class));
+		Assert.assertEquals(
+				"String",
+				dataAccessObject.getObjectById(id,
+						ClinicalRecordAppointment.class).getVeterinarian());
+		clinicalRecordAppointment.setVeterinarian("UpdatedVeterinarian");
+		clinicalRecordAppointmentService.updateClinicalRecordAppointment(id,
+				clinicalRecordAppointment);
+		Assert.assertEquals("UpdatedVeterinarian", dataAccessObject
+				.getObjectById(id, ClinicalRecordAppointment.class)
+				.getVeterinarian());
 	}
 
 }
