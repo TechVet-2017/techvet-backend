@@ -139,5 +139,20 @@ public class PatientServiceTest {
 		assertEquals(testDao.getObjectById(patient.getId(), Patient.class)
 				.getBirthday(), date);
 	}
+	
+	@Test
+	public void deletePatientTest(){
+	 	List<Patient> patients = new ArrayList<Patient>();
+	 	for (int i = 0; i < 3; i++) {
+	 		Patient patient = setupPatient();
+	 		patient.setPatientName("Patient " + i);
+	 		patient = testDao.createObject(patient);
+	 		patients.add(patient);
+	 	}
+	 	 
+	 	patientService.deletePatient(patients.get(0).getId());
+	 	 
+	 	assertEquals(patients.size()-1, testDao.getAllObjects(null, Patient.class).size());
+	 }
 
 }
