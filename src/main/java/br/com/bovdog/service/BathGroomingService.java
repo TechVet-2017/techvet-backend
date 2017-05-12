@@ -29,6 +29,10 @@ public class BathGroomingService implements ServiceInterface {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
+	public BathGroomingService(DataAccessObject dao) {
+		this.dao = dao;
+	}
+	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
 	

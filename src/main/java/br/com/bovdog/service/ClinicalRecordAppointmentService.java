@@ -27,6 +27,10 @@ public class ClinicalRecordAppointmentService implements ServiceInterface {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
+	public ClinicalRecordAppointmentService(DataAccessObject dao) {
+		this.dao = dao;
+	}
+	
 	// Creating function to get all clinical records by id
 	@GET
 	@Path("/")

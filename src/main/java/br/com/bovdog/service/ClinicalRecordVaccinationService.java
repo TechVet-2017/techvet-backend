@@ -27,6 +27,9 @@ public class ClinicalRecordVaccinationService implements ServiceInterface { // C
 	public ClinicalRecordVaccinationService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
+	public ClinicalRecordVaccinationService(DataAccessObject dao) {
+		this.dao = dao;
+	}
 	
 	@GET
 	@Path("/")
