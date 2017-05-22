@@ -8,60 +8,55 @@ import javax.ws.rs.Produces;
 
 import org.apache.log4j.Logger;
 
-import javax.ws.rs.FormParam;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.UriInfo;
 
 import br.com.bovdog.bean.User;
-import br.com.bovdog.dao.UserDAO;
+import br.com.bovdog.dao.DataAccessObject;
 
 @Path("/users")
 
-public class UserService {
+public class UserService implements ServiceInterface {
+	
+	private DataAccessObject dao;
 	
 	// Initializing the log service
-	final static Logger logger = Logger.getLogger(UserDAO.class);
+	final static Logger logger = Logger.getLogger(DataAccessObject.class);
+	
+	public UserService() {
+		dao = DataAccessObject.getInstance(TECHVET_UNIT);
+	}
+	
+	public UserService(DataAccessObject dao) {
+		this.dao = dao;
+	}
 	
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public List<User> getAllUsers(){ // Listing all the DAO users
-		UserDAO dao = new UserDAO();
+	public List<User> getAllUsers(@Context UriInfo ui){ // Listing all the DAO users
+
+		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /users calling dao object = " + dao);
-		return dao.getAllUsers();
+		
+		return dao.getAllObjects(queryParameters, User.class);
 	}
 	
 	@GET
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public User getUserById(@PathParam("id") int id) { // Finding a DAO users by his id
-		UserDAO dao = new UserDAO();
-		return dao.getUserById(id);
+
+		return dao.getObjectById(id, User.class);
 	}
 	
-	@POST
-	@Path("/findbyusername")
-	@Consumes("application/x-www-form-urlencoded")
-	@Produces("application/json")
-	public List<User> findUserByUserName(@FormParam(value = "insertedUserName") String insertedUserName){ // Finding user DAO by his username
-		UserDAO dao = new UserDAO();
-		logger.debug("POST /users/findbyusername with name ("+ insertedUserName +")calling dao object = " + dao);
-		return dao.findUserByUserName(insertedUserName);
-	}
-	
-	@POST
-	@Path("/findbyuserfullname")
-	@Consumes("application/x-www-form-urlencoded")
-	@Produces("application/json")
-	public List<User> findUserByFullName(@FormParam(value = "insertedFullName") String insertedFullName){ // Finding user DAO by his full name
-		UserDAO dao = new UserDAO();
-		logger.debug("POST /users/findbyfullname with name ("+ insertedFullName +")calling dao object = " + dao);
-		return dao.findUserByFullName(insertedFullName);
-	}
 
 	// Creating a method to create a user with name, username and password
 	@POST
@@ -70,19 +65,15 @@ public class UserService {
 	@Produces("application/json")
 	public User createUser(User request){ 
 
-		User user = new User();
 		logger.debug("POST /users/create with userName = "+ request.getUserName());
 		logger.debug("POST /users/create with userFullName = "+ request.getUserFullName());
 		logger.debug("POST /users/create with userPassword = "+ request.getUserPassword());
-		user.setUserName(request.getUserName());
-		user.setUserFullName(request.getUserFullName());
-		user.setUserPassword(request.getUserPassword());
 
-		UserDAO dao = new UserDAO();
-		dao.createUser(user);
+		request = dao.createObject(request);
 		logger.debug("POST /users/create with dao object = "+ dao);
-		logger.debug("POST /users/create with user object = "+ user);
-		return user;
+		logger.debug("POST /users/create with user object = "+ request);
+		
+		return request;
 	}
 	
 	// create a method to update the information of an existing patient
@@ -96,21 +87,23 @@ public class UserService {
 		logger.debug("POST /users/update with userPassword = "+ request.getUserPassword());
 		
 		request.setId(userID);
-		UserDAO dao = new UserDAO();
-		dao.updateUser(request);
+		dao.updateObject(request);
 		
 		logger.debug("POST /users/update with dao object = "+ dao);
-		return dao.getUserById(userID);
+		
+		return dao.getObjectById(userID, User.class);
 	}
 	
-	// Creating a method to delete a user
+	// creating a method to delete a user
 	@DELETE
 	@Path("/{id: [0-9]+}")
+	@Produces("application/json")
 	public List<User> deleteUser(@PathParam("id") int id ){
-		UserDAO dao = new UserDAO();
+
 		logger.debug("DELETE /users/delete with dao object = "+ dao);
 		logger.debug("DELETE /users/delete with id object = "+ id);
-		dao.deleteUser(id);
-		return dao.getAllUsers();
+		dao.deleteObject(id, User.class);
+		
+		return dao.getAllObjects(null, User.class);
 	}
 }

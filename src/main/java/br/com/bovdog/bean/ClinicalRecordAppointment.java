@@ -14,6 +14,7 @@ public class ClinicalRecordAppointment extends ClinicalRecord { // Creating clin
     private String medicationFrequency;
     private String diagnostic;
     private String prognostic;
+    private String prognosticDetails;
     private String homeMedicationName;
     private String homeMedicationDosage;
     private String homeMedicationFrequency;
@@ -112,5 +113,11 @@ public class ClinicalRecordAppointment extends ClinicalRecord { // Creating clin
     public void setClinicMedicationFrequency(String clinicMedicationFrequency) {
         this.clinicMedicationFrequency = clinicMedicationFrequency;
     }
+	public String getPrognosticDetails() {
+		return prognosticDetails;
+	}
+	public void setPrognosticDetails(String prognosticDetails) {
+		this.prognosticDetails = prognosticDetails;
+	}
 
 }

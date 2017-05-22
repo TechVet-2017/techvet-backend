@@ -1,13 +1,13 @@
 package br.com.bovdog.bean;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.MappedSuperclass;
 
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@MappedSuperclass
+@Entity
 public abstract class ClinicalRecord { // Creating clinical record class and setting it's parameters
 
 
@@ -24,9 +24,13 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
     private float capillaryFill;
     private String patientPulse;
     private String mucosasApparent;
+    private String hydrationState;
+    private String lymphnodes;
     private float patientRespiratoryRate;
     private float patientHeartRate;
     private float patientWeight;
+    private String bloodPressure;
+    private String veterinarianIdentification;
 
     // Getters and setters for clinical record attributes.
     public int getId() {
@@ -109,7 +113,23 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
         this.mucosasApparent = mucosasApparent;
     }
 
-    public float getPatientRespiratoryRate() {
+    public String getHydrationState() {
+		return hydrationState;
+	}
+
+	public void setHydrationState(String hydrationState) {
+		this.hydrationState = hydrationState;
+	}
+
+	public String getLymphnodes() {
+		return lymphnodes;
+	}
+
+	public void setLymphnodes(String lymphnodes) {
+		this.lymphnodes = lymphnodes;
+	}
+
+	public float getPatientRespiratoryRate() {
         return this.patientRespiratoryRate;
     }
 
@@ -132,5 +152,21 @@ public abstract class ClinicalRecord { // Creating clinical record class and set
     public void setPatientWeight(float patientWeight) {
         this.patientWeight = patientWeight;
     }
+
+	public String getBloodPressure() {
+		return bloodPressure;
+	}
+
+	public void setBloodPressure(String bloodPressure) {
+		this.bloodPressure = bloodPressure;
+	}
+
+	public String getVeterinarianIdentification() {
+		return veterinarianIdentification;
+	}
+
+	public void setVeterinarianIdentification(String veterinarianIdentification) {
+		this.veterinarianIdentification = veterinarianIdentification;
+	}
 
 }
