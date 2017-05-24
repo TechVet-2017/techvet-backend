@@ -1,7 +1,10 @@
 # techvet-backend
 Backend TechVet repository
 
-[![Build Status](https://travis-ci.com/luizguilherme5/techvet-backend.svg?token=V49EpwgDssmUwSbB2Hza&branch=development)](https://travis-ci.com/luizguilherme5/techvet-backend)
+[![Build Status](https://travis-ci.org/TechVet-2017/techvet-backend.svg?branch=master)](https://travis-ci.org/TechVet-2017/techvet-backend)
+[![Coverage Status](https://coveralls.io/repos/github/TechVet-2017/techvet-backend/badge.svg)](https://coveralls.io/github/TechVet-2017/techvet-backend)
+[![Code Climate](https://codeclimate.com/github/TechVet-2017/techvet-backend/badges/gpa.svg)](https://codeclimate.com/github/TechVet-2017/techvet-backend)
+[![Issue Count](https://codeclimate.com/github/TechVet-2017/techvet-backend/badges/issue_count.svg)](https://codeclimate.com/github/TechVet-2017/techvet-backend)
 
 ## Instructions for Development Team:
 
