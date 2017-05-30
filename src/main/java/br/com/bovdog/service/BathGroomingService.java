@@ -81,7 +81,7 @@ public class BathGroomingService implements ServiceInterface {
 	  
 	// creating the method to update an object.
 	@PUT
-	@Path("//{id:[0-9]+}")
+	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
 	public BathGrooming updateBathGrooming(BathGrooming request){
 			
