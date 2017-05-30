@@ -1,8 +1,12 @@
 package br.com.bovdog.bean;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Owner {
@@ -21,7 +25,10 @@ public class Owner {
 	private String complement;
 	private String city;
 	private String district;
-
+	
+	@OneToMany
+	private Collection<Patient> patients = new ArrayList<>();
+	
 	public int getId() {
 		return id;
 	}

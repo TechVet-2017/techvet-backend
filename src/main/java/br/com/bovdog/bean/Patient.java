@@ -1,5 +1,7 @@
 package br.com.bovdog.bean;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 // create Patient object.
 @Entity
@@ -30,7 +33,10 @@ public class Patient {
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
-
+	
+	@OneToMany
+	private Collection<Owner> owners = new ArrayList<>();
+	
 	// getters and setters for Patients attributes.
 	public int getId() {
 		return id;
