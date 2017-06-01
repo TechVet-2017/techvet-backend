@@ -24,8 +24,8 @@ import org.apache.log4j.Logger;
 public class OwnerService implements ServiceInterface {
 
 	// Initializing the log service
-	private DataAccessObject dao = null;
 	private final static Logger logger = Logger.getLogger(DataAccessObject.class);
+	private DataAccessObject dao = null;
 	
 	public OwnerService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);

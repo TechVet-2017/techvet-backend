@@ -24,11 +24,12 @@ import org.apache.log4j.Logger;
 @Path("/patients")
 public class PatientService implements ServiceInterface {
 	
-	private DataAccessObject dao = null;
-	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
 
+
+	private DataAccessObject dao = null;
+		
 	public PatientService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}

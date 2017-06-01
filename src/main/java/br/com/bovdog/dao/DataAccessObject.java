@@ -10,7 +10,6 @@ import javax.persistence.TypedQuery;
 import javax.ws.rs.core.MultivaluedMap;
 
 public class DataAccessObject {
-	public static DataAccessObject instance;
 	private EntityManager entityManager = null;
 	private final String TECHVET_UNIT = "techvet-unit";
 
@@ -20,6 +19,8 @@ public class DataAccessObject {
 		this.entityManager = factory.createEntityManager();
 	}
 
+	public static DataAccessObject instance = null;
+	
 	// create getInstance method to create a new instance of DAO if it's null
 	public static DataAccessObject getInstance(String persistenceUnit) {
 		if (instance == null) {
