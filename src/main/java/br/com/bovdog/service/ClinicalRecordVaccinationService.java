@@ -22,7 +22,7 @@ import br.com.bovdog.bean.ClinicalRecordVaccination;
 public class ClinicalRecordVaccinationService implements ServiceInterface { // Creating clinical record
 												// service class
 
-	private DataAccessObject dao;
+	private DataAccessObject dao = null;
 	
 	public ClinicalRecordVaccinationService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);

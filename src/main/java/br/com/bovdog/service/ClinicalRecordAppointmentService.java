@@ -21,7 +21,7 @@ import br.com.bovdog.dao.DataAccessObject;
 @Path("/appointmentRecords")
 public class ClinicalRecordAppointmentService implements ServiceInterface {
 	
-	private DataAccessObject dao;
+	private DataAccessObject dao = null;
 	
 	public ClinicalRecordAppointmentService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);

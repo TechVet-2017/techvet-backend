@@ -25,7 +25,7 @@ import br.com.bovdog.dao.DataAccessObject;
 
 public class UserService implements ServiceInterface {
 	
-	private DataAccessObject dao;
+	private DataAccessObject dao = null;
 	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);

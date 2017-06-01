@@ -24,7 +24,7 @@ import org.apache.log4j.Logger;
 @Path("/patients")
 public class PatientService implements ServiceInterface {
 	
-	private DataAccessObject dao;
+	private DataAccessObject dao = null;
 	
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);

@@ -23,7 +23,7 @@ import br.com.bovdog.dao.DataAccessObject;
 @Path("/bathAndGrooming")
 public class BathGroomingService implements ServiceInterface {
 	
-	private DataAccessObject dao;
+	private DataAccessObject dao = null;
 	
 	public BathGroomingService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
