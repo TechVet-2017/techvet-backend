@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 // create Patient object.
 @Entity
@@ -45,6 +46,10 @@ public class Patient {
       {@JoinColumn(name="patient_id")})
 	private Collection<Owner> owner = new ArrayList<>();
 	
+	// create relationship between bathGrooming and patient
+	@ManyToOne
+	@JoinColumn(name="bathGrooming_id")
+	private BathGrooming bathGrooming;
 	
 	// getters and setters for Patients attributes.
 	public int getId() {
