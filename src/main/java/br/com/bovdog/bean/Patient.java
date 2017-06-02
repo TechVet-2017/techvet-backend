@@ -37,15 +37,7 @@ public class Patient {
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
-	
-	// create relationship between owner and patient
-	@ManyToMany
-    @JoinTable(name="owners_has_patients", joinColumns=
-    {@JoinColumn(name="owner_id")}, inverseJoinColumns=
-      {@JoinColumn(name="patient_id")})
-	private Collection<Owner> owner = new ArrayList<>();
-	
-	
+
 	// getters and setters for Patients attributes.
 	public int getId() {
 		return id;

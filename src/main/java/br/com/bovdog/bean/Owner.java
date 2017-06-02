@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Owner {
@@ -26,6 +29,19 @@ public class Owner {
 	private String city;
 	private String district;
 	
+	// create relationship between owner and patient
+	@ManyToMany
+    @JoinTable(name="owners_has_patients", joinColumns=
+    {@JoinColumn(name="patient_id")}, inverseJoinColumns=
+      {@JoinColumn(name="owner_id")})
+	private Collection<Patient> patients = new ArrayList<>();
+	
+	public Collection<Patient> getPatients() {
+		return patients;
+	}
+	public void setPatients(Collection<Patient> patients) {
+		this.patients = patients;
+	}
 	public int getId() {
 		return id;
 	}
