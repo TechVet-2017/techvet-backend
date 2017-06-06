@@ -40,11 +40,9 @@ public class Patient {
 	private String coat;
 	
 	// create relationship between owner and patient
-	@ManyToMany
-    @JoinTable(name="owners_has_patients", joinColumns=
-    {@JoinColumn(name="owner_id")}, inverseJoinColumns=
-      {@JoinColumn(name="patient_id")})
-	private Collection<Owner> owner = new ArrayList<>();
+	@ManyToOne
+    @JoinColumn(name="owner_id")
+	private Owner owner;
 	
 	// create relationship between bathGrooming and patient
 	@ManyToOne
