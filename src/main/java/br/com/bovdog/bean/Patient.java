@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 // create Patient object.
 @Entity
@@ -29,7 +31,16 @@ public class Patient {
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
-
+	// create relationship between owner and patient
+	@ManyToOne
+    @JoinColumn(name="owner_id")
+	private Owner owner;
+	
+	// create relationship between bathGrooming and patient
+	@ManyToOne
+	@JoinColumn(name="bathGrooming_id")
+	private BathGrooming bathGrooming;
+	
 	// getters and setters for Patients attributes.
 	public int getId() {
 		return id;
