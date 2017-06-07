@@ -4,4 +4,4 @@ engines:
     channel: "beta"
 ratings:
   paths:
-  - "**.java"
+  - "src/**.java"
