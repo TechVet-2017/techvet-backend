@@ -1,12 +1,8 @@
 package br.com.bovdog.bean;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 @Entity
 public class BathGrooming {
@@ -14,10 +10,7 @@ public class BathGrooming {
 	@GeneratedValue
 	private int id;
 	private String serviceBathGrooming;
-	
-	// create relationship between bathAndGrooming and patient
-	@OneToMany(mappedBy="bathGrooming")
-	private List<Patient> patients;
+	private int patientId;
 	
 	// getters and setters for BathGrooming attributes.
 	public int getId() {
@@ -26,7 +19,12 @@ public class BathGrooming {
 	public void setId(int idBathGrooming){
 		this.id = idBathGrooming;
 	}
-	
+	public int getPatientId() {
+		return patientId;
+	}
+	public void setPatientId(int patientId) {
+		this.patientId = patientId;
+	}
 	public String getServiceBathGrooming() {
 		return serviceBathGrooming;
 	}
