@@ -1,20 +1,12 @@
 package br.com.bovdog.bean;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
 // create Patient object.
 @Entity
@@ -38,19 +30,7 @@ public class Patient {
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
-	
-	// create relationship between owner and patient
-	@ManyToMany
-    @JoinTable(name="owners_has_patients", joinColumns=
-    {@JoinColumn(name="owner_id")}, inverseJoinColumns=
-      {@JoinColumn(name="patient_id")})
-	private Collection<Owner> owner = new ArrayList<>();
-	
-	// create relationship between bathGrooming and patient
-	@ManyToOne
-	@JoinColumn(name="bathGrooming_id")
-	private BathGrooming bathGrooming;
-	
+
 	// getters and setters for Patients attributes.
 	public int getId() {
 		return id;
