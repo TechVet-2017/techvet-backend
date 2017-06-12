@@ -1,11 +1,8 @@
 package br.com.bovdog.bean;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Owner {
@@ -27,8 +24,6 @@ public class Owner {
 	
 
 	//Create relationship between entities
-	@OneToMany(mappedBy = "owner")
-	private List <Patient> patient;
 	
 	public int getId() {
 		return id;

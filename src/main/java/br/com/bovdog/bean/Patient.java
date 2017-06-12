@@ -31,10 +31,9 @@ public class Patient {
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
+	
 	// create relationship between owner and patient
-	@ManyToOne
-    @JoinColumn(name="owner_id")
-	private Owner owner;
+	private int ownerId;
 	
 	// create relationship between bathGrooming and patient
 	@ManyToOne
@@ -106,4 +105,20 @@ public class Patient {
 		this.coat = coat;
 	}
 
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public BathGrooming getBathGrooming() {
+		return bathGrooming;
+	}
+
+	public void setBathGrooming(BathGrooming bathGrooming) {
+		this.bathGrooming = bathGrooming;
+	}
+	
 }
