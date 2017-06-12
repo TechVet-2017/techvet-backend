@@ -21,7 +21,10 @@ public class Owner {
 	private String complement;
 	private String city;
 	private String district;
+	
 
+	//Create relationship between entities
+	
 	public int getId() {
 		return id;
 	}
