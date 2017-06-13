@@ -26,16 +26,16 @@ public class Owner {
 	//Create relationship between entities
 	
 	public int getId() {
-		return id;
+		return this.id;
 	}
 	public String getNeighborhood() {
-		return neighborhood;
+		return this.neighborhood;
 	}
 	public void setNeighborhood(String neighborhood) {
 		this.neighborhood = neighborhood;
 	}
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 	public void setCity(String city) {
 		this.city = city;
@@ -44,49 +44,49 @@ public class Owner {
 		this.id = ownerId;
 	}
 	public String getCpf() {
-		return cpf;
+		return this.cpf;
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public String getOwnerName() {
-		return ownerName;
+		return this.ownerName;
 	}
 	public void setOwnerName(String ownerName) {
 		this.ownerName = ownerName;
 	}
 	public String getOwnerLastName() {
-		return ownerLastName;
+		return this.ownerLastName;
 	}
 	public void setOwnerLastName(String ownerLastName) {
 		this.ownerLastName = ownerLastName;
 	}
 	public String getPhoneNumber() {
-		return phoneNumber;
+		return this.phoneNumber;
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getZipCode() {
-		return zipCode;
+		return this.zipCode;
 	}
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
 	}
 	public String getDistrict() {
-		return district;
+		return this.district;
 	}
 	public void setDistrict(String district) {
 		this.district = district;
 	}
 	public String getPublicPlace() {
-		return publicPlace;
+		return this.publicPlace;
 	}
 	public void setPublicPlace(String publicPlace) {
 		this.publicPlace = publicPlace;
 	}
 	public Long getAddressNumber() {
-		return addressNumber;
+		return this.addressNumber;
 	}
 	public void setAddressNumber(Long addressNumber) {
 		this.addressNumber = addressNumber;
