@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Owner {
@@ -28,9 +27,6 @@ public class Owner {
 	private String city;
 	private String district;
 	
-	//
-	@OneToMany(mappedBy = "owner")
-	private List <Patient> patient;
 	
 	public int getId() {
 		return id;

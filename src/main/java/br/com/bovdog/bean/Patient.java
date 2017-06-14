@@ -40,10 +40,25 @@ public class Patient {
 	private String coat;
 	
 	// create relationship between owner and patient
-	@ManyToOne
-    @JoinColumn(name="owner_id")
-	private Owner owner;
 	
+	private int OwnerId;
+	
+	public int getOwnerId() {
+		return OwnerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		OwnerId = ownerId;
+	}
+
+	public BathGrooming getBathGrooming() {
+		return bathGrooming;
+	}
+
+	public void setBathGrooming(BathGrooming bathGrooming) {
+		this.bathGrooming = bathGrooming;
+	}
+
 	// create relationship between bathGrooming and patient
 	@ManyToOne
 	@JoinColumn(name="bathGrooming_id")

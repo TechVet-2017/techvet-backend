@@ -57,7 +57,6 @@ public class PatientServiceTest {
 		patient.setGender("gender");
 		patient.setBirthday(date);
 		patient.setCoat("Coat");
-
 		return patient;
 	}
 
