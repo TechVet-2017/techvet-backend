@@ -30,6 +30,9 @@ public class Patient {
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
+	
+	// create relationship between owner and patient
+	private int ownerId;
 
 	// getters and setters for Patients attributes.
 	public int getId() {
@@ -94,6 +97,14 @@ public class Patient {
 
 	public void setCoat(String coat) {
 		this.coat = coat;
+	}
+	
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
 	}
 
 }
