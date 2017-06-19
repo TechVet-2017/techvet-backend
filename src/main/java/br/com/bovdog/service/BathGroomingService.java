@@ -83,17 +83,15 @@ public class BathGroomingService implements ServiceInterface {
 	@PUT
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
-	public BathGrooming updateBathGrooming(BathGrooming request){
+	public BathGrooming updateBathGrooming(@PathParam("id") int BathGroomingId, BathGrooming request){
 			
-		BathGrooming bathGrooming = new BathGrooming();
+		request.setId(BathGroomingId);
 		logger.debug("POST /bathAndGrooming/update with id = "+ request.getId());
 		logger.debug("POST /bathAndGrooming/update with ownerName = "+ request.getServiceBathGrooming());
-		bathGrooming.setId(request.getId());
-		bathGrooming.setServiceBathGrooming(request.getServiceBathGrooming());
 		
-		dao.updateObject(bathGrooming);
+		dao.updateObject(request);
 		
-		return dao.getObjectById(request.getId(), BathGrooming.class);
+		return dao.getObjectById(BathGroomingId, BathGrooming.class);
 	}
 	
 }

@@ -39,7 +39,7 @@ public class Patient {
 	@ManyToOne
 	@JoinColumn(name="bathGrooming_id")
 	private BathGrooming bathGrooming;
-	
+
 	// getters and setters for Patients attributes.
 	public int getId() {
 		return id;
@@ -103,6 +103,14 @@ public class Patient {
 
 	public void setCoat(String coat) {
 		this.coat = coat;
+	}
+	
+	public int getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public int getOwnerId() {
