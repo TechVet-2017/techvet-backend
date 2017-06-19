@@ -33,7 +33,7 @@ public class Patient {
 	private String coat;
 	
 	// create relationship between owner and patient
-	private int ownerId;
+	private int patientOwnerId;
 	
 	// create relationship between bathGrooming and patient
 	@ManyToOne
@@ -105,20 +105,12 @@ public class Patient {
 		this.coat = coat;
 	}
 	
-	public int getOwnerId() {
-		return ownerId;
+	public int getPatientOwnerId() {
+		return patientOwnerId;
 	}
 
-	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
-	}
-
-	public int getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
+	public void setPatientOwnerId(int ownerId) {
+		this.patientOwnerId = ownerId;
 	}
 
 	public BathGrooming getBathGrooming() {
