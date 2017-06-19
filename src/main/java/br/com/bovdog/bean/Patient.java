@@ -104,14 +104,6 @@ public class Patient {
 	public void setCoat(String coat) {
 		this.coat = coat;
 	}
-	
-	public int getOwnerId() {
-		return ownerId;
-	}
-
-	public void setOwnerId(int ownerId) {
-		this.ownerId = ownerId;
-	}
 
 	public int getOwnerId() {
 		return ownerId;
