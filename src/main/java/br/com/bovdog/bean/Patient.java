@@ -1,12 +1,13 @@
 package br.com.bovdog.bean;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 // create Patient object.
 @Entity
@@ -30,6 +31,14 @@ public class Patient {
 	private Date birthday;
 	@Column(nullable = false)
 	private String coat;
+	
+	// create relationship between owner and patient
+	private int patientOwnerId;
+	
+	// create relationship between bathGrooming and patient
+	@ManyToOne
+	@JoinColumn(name="bathGrooming_id")
+	private BathGrooming bathGrooming;
 
 	// getters and setters for Patients attributes.
 	public int getId() {
@@ -95,5 +104,21 @@ public class Patient {
 	public void setCoat(String coat) {
 		this.coat = coat;
 	}
+	
+	public int getPatientOwnerId() {
+		return patientOwnerId;
+	}
 
+	public void setPatientOwnerId(int ownerId) {
+		this.patientOwnerId = ownerId;
+	}
+
+	public BathGrooming getBathGrooming() {
+		return bathGrooming;
+	}
+
+	public void setBathGrooming(BathGrooming bathGrooming) {
+		this.bathGrooming = bathGrooming;
+	}
+	
 }
