@@ -55,6 +55,7 @@ public class PatientService implements ServiceInterface {
 	@Produces("application/json")
 	public Patient createPatient(Patient request) {
 
+		// create request object corresponding to patient copy object
 		request = dao.createObject(request);
 		logger.debug("POST /patients create patient name = " + request.getPatientName());
 		logger.debug("POST /patients create patient size = " + request.getSize());
@@ -65,6 +66,7 @@ public class PatientService implements ServiceInterface {
 		logger.debug("POST /patients create patient coat = " + request.getCoat());
 		logger.debug("POST /patients create patient id = " + request.getId());
 		
+		// return created request
 		return dao.getObjectById(request.getId(), Patient.class);
 	}
 	
