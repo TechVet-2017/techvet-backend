@@ -34,11 +34,6 @@ public class Patient {
 	
 	// create relationship between owner and patient
 	private int patientOwnerId;
-	
-	// create relationship between bathGrooming and patient
-	@ManyToOne
-	@JoinColumn(name="bathGrooming_id")
-	private BathGrooming bathGrooming;
 
 	// getters and setters for Patients attributes.
 	public int getId() {
@@ -111,14 +106,6 @@ public class Patient {
 
 	public void setPatientOwnerId(int ownerId) {
 		this.patientOwnerId = ownerId;
-	}
-
-	public BathGrooming getBathGrooming() {
-		return bathGrooming;
-	}
-
-	public void setBathGrooming(BathGrooming bathGrooming) {
-		this.bathGrooming = bathGrooming;
 	}
 	
 }
