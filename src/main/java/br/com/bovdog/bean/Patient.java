@@ -104,7 +104,7 @@ public class Patient {
 		return patientOwnerId;
 	}
 
-	public void setPatientOwnerId(int ownerId) {
+	private void setPatientOwnerId(int ownerId) {
 		this.patientOwnerId = ownerId;
 	}
 	
