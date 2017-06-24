@@ -79,7 +79,9 @@ public class BathGroomingService implements ServiceInterface {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public BathGrooming getBathGroomingById(@PathParam("id") int id) {
-	    return dao.getObjectById(id, BathGrooming.class);
+		BathGrooming desiredBathGrooming = null;
+		desiredBathGrooming = dao.getObjectById(id, BathGrooming.class);
+	    return desiredBathGrooming;
 	}
 
 	/**
@@ -93,7 +95,9 @@ public class BathGroomingService implements ServiceInterface {
 	public List<BathGrooming> getAllBathGroomings(@Context UriInfo ui) {
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /bathAndGrooming calling dao object = " + dao);
-	 	return dao.getAllObjects(queryParameters, BathGrooming.class);
+		List<BathGrooming> bathGroomingList = null;
+		bathGroomingList = dao.getAllObjects(queryParameters, BathGrooming.class);
+	 	return bathGroomingList;
 	}
 	
 	/**
@@ -110,7 +114,9 @@ public class BathGroomingService implements ServiceInterface {
 		logger.debug("DELETE /bathAndGrooming/delete with dao object = "+ dao);
 		logger.debug("DELETE /bathAndGrooming/delete with id object = "+ id);
 		dao.deleteObject(id, BathGrooming.class);
-		return dao.getAllObjects(null, BathGrooming.class);
+		List<BathGrooming> bathGroomingNewList = null;
+		bathGroomingNewList = dao.getAllObjects(null, BathGrooming.class);
+		return bathGroomingNewList;
 	}
 	  
 	/**
@@ -131,7 +137,9 @@ public class BathGroomingService implements ServiceInterface {
 		
 		dao.updateObject(request);
 		
-		return dao.getObjectById(BathGroomingId, BathGrooming.class);
+		BathGrooming updatedBathGrooming = null;
+		updatedBathGrooming = dao.getObjectById(BathGroomingId, BathGrooming.class);
+		return updatedBathGrooming;
 	}
 	
 }
