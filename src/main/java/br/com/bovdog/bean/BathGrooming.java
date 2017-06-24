@@ -6,6 +6,12 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Class that describes the Bath and Grooming services, and contains the information and methods it requires.
+ * @author adailson2, mateusvroriz
+ * @version 1.0
+ */
+
 @Entity
 public class BathGrooming {
 	@Id
@@ -16,22 +22,50 @@ public class BathGrooming {
 	private String serviceBathGrooming;
 	private int patientId;
 	
-	// getters and setters for BathGrooming attributes.
+	/**
+	 * Method that returns the value of the id variable for the BathGrooming class.
+	 * @return id
+	 */
 	public int getId() {
 		return id;
 	}
+	
+	/**
+	 * Method that sets the value of the id variable for the BathGrooming class.
+	 * @param idBathGrooming
+	 */
 	public void setId(int idBathGrooming){
 		this.id = idBathGrooming;
 	}
+	
+	/**
+	 * Method the returns the value of the current patient's id for the BathGrooming class.
+	 * @return patientId
+	 */
 	public int getPatientId() {
 		return patientId;
 	}
+	
+	/**
+	 * Method that sets the value of the current patient's id for the BathGrooming class.
+	 * @param patientId
+	 */
 	public void setPatientId(int patientId) {
 		this.patientId = patientId;
 	}
+	
+	/**
+	 * Method that returns a string defining which of the services has been requested (either 'bath' or 'bath and grooming').
+	 * @return
+	 */
 	public String getServiceBathGrooming() {
 		return serviceBathGrooming;
 	}
+	
+	/**
+	 * Method that sets a string defining which of the services has been requested (either 'bath' or 'bath and grooming').
+	 * @param serviceBathGrooming
+	 */
 	public void setServiceBathGrooming(String serviceBathGrooming){
 		this.serviceBathGrooming = serviceBathGrooming;
 	}
