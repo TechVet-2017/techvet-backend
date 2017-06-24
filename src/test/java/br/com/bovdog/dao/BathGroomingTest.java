@@ -12,6 +12,7 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 import static junit.framework.Assert.*;
 import br.com.bovdog.bean.BathGrooming;
+import br.com.bovdog.bean.User;
 import br.com.bovdog.helper.PersistenceHelper;
 import br.com.bovdog.service.BathGroomingService;
 
@@ -92,5 +93,12 @@ public class BathGroomingTest {
 	 	 
 	 	assertEquals(bathGroomings.size()-1, testDao.getAllObjects(null, BathGrooming.class).size());
 	 }
+	@Test
+	public void getBathGroomingByIdTest() {
+		BathGrooming bathgrooming = setupBathGrooming();
+		bathgrooming = bathGroomingService.createBathGrooming(bathgrooming);
+
+		assertEquals(bathGroomingService.getBathGroomingById(bathgrooming.getId()), bathgrooming);
+	}
 
 }
