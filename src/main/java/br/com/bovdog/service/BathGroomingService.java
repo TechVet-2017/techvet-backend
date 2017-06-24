@@ -20,15 +20,30 @@ import br.com.bovdog.bean.BathGrooming;
 import br.com.bovdog.dao.DataAccessObject;
 
 
+/**
+ * Service class that handles requests and json consumption.
+ * 
+ * @author adailson2, mateusvroriz, antoniocoj, SkiNgK, gustavo2795, iamferreirajp, leomeister, LucasAmoedo, luizguilherme5, 
+ * oliveiraMarcelo, varleysilva
+ *
+ */
 @Path("/bathAndGrooming")
 public class BathGroomingService implements ServiceInterface {
 	
 	private DataAccessObject dao;
 	
+	/**
+	 * Constructs the BathGroomingService and initializes a dao object.
+	 */
 	public BathGroomingService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
+	/**
+	 * Constructs and initializes the BathGroomingService with a dao object.
+	 * 
+	 * @param dao
+	 */
 	public BathGroomingService(DataAccessObject dao) {
 		this.dao = dao;
 	}
@@ -36,7 +51,12 @@ public class BathGroomingService implements ServiceInterface {
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
 	
-	// creating the method to create BathGrooming object.
+	/**
+	 * Creates a Bath and Grooming instance.
+	 * 
+	 * @param request
+	 * @return request
+	 */
 	@POST
 	@Path("/")
 	@Produces("application/json")
@@ -48,7 +68,12 @@ public class BathGroomingService implements ServiceInterface {
 		return request;
 	}
 	
-	// creating the method to find a specific object.
+	/**
+	 * Finds a specific instance of Bath and Grooming by its ID.
+	 * 
+	 * @param id
+	 * @return BathGrooming
+	 */
 	@GET
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
@@ -57,7 +82,11 @@ public class BathGroomingService implements ServiceInterface {
 	    return dao.getObjectById(id, BathGrooming.class);
 	}
 
-	// creating the method to return all BathGroomings objects.
+	/**
+	 * Returns all Bath and Grooming instances on a list.
+	 * @param ui
+	 * @return List<BathGrooming>
+	 */
 	@GET
 	@Path("/")
 	@Produces("application/json")
@@ -67,7 +96,12 @@ public class BathGroomingService implements ServiceInterface {
 	 	return dao.getAllObjects(queryParameters, BathGrooming.class);
 	}
 	
-	// creating the method to delete a specific object.
+	/**
+	 * Deletes a specific instance of Bath and Grooming by its ID.
+	 * 
+	 * @param id
+	 * @return List<BathGrooming>
+	 */
 	@DELETE
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
@@ -79,7 +113,13 @@ public class BathGroomingService implements ServiceInterface {
 		return dao.getAllObjects(null, BathGrooming.class);
 	}
 	  
-	// creating the method to update an object.
+	/**
+	 * Updates a specific Bath and Grooming instance by its ID.
+	 * 
+	 * @param BathGroomingId
+	 * @param request
+	 * @return BathGrooming
+	 */
 	@PUT
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
