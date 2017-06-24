@@ -17,6 +17,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
+import br.com.bovdog.bean.BathGrooming;
 import br.com.bovdog.bean.User;
 import br.com.bovdog.dao.DataAccessObject;
 
@@ -56,7 +57,7 @@ public class UserService implements ServiceInterface {
 	/**
 	 * Method to return all users and make request get
 	 * @param ui
-	 * @return List<User> - allUsers*/
+	 * @return List<User> - userList*/
 	@GET
 	@Path("/")
 	@Produces("application/json")
@@ -64,8 +65,9 @@ public class UserService implements ServiceInterface {
 
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /users calling dao object = " + dao);
-		
-		return dao.getAllObjects(queryParameters, User.class);
+		List<User> userList = null;
+		userList = dao.getAllObjects(queryParameters, User.class);
+	 	return userList;
 	}
 	/**
 	 * Method to return all users by id and make request get
@@ -75,8 +77,9 @@ public class UserService implements ServiceInterface {
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public User getUserById(@PathParam("id") int id) { // Finding a DAO users by his id
-
-		return dao.getObjectById(id, User.class);
+		User desiredUser = null;
+		desiredUser = dao.getObjectById(id, User.class);
+		return desiredUser;
 	}
 	
 	/**
@@ -133,7 +136,8 @@ public class UserService implements ServiceInterface {
 		logger.debug("DELETE /users/delete with dao object = "+ dao);
 		logger.debug("DELETE /users/delete with id object = "+ id);
 		dao.deleteObject(id, User.class);
-		
-		return dao.getAllObjects(null, User.class);
+		List<User> userNewList = null;
+		userNewList = dao.getAllObjects(null, User.class);
+		return userNewList;
 	}
 }
