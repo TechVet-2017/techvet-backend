@@ -40,11 +40,6 @@ public class Patient {
 	
 	// create relationship between owner and patient
 	private int patientOwnerId;
-	
-	// create relationship between bathGrooming and patient
-	@ManyToOne
-	@JoinColumn(name="bathGrooming_id")
-	private BathGrooming bathGrooming;
 
 	/**
 	 * Method that returns the value of the id variable for the BPatients class.
@@ -186,7 +181,7 @@ public class Patient {
 	 * Sets the id of the patient's owner in the system.
 	 * @param ownerId
 	 */
-	public void setPatientOwnerId(int ownerId) {
+	private void setPatientOwnerId(int ownerId) {
 		this.patientOwnerId = ownerId;
 	}
 	
