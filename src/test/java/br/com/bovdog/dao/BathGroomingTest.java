@@ -71,7 +71,7 @@ public class BathGroomingTest {
 				.getServiceBathGrooming(), "Service");
 
 		bathGrooming.setServiceBathGrooming("ServiceUpdate");
-		bathGrooming = bathGroomingService.updateBathGrooming(bathGrooming);
+		bathGrooming = bathGroomingService.updateBathGrooming(bathGrooming.getId(), bathGrooming);
 
 		assertEquals(testDao.getObjectById(bathGrooming.getId(), BathGrooming.class)
 				.getServiceBathGrooming(), "ServiceUpdate");
