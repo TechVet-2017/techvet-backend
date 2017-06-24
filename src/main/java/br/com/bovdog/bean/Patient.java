@@ -189,21 +189,5 @@ public class Patient {
 	public void setPatientOwnerId(int ownerId) {
 		this.patientOwnerId = ownerId;
 	}
-
-	/**
-	 * Returns the Bath and Grooming service for the patient.
-	 * @return
-	 */
-	public BathGrooming getBathGrooming() {
-		return bathGrooming;
-	}
-
-	/**
-	 * Sets the Bath and Grooming service for the patient.
-	 * @param bathGrooming
-	 */
-	public void setBathGrooming(BathGrooming bathGrooming) {
-		this.bathGrooming = bathGrooming;
-	}
 	
 }
