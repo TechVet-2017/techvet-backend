@@ -1,3 +1,7 @@
+/*
+ * File: QueryBuilder.java
+ * Description: Defines the search filter treatments.
+ */
 package br.com.bovdog.dao;
 
 import java.util.ArrayList;
@@ -13,8 +17,23 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.ws.rs.core.MultivaluedMap;
 
+/**
+ * Class that define the search with filter in the system. 
+ * 
+ * @author lucas, joão, flavio
+ * @version 1.0
+ *
+ */
 public class QueryBuilder {
 
+	/**
+	 * This method describes the search filter construction 
+	 * 
+	 * @param queryParameters List of query 
+	 * @param entityManager Center service of persistence
+	 * @param genericClass Generalization of classes
+	 * @return typedQuery
+	 */
 	public static <T> TypedQuery<T> buildQuery(
 			MultivaluedMap<String, String> queryParameters,
 			EntityManager entityManager, Class<T> genericClass) {
@@ -24,6 +43,7 @@ public class QueryBuilder {
 		Root<T> root = query.from(genericClass);
 		TypedQuery<T> typedQuery = null;
 
+		// treat the search with filters if it is not null, else maintain the neutral state of search
 		if (queryParameters != null) {
 
 			List<Predicate> criteria = new ArrayList<>();
@@ -31,8 +51,11 @@ public class QueryBuilder {
 			String sort = null;
 			String order = null;
 
+			// call methods of search order and sort
 			sort = typeSortQuery(queryParameters);
 			order = typeOrderQuery(queryParameters);
+			
+			// Collection search parameters to criteria
 			criteria = collectCriteriaParameters(queryParameters,
 					criteriaBuilder, criteria, root);
 
@@ -48,6 +71,19 @@ public class QueryBuilder {
 
 	}
 
+	/**
+	 * This method describes the collection of search filters
+	 * 
+	 * @param criteria 
+	 * @param order Order string 
+	 * @param query List of searchs
+	 * @param criteriaBuilder 
+	 * @param root Generic list
+	 * @param sort Sort string
+	 * @param queryParameters List of query
+	 * @param entityManager Center service of persistence
+	 * @return typedQuery
+	 */
 	private static <T> TypedQuery<T> queryFilters(List<Predicate> criteria,
 			String order, CriteriaQuery<T> query,
 			CriteriaBuilder criteriaBuilder, Root<T> root, String sort,
@@ -74,6 +110,12 @@ public class QueryBuilder {
 		return typedQuery;
 	}
 
+	/**
+	 * This method select the type of sort to search
+	 * 
+	 * @param queryParameters List of query
+	 * @return sort
+	 */
 	private static String typeSortQuery(
 			MultivaluedMap<String, String> queryParameters) {
 		String sort = null;
@@ -87,6 +129,12 @@ public class QueryBuilder {
 		return sort;
 	}
 
+	/**
+	 * This method select the type of sort to search.
+	 * 
+	 * @param queryParameters List of query.
+	 * @return order
+	 */
 	private static String typeOrderQuery(
 			MultivaluedMap<String, String> queryParameters) {
 		String order = null;
@@ -100,12 +148,22 @@ public class QueryBuilder {
 		return order;
 	}
 
+	/**
+	 * This method defines the treatment to collect search parameters
+	 * 
+	 * @param queryParameters List of query.
+	 * @param criteriaBuilder
+	 * @param criteria
+	 * @param root
+	 * @return criteria
+	 */
 	private static <T> List<Predicate> collectCriteriaParameters(
 			MultivaluedMap<String, String> queryParameters,
 			CriteriaBuilder criteriaBuilder, List<Predicate> criteria,
 			Root<T> root) {
 
 		for (Map.Entry<String, List<String>> entry : queryParameters.entrySet()) {
+			
 			if (entry.getKey().charAt(0) != '_') {
 
 				ParameterExpression<String> parameter;
@@ -117,8 +175,9 @@ public class QueryBuilder {
 					parameter = criteriaBuilder.parameter(String.class,
 							entry.getKey());
 				}
-				criteria.add(criteriaBuilder.like(
-						root.get(parameter.getName()), parameter));
+				
+				criteria.add(criteriaBuilder.like(root.get(parameter.getName()), parameter));
+			
 			} else {
 				// do nothing.
 			}
@@ -127,11 +186,21 @@ public class QueryBuilder {
 		return criteria;
 	}
 
+	/**
+	 * This method defines the treatment to collect search parameters
+	 * 
+	 * @param queryParameters
+	 * @param typedQuery 
+	 * @return typedQuery
+	 */
 	private static <T> TypedQuery<T> collectQueryValues(
 			MultivaluedMap<String, String> queryParameters,
 			TypedQuery<T> typedQuery) {
+		
 		for (Map.Entry<String, List<String>> entry : queryParameters.entrySet()) {
+			
 			if (entry.getKey().charAt(0) != '_') {
+				
 				if (entry.getKey().equalsIgnoreCase("q")) {
 					typedQuery.setParameter("patientName", "%"
 							+ entry.getValue().get(0) + "%");
@@ -139,6 +208,7 @@ public class QueryBuilder {
 					typedQuery.setParameter(entry.getKey(), "%"
 							+ entry.getValue().get(0) + "%");
 				}
+				
 			}
 
 		}

@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 /**
  * Class that describes the Patients of the system. The patients refer to the animals being treated in the clinic.
  * 
- * @author leomeister, SkiNgK
+ * @author leomeister, flavio
  * @version 1.0
  *
  */
