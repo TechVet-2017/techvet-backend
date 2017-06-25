@@ -41,14 +41,19 @@ public class BathGroomingTest {
 		BathGrooming bathGrooming = new BathGrooming();
 
 		bathGrooming.setServiceBathGrooming("Service");
-
+		bathGrooming.setPatientId(1);
+		bathGrooming.setServiceDescription("Description service");
 		return bathGrooming;
 	}
 
 	@Test
 	public void createBathGroomingTest() {
-		int id = bathGroomingService.createBathGrooming(bathGrooming).getId();
-		assertEquals(bathGrooming, testDao.getObjectById(id, BathGrooming.class));
+		try{
+			int id = bathGroomingService.createBathGrooming(bathGrooming).getId();
+			assertEquals(bathGrooming, testDao.getObjectById(id, BathGrooming.class));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	@Test
 	public void listAllBathGroomingWithSortAndOrderQueries() {
@@ -87,33 +92,42 @@ public class BathGroomingTest {
 
 	@Test
 	public void updateBathGroomingTest() {
-		BathGrooming bathGrooming = setupBathGrooming();
-		bathGrooming = bathGroomingService.createBathGrooming(bathGrooming);
-
-		assertEquals(testDao.getObjectById(bathGrooming.getId(), BathGrooming.class)
-				.getServiceBathGrooming(), "Service");
-
-		bathGrooming.setServiceBathGrooming("ServiceUpdate");
-		bathGrooming = bathGroomingService.updateBathGrooming(bathGrooming.getId(), bathGrooming);
-
-		assertEquals(testDao.getObjectById(bathGrooming.getId(), BathGrooming.class)
-				.getServiceBathGrooming(), "ServiceUpdate");
+		try{
+			BathGrooming bathGrooming = setupBathGrooming();
+			bathGrooming = bathGroomingService.createBathGrooming(bathGrooming);
+	
+			assertEquals(testDao.getObjectById(bathGrooming.getId(), BathGrooming.class)
+					.getServiceBathGrooming(), "Service");
+	
+			bathGrooming.setServiceBathGrooming("ServiceUpdate");
+			bathGrooming = bathGroomingService.updateBathGrooming(bathGrooming.getId(), bathGrooming);
+	
+			assertEquals(testDao.getObjectById(bathGrooming.getId(), BathGrooming.class)
+					.getServiceBathGrooming(), "ServiceUpdate");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 	
 	@Test
 	public void deleteBathGroomingTest(){
-	 	List<BathGrooming> bathGroomings = new ArrayList<BathGrooming>();
-	 	for (int i = 0; i < 3; i++) {
-	 		BathGrooming bathGrooming = setupBathGrooming();
-	 		bathGrooming.setServiceBathGrooming("Service " + i);
-	 		bathGrooming = testDao.createObject(bathGrooming);
-	 		bathGroomings.add(bathGrooming);
-	 	}
-	 	 
-	 	bathGroomingService.deleteBathGroomingById(bathGroomings.get(0).getId());
-	 	 
-	 	assertEquals(bathGroomings.size()-1, testDao.getAllObjects(null, BathGrooming.class).size());
+		try{
+		 	List<BathGrooming> bathGroomings = new ArrayList<BathGrooming>();
+		 	for (int i = 0; i < 3; i++) {
+		 		BathGrooming bathGrooming = setupBathGrooming();
+		 		bathGrooming.setServiceBathGrooming("Service " + i);
+		 		bathGrooming = testDao.createObject(bathGrooming);
+		 		bathGroomings.add(bathGrooming);
+		 	}
+		 	 
+		 	bathGroomingService.deleteBathGroomingById(bathGroomings.get(0).getId());
+		 	 
+		 	assertEquals(bathGroomings.size()-1, testDao.getAllObjects(null, BathGrooming.class).size());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 	 }
 	@Test
 	public void getBathGroomingByIdTest() {
@@ -122,5 +136,16 @@ public class BathGroomingTest {
 
 		assertEquals(bathGroomingService.getBathGroomingById(bathgrooming.getId()), bathgrooming);
 	}
+	@Test
+	public void getPatientBathGroomingId(){
+		int patientBathGroomingId = bathGroomingService.createBathGrooming(bathGrooming).getPatientId();
+		assertEquals(patientBathGroomingId, bathGrooming.getPatientId());
+	}
+	@Test
+	public void getAttributeDescription(){
+		String serviceDescription = bathGroomingService.createBathGrooming(bathGrooming).getServiceDescription();
+		assertEquals(serviceDescription, bathGrooming.getServiceDescription());
+	}
+	
 
 }

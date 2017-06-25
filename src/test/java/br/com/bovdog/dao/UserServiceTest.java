@@ -105,7 +105,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void updatePatientTest() {
+	public void updateUserTest() {
 		User user = setupUser();
 		user = userService.createUser(user);
 
