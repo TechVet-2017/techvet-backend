@@ -3,6 +3,7 @@ package br.com.bovdog.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
 import org.junit.After;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 import static junit.framework.Assert.*;
 import br.com.bovdog.bean.BathGrooming;
+import br.com.bovdog.bean.Patient;
 import br.com.bovdog.bean.User;
 import br.com.bovdog.helper.PersistenceHelper;
 import br.com.bovdog.service.BathGroomingService;
@@ -48,7 +50,27 @@ public class BathGroomingTest {
 		int id = bathGroomingService.createBathGrooming(bathGrooming).getId();
 		assertEquals(bathGrooming, testDao.getObjectById(id, BathGrooming.class));
 	}
-
+	@Test
+	public void listAllBathGroomingWithSortAndOrderQueries() {
+		UriInfo ui = mock(UriInfo.class);
+		@SuppressWarnings("unchecked")
+		MultivaluedMap<String, String> queryParameters = mock(MultivaluedMap.class);
+		when(queryParameters.containsKey("_sort")).thenReturn(true);
+		when(queryParameters.containsKey("_order")).thenReturn(true);
+		when(queryParameters.getFirst("_sort")).thenReturn("serviceBathGrooming");
+		when(queryParameters.getFirst("_order")).thenReturn("desc");
+		when(ui.getQueryParameters()).thenReturn(queryParameters);
+		List<BathGrooming> bathGroomings = new ArrayList<BathGrooming>();
+		for (int i = 0; i < 3; i++) {
+			BathGrooming bathGrooming = setupBathGrooming();
+			bathGrooming.setServiceBathGrooming("Service " + i);
+			bathGrooming = testDao.createObject(bathGrooming);
+			bathGroomings.add(bathGrooming);
+		}
+		assertEquals(bathGroomings.get(0).getServiceBathGrooming(), bathGroomingService
+				.getAllBathGroomings(ui).get(2).getServiceBathGrooming());
+	}
+	
 	@Test
 	public void listAllBathGroomingTest() {
 		UriInfo ui = mock(UriInfo.class);
