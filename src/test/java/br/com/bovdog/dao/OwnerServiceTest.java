@@ -109,5 +109,19 @@ public class OwnerServiceTest {
 				.getOwnerName(), "OwnerNameUpdate");
 		
 	}
+	@Test
+	public void deleteOwnerTest(){
+	 	List<Owner> owners = new ArrayList<Owner>();
+	 	for (int i = 0; i < 3; i++) {
+	 		Owner owner = setupOwner();
+	 		owner.setOwnerName("String " + i);
+	 		owner = testDao.createObject(owner);
+	 		owners.add(owner);
+	 	}
+	 	 
+	 	ownerService.deleteOwner(owners.get(0).getId());
+	 	 
+	 	assertEquals(owners.size()-1, testDao.getAllObjects(null, Owner.class).size());
+	 }
 
 }
