@@ -13,6 +13,7 @@ public class BathGrooming {
 	private int id;
 	@NotNull 
 	private String serviceBathGrooming;
+	@NotNull 
 	private String serviceDescription;
 	private int patientId;
 	
