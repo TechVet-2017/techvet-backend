@@ -6,6 +6,8 @@ import java.util.List;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
+import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 import static junit.framework.Assert.*;
 import br.com.bovdog.bean.BathGrooming;
+import br.com.bovdog.bean.ClinicalRecordAppointment;
 import br.com.bovdog.bean.Owner;
 import br.com.bovdog.helper.PersistenceHelper;
 import br.com.bovdog.service.OwnerService;
@@ -122,6 +125,23 @@ public class OwnerServiceTest {
 	 	ownerService.deleteOwner(owners.get(0).getId());
 	 	 
 	 	assertEquals(owners.size()-1, testDao.getAllObjects(null, Owner.class).size());
+	 }
+	 @Test
+	 public void getOwnerById() {
+
+		Owner firstOwner = setupOwner();
+		firstOwner = testDao.createObject(firstOwner);
+		int firstId = firstOwner.getId();
+
+		Owner secondOwner = setupOwner();
+		secondOwner = testDao.createObject(secondOwner);
+		int secondId = secondOwner.getId();
+
+		Assert.assertEquals(firstOwner,
+				ownerService.getOwnerById(firstId));
+		Assert.assertEquals(secondOwner, ownerService
+				.getOwnerById(secondId));
+
 	 }
 
 }
