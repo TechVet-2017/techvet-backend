@@ -42,6 +42,7 @@ public class BathGroomingTest {
 
 		bathGrooming.setServiceBathGrooming("Service");
 		bathGrooming.setPatientId(1);
+		bathGrooming.setServiceDescription("Description service");
 		return bathGrooming;
 	}
 
@@ -126,6 +127,11 @@ public class BathGroomingTest {
 	public void getPatientBathGroomingId(){
 		int patientBathGroomingId = bathGroomingService.createBathGrooming(bathGrooming).getPatientId();
 		assertEquals(patientBathGroomingId, bathGrooming.getPatientId());
+	}
+	@Test
+	public void getAttributeDescription(){
+		String serviceDescription = bathGroomingService.createBathGrooming(bathGrooming).getServiceDescription();
+		assertEquals(serviceDescription, bathGrooming.getServiceDescription());
 	}
 
 }
