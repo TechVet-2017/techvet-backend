@@ -23,6 +23,7 @@ public class QueryBuilder {
 		CriteriaQuery<T> query = criteriaBuilder.createQuery(genericClass);
 		Root<T> root = query.from(genericClass);
 		TypedQuery<T> typedQuery = null;
+		ParameterExpression<String> parameter = null;
 		
 		if (queryParameters != null) {
 
@@ -45,11 +46,15 @@ public class QueryBuilder {
 			for (Map.Entry<String, List<String>> entry : queryParameters
 					.entrySet()) {
 				if (entry.getKey().charAt(0) != '_') {
-					ParameterExpression<String> parameter = criteriaBuilder
-							.parameter(String.class, entry.getKey());
+					if (entry.getKey().equalsIgnoreCase("q")){
+						parameter = criteriaBuilder.parameter(String.class, "patientName");
+					}else {
+						parameter = criteriaBuilder.parameter(String.class, entry.getKey());
+					}
 					criteria.add(criteriaBuilder.like(
 							root.get(parameter.getName()), parameter));
 				}
+
 			}
 			query.select(root);
 			if (criteria.size() > 0) {
@@ -64,8 +69,13 @@ public class QueryBuilder {
 			for (Map.Entry<String, List<String>> entry : queryParameters
 					.entrySet()) {
 				if (entry.getKey().charAt(0) != '_') {
-					typedQuery.setParameter(entry.getKey(), "%"
-							+ entry.getValue().get(0) + "%");
+					if (entry.getKey().equalsIgnoreCase("q")){
+						typedQuery.setParameter("patientName",  "%"
+								+ entry.getValue().get(0) + "%");
+					}else {
+						typedQuery.setParameter(entry.getKey(), "%"
+								+ entry.getValue().get(0) + "%");
+					}
 				}
 
 			}
