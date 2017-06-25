@@ -18,8 +18,9 @@ public class BathGrooming {
 	@GeneratedValue
 	private int id;
 	@NotNull 
-	@Size(min = 10, max = 200)
 	private String serviceBathGrooming;
+	@NotNull 
+	private String serviceDescription;
 	private int patientId;
 	
 	/**
@@ -68,6 +69,12 @@ public class BathGrooming {
 	 */
 	public void setServiceBathGrooming(String serviceBathGrooming){
 		this.serviceBathGrooming = serviceBathGrooming;
+	}
+	public String getServiceDescription() {
+		return serviceDescription;
+	}
+	public void setServiceDescription(String serviceDescription) {
+		this.serviceDescription = serviceDescription;
 	}
 
 }
