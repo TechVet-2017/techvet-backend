@@ -60,9 +60,24 @@ public class OwnerServiceTest {
 	@Test
 	public void createOwnerTest() {
 		int id = ownerService.createOwner(owner).getId();
+		
 		assertEquals(owner, testDao.getObjectById(id, Owner.class));
 	}
-
+	@Test
+	public void getAtributes(){
+		String city = ownerService.createOwner(owner).getCity();
+		String neighborhood = ownerService.createOwner(owner).getNeighborhood();
+		String cpf = ownerService.createOwner(owner).getCpf();
+		String ownerLastName = ownerService.createOwner(owner).getOwnerLastName();
+		String phoneNumber = ownerService.createOwner(owner).getPhoneNumber();
+		String zipCode = ownerService.createOwner(owner).getZipCode();
+		assertEquals(city, owner.getCity());
+		assertEquals(neighborhood, owner.getCity());
+		assertEquals(cpf, owner.getCpf());
+		assertEquals(ownerLastName, owner.getOwnerLastName());
+		assertEquals(phoneNumber, owner.getPhoneNumber());
+		assertEquals(zipCode, owner.getZipCode());
+	}
 	@Test
 	public void listAllOwnersWithoutQueriesTest() {
 		UriInfo ui = mock(UriInfo.class);
