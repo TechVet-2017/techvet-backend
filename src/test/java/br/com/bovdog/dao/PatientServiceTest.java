@@ -60,6 +60,7 @@ public class PatientServiceTest {
 		patient.setGender("gender");
 		patient.setBirthday(date);
 		patient.setCoat("Coat");
+		patient.setPatientOwnerId(1);
 
 		return patient;
 	}
@@ -157,7 +158,11 @@ public class PatientServiceTest {
 	 	 
 	 	assertEquals(patients.size()-1, testDao.getAllObjects(null, Patient.class).size());
 	 }
-	
+	@Test
+	public void getPatientOwnerId(){
+		int patientOwnerId = patientService.createPatient(patient).getPatientOwnerId();
+		assertEquals(patientOwnerId, patient.getPatientOwnerId());
+	}
 	 @Test
 	 public void getPatientById() {
 

@@ -181,7 +181,7 @@ public class Patient {
 	 * Sets the id of the patient's owner in the system.
 	 * @param ownerId
 	 */
-	private void setPatientOwnerId(int ownerId) {
+	public void setPatientOwnerId(int ownerId) {
 		this.patientOwnerId = ownerId;
 	}
 	
