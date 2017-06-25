@@ -12,8 +12,8 @@ public class BathGrooming {
 	@GeneratedValue
 	private int id;
 	@NotNull 
-	@Size(min = 10, max = 200)
 	private String serviceBathGrooming;
+	private String serviceDescription;
 	private int patientId;
 	
 	// getters and setters for BathGrooming attributes.
@@ -34,6 +34,12 @@ public class BathGrooming {
 	}
 	public void setServiceBathGrooming(String serviceBathGrooming){
 		this.serviceBathGrooming = serviceBathGrooming;
+	}
+	public String getServiceDescription() {
+		return serviceDescription;
+	}
+	public void setServiceDescription(String serviceDescription) {
+		this.serviceDescription = serviceDescription;
 	}
 
 }
