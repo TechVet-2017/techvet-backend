@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 import static junit.framework.Assert.*;
+import br.com.bovdog.bean.BathGrooming;
 import br.com.bovdog.bean.Owner;
 import br.com.bovdog.helper.PersistenceHelper;
 import br.com.bovdog.service.OwnerService;
@@ -92,6 +93,21 @@ public class OwnerServiceTest {
 		}
 		assertEquals(owners.get(0).getOwnerName(), ownerService
 				.getAllOwners(ui).get(2).getOwnerName());
+	}
+	
+	@Test
+	public void updateOwnerTest() {
+		Owner owner = setupOwner();
+		owner = ownerService.createOwner(owner);
+
+		assertEquals(testDao.getObjectById(owner.getId(), Owner.class).getOwnerName(), "String");
+
+		owner.setOwnerName("OwnerNameUpdate");
+		owner = ownerService.updateOwner(owner, owner.getId());
+
+		assertEquals(testDao.getObjectById(owner.getId(), Owner.class)
+				.getOwnerName(), "OwnerNameUpdate");
+		
 	}
 
 }
