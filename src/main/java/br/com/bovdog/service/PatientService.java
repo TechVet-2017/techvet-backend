@@ -20,7 +20,16 @@ import br.com.bovdog.bean.Patient;
 import br.com.bovdog.dao.DataAccessObject;
 
 import org.apache.log4j.Logger;
-// create Patient service 
+
+/**
+ * Service class that handles requests and json consumption for Patients class.
+ * 
+ * @author SkiNgK, adailson2, antoniocoj, luizguilherme, leomeister, SkiNgK, iamferreirajp, varleysilva,
+ * gustavo2795, mateusvroriz
+ * 
+ * @version 1.0
+ *
+ */
 @Path("/patients")
 public class PatientService implements ServiceInterface {
 	
@@ -29,15 +38,27 @@ public class PatientService implements ServiceInterface {
 	// Initializing the log service
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
 
+	/**
+	 * Constructs the PatientService and initializes a dao object. 
+	 */
 	public PatientService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
+	/**
+	 * Constructs and initializes the PatientService with a dao object.
+	 * @param dao
+	 */
 	public PatientService(DataAccessObject dao) {
 		this.dao = dao;
 	}
 	
-	// create method to get all patients registered 
+	/**
+	 * Returns all instances of Patients on a list.
+	 *  
+	 * @param ui
+	 * @return
+	 */
 	@GET
 	@Path("/")
 	@Produces("application/json")
@@ -48,13 +69,19 @@ public class PatientService implements ServiceInterface {
 		return dao.getAllObjects(queryParameters, Patient.class);
 	}
 	
-	// create method to create a new patient 
+	/**
+	 * Creates a Patient instance.
+	 *  
+	 * @param request
+	 * @return
+	 */
 	@POST
 	@Path("/")
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Patient createPatient(Patient request) {
 
+		// create request object corresponding to patient copy object
 		request = dao.createObject(request);
 		logger.debug("POST /patients create patient name = " + request.getPatientName());
 		logger.debug("POST /patients create patient size = " + request.getSize());
@@ -65,10 +92,16 @@ public class PatientService implements ServiceInterface {
 		logger.debug("POST /patients create patient coat = " + request.getCoat());
 		logger.debug("POST /patients create patient id = " + request.getId());
 		
+		// return created request
 		return dao.getObjectById(request.getId(), Patient.class);
 	}
 	
-	// create method to retrieve a patient by it's id from the database
+	/**
+	 * Find a specific instance of Patient by its ID.
+	 * 
+	 * @param patientId
+	 * @return
+	 */
 	@GET
 	@Path("/{id:[0-9]+}")
 	@Produces("application/json")
@@ -80,7 +113,13 @@ public class PatientService implements ServiceInterface {
 		
 	}
 	
-	// create a method to update the information of an existing patient
+	/**
+	 * Updates the instance of Patient by its ID.
+	 * 
+	 * @param patientID
+	 * @param request
+	 * @return
+	 */
 	@PUT
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
@@ -93,7 +132,12 @@ public class PatientService implements ServiceInterface {
 		return dao.getObjectById(patientID, Patient.class);
 	}
 	
-	// create method to delete one patient
+	/**
+	 * Deletes a specific instance of Patient by its ID.
+	 * 
+	 * @param patientId
+	 * @return
+	 */
 	@DELETE
 	@Path("/{id:[0-9]+}")
 	@Produces("application/json")

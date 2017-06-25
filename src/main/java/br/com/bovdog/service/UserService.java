@@ -1,6 +1,5 @@
 package br.com.bovdog.service;
 
-
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -18,47 +17,75 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
+import br.com.bovdog.bean.BathGrooming;
 import br.com.bovdog.bean.User;
 import br.com.bovdog.dao.DataAccessObject;
+
+/**Class service of users, where they will be contained, requisitions, 
+ * production and consumption of application json.
+ * @author adailson2, antoniocoj, luizguilherme, leomeister, SkiNgK, iamferreirajp, varleysilva, gustavo2795, mateusvroriz	
+ * @version 1.0
+ */
 
 @Path("/users")
 
 public class UserService implements ServiceInterface {
 	
+	/**Declaration of generic dao
+	 */
 	private DataAccessObject dao;
 	
-	// Initializing the log service
+	/**Initializing the log service
+	 */
 	final static Logger logger = Logger.getLogger(DataAccessObject.class);
 	
+	/**
+	 * Constructor for a user service, containing dao object creation 
+	 * @return User*/
 	public UserService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
+	/**
+	 * Constructor for a user service, containing dao object input 
+	 * @param dao
+	 * @return User*/
 	public UserService(DataAccessObject dao) {
 		this.dao = dao;
 	}
 	
+	/**
+	 * Method to return all users and make request get
+	 * @param ui
+	 * @return List<User> - userList*/
 	@GET
 	@Path("/")
 	@Produces("application/json")
-	public List<User> getAllUsers(@Context UriInfo ui){ // Listing all the DAO users
+	public List<User> getAllUsers(@Context UriInfo ui){
 
 		MultivaluedMap<String, String> queryParameters = ui.getQueryParameters();
 		logger.debug("GET /users calling dao object = " + dao);
-		
-		return dao.getAllObjects(queryParameters, User.class);
+		List<User> userList = null;
+		userList = dao.getAllObjects(queryParameters, User.class);
+	 	return userList;
 	}
-	
+	/**
+	 * Method to return all users by id and make request get
+	 * @param id
+	 * @return User - allUsersId*/
 	@GET
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
 	public User getUserById(@PathParam("id") int id) { // Finding a DAO users by his id
-
-		return dao.getObjectById(id, User.class);
+		User desiredUser = null;
+		desiredUser = dao.getObjectById(id, User.class);
+		return desiredUser;
 	}
 	
-
-	// Creating a method to create a user with name, username and password
+	/**
+	 * Method to create the user with userName, userFullName and userPassword of User Bean.
+	 * @param request (object of user)
+	 * @return request*/
 	@POST
 	@Path("/")
 	@Consumes("application/json")
@@ -76,7 +103,10 @@ public class UserService implements ServiceInterface {
 		return request;
 	}
 	
-	// create a method to update the information of an existing patient
+	/**
+	 * Method to update the user with userName, userFullName and userPassword of User Bean.
+	 * @param request (object of user)
+	 * @return User - updateUser*/
 	@PUT
 	@Path("/{id:[0-9]+}")
 	@Consumes("application/json")
@@ -94,7 +124,10 @@ public class UserService implements ServiceInterface {
 		return dao.getObjectById(userID, User.class);
 	}
 	
-	// creating a method to delete a user
+	/**
+	 * Method to delete the user with id param of User Bean.
+	 * @param id
+	 * @return userAllusers */
 	@DELETE
 	@Path("/{id: [0-9]+}")
 	@Produces("application/json")
@@ -103,7 +136,8 @@ public class UserService implements ServiceInterface {
 		logger.debug("DELETE /users/delete with dao object = "+ dao);
 		logger.debug("DELETE /users/delete with id object = "+ id);
 		dao.deleteObject(id, User.class);
-		
-		return dao.getAllObjects(null, User.class);
+		List<User> userNewList = null;
+		userNewList = dao.getAllObjects(null, User.class);
+		return userNewList;
 	}
 }

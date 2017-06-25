@@ -3,12 +3,14 @@ package br.com.bovdog.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.bovdog.bean.BathGrooming;
 import br.com.bovdog.bean.User;
 import br.com.bovdog.helper.PersistenceHelper;
 import br.com.bovdog.service.UserService;
@@ -50,7 +52,26 @@ public class UserServiceTest {
 		int id = userService.createUser(user).getId();
 		assertEquals(user, testDAO.getObjectById(id, User.class));
 	}
-
+	@Test
+	public void listAllUserWithSortAndOrderQueries() {
+		UriInfo ui = mock(UriInfo.class);
+		@SuppressWarnings("unchecked")
+		MultivaluedMap<String, String> queryParameters = mock(MultivaluedMap.class);
+		when(queryParameters.containsKey("_sort")).thenReturn(true);
+		when(queryParameters.containsKey("_order")).thenReturn(true);
+		when(queryParameters.getFirst("_sort")).thenReturn("userName");
+		when(queryParameters.getFirst("_order")).thenReturn("desc");
+		when(ui.getQueryParameters()).thenReturn(queryParameters);
+		List<User> users = new ArrayList<User>();
+		for (int i = 0; i < 3; i++) {
+			User user = setupUser();
+			user.setUserName("Name " + i);
+			user = testDAO.createObject(user);
+			users.add(user);
+		}
+		assertEquals(users.get(0).getUserName(), userService
+				.getAllUsers(ui).get(2).getUserName());
+	}
 	@Test
 	public void getListOfUsersTest() {
 		UriInfo ui = mock(UriInfo.class);

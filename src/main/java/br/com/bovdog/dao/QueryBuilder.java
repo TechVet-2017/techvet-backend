@@ -33,16 +33,17 @@ public class QueryBuilder {
 
 			sort = typeSortQuery(queryParameters);
 			order = typeOrderQuery(queryParameters);
-			criteria = collectCriteriaParameters(queryParameters, criteriaBuilder, criteria, root);
-			
+			criteria = collectCriteriaParameters(queryParameters,
+					criteriaBuilder, criteria, root);
+
 			query.select(root);
-			typedQuery = queryFilters(criteria, order, query, criteriaBuilder, root,
-					sort, queryParameters, entityManager);
+			typedQuery = queryFilters(criteria, order, query, criteriaBuilder,
+					root, sort, queryParameters, entityManager);
 		} else {
 			typedQuery = entityManager.createQuery(query);
 
 		}
-		
+
 		return typedQuery;
 
 	}
@@ -58,21 +59,21 @@ public class QueryBuilder {
 		} else {
 			// do nothing.
 		}
-		
+
 		if (order.equalsIgnoreCase("desc")) { //$NON-NLS-1$
 			query.orderBy(criteriaBuilder.desc(root.get(sort)));
 		} else {
 			query.orderBy(criteriaBuilder.asc(root.get(sort)));
 		}
-		
+
 		TypedQuery<T> typedQuery = null;
 		typedQuery = entityManager.createQuery(query);
 
 		typedQuery = collectQueryValues(queryParameters, typedQuery);
-		
+
 		return typedQuery;
 	}
-	
+
 	private static String typeSortQuery(
 			MultivaluedMap<String, String> queryParameters) {
 		String sort = null;
@@ -106,26 +107,42 @@ public class QueryBuilder {
 
 		for (Map.Entry<String, List<String>> entry : queryParameters.entrySet()) {
 			if (entry.getKey().charAt(0) != '_') {
-				ParameterExpression<String> parameter = criteriaBuilder
-						.parameter(String.class, entry.getKey());
+
+				ParameterExpression<String> parameter;
+
+				if (entry.getKey().equalsIgnoreCase("q")) {
+					parameter = criteriaBuilder.parameter(String.class,
+							"patientName");
+				} else {
+					parameter = criteriaBuilder.parameter(String.class,
+							entry.getKey());
+				}
 				criteria.add(criteriaBuilder.like(
 						root.get(parameter.getName()), parameter));
 			} else {
 				// do nothing.
 			}
 		}
-		
+
 		return criteria;
 	}
-	
-	private static <T> TypedQuery<T> collectQueryValues(MultivaluedMap<String, String> queryParameters, TypedQuery<T> typedQuery){
+
+	private static <T> TypedQuery<T> collectQueryValues(
+			MultivaluedMap<String, String> queryParameters,
+			TypedQuery<T> typedQuery) {
 		for (Map.Entry<String, List<String>> entry : queryParameters.entrySet()) {
 			if (entry.getKey().charAt(0) != '_') {
-				typedQuery.setParameter(entry.getKey(), "%" + entry.getValue().get(0) + "%");  //$NON-NLS-1$ //$NON-NLS-2$
+				if (entry.getKey().equalsIgnoreCase("q")) {
+					typedQuery.setParameter("patientName", "%"
+							+ entry.getValue().get(0) + "%");
+				} else {
+					typedQuery.setParameter(entry.getKey(), "%"
+							+ entry.getValue().get(0) + "%");
+				}
 			}
 
 		}
-		
+
 		return typedQuery;
 	}
 

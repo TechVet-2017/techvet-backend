@@ -10,12 +10,15 @@ import java.util.List;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
 
+import junit.framework.Assert;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 import static junit.framework.Assert.*;
+import br.com.bovdog.bean.Owner;
 import br.com.bovdog.bean.Patient;
 import br.com.bovdog.helper.PersistenceHelper;
 import br.com.bovdog.service.PatientService;
@@ -57,6 +60,7 @@ public class PatientServiceTest {
 		patient.setGender("gender");
 		patient.setBirthday(date);
 		patient.setCoat("Coat");
+		patient.setPatientOwnerId(1);
 
 		return patient;
 	}
@@ -154,5 +158,25 @@ public class PatientServiceTest {
 	 	 
 	 	assertEquals(patients.size()-1, testDao.getAllObjects(null, Patient.class).size());
 	 }
+	@Test
+	public void getPatientOwnerId(){
+		int patientOwnerId = patientService.createPatient(patient).getPatientOwnerId();
+		assertEquals(patientOwnerId, patient.getPatientOwnerId());
+	}
+	 @Test
+	 public void getPatientById() {
 
+		Patient firstPatient = setupPatient();
+		firstPatient = testDao.createObject(firstPatient);
+		int firstId = firstPatient.getId();
+
+		Patient secondPatient = setupPatient();
+		secondPatient = testDao.createObject(secondPatient);
+		int secondId = secondPatient.getId();
+
+		Assert.assertEquals(firstPatient,
+				patientService.getPatientById(firstId));
+		Assert.assertEquals(secondPatient, patientService
+				.getPatientById(secondId));
+	 }
 }
