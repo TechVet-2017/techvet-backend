@@ -118,6 +118,7 @@ public class QueryBuilder {
 	 */
 	private static String typeSortQuery(
 			MultivaluedMap<String, String> queryParameters) {
+		assert(queryParameters != null):"List of query can not be null";
 		String sort = null;
 
 		if (queryParameters.containsKey("_sort")) { //$NON-NLS-1$
@@ -126,6 +127,7 @@ public class QueryBuilder {
 			sort = "id"; //$NON-NLS-1$
 		}
 
+		assert(sort != null):"The sort can not be null";
 		return sort;
 	}
 
