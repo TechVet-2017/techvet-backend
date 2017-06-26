@@ -9,6 +9,9 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.apache.log4j.Logger;
+import com.mysql.cj.api.log.Log;
+
 /**
  * DAO promotes object data access with the database, 
  * the singleton pattern was used to instantiate it only once.
@@ -19,6 +22,7 @@ import javax.ws.rs.core.MultivaluedMap;
  * @version 1.0
  *
  */
+
 public class DataAccessObject {
 	
 	/**
@@ -27,6 +31,7 @@ public class DataAccessObject {
 	public static DataAccessObject instance;
 	private EntityManager entityManager = null;
 	private final String TECHVET_UNIT = "techvet-unit";
+	private static final Logger logger = Logger.getLogger(DataAccessObject.class);
 
 	/**
 	 * This constructor performs the persistence of the data in the database
@@ -46,11 +51,13 @@ public class DataAccessObject {
 	 * 
 	 */
 	public static DataAccessObject getInstance(String persistenceUnit) {
+		logger.info("Method DataAccessObject started.");
 		if (instance == null) {
 			instance = new DataAccessObject(persistenceUnit);
 		} else {
 			// nothing to do
 		}
+		assert(instance != null):("Null instance returned");
 		return instance;
 	}
 	
@@ -61,6 +68,7 @@ public class DataAccessObject {
 	 * @return beanInstance
 	 */
 	public <T> T getObjectById(int id, Class<T> bean) {
+		logger.info("Method getObjectById started.");
 		T beanInstance = entityManager.find(bean, id);
 		return beanInstance;
 	}
@@ -71,6 +79,7 @@ public class DataAccessObject {
 	 * @return beanInstance
 	 */
 	public <T> T createObject(T beanInstance) {
+		logger.info("Method createObject started.");
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(beanInstance);
@@ -78,6 +87,7 @@ public class DataAccessObject {
 			entityManager.getTransaction().commit();
 
 		} catch (Exception exception) {
+			logger.error("Exception " + exception + "happened.");
 			exception.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
@@ -89,11 +99,13 @@ public class DataAccessObject {
 	 * @param beanInstance
 	 */
 	public <T> void updateObject(T beanInstance) {
+		logger.info("Method updateObject started.");
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.merge(beanInstance);
 			entityManager.getTransaction().commit();
 		} catch (Exception exception) {
+			logger.error("Exception " + exception + "happened.");
 			exception.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
@@ -105,12 +117,14 @@ public class DataAccessObject {
 	 * @param bean
 	 */
 	public <T> void deleteObject(int id, Class<T> bean) {
+		logger.info("Method deleteObject started.");
 		T beanInstance = getObjectById(id, bean);
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.remove(beanInstance);
 			entityManager.getTransaction().commit();
 		} catch (Exception exception) {
+			logger.error("Exception " + exception + "happened.");
 			exception.printStackTrace();
 			entityManager.getTransaction().rollback();
 		}
@@ -123,6 +137,7 @@ public class DataAccessObject {
 	 */
 	public <T> List<T> getAllObjects(
 			MultivaluedMap<String, String> queryParameters, Class<T> bean) {
+		logger.info("Method getAllObjects started.");
 		List<T> objectList = new ArrayList<T>();
 		TypedQuery<T> typedQuery = QueryBuilder.buildQuery(queryParameters,
 				entityManager, bean);
