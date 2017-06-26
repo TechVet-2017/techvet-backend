@@ -9,6 +9,9 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.core.MultivaluedMap;
 
+import org.apache.log4j.Logger;
+import com.mysql.cj.api.log.Log;
+
 /**
  * DAO promotes object data access with the database, 
  * the singleton pattern was used to instantiate it only once.
