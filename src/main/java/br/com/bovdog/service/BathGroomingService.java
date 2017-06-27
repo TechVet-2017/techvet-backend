@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.UriInfo;
+import static org.junit.Assert.*;
 
 import org.apache.log4j.Logger;
 
@@ -79,9 +80,14 @@ public class BathGroomingService implements ServiceInterface {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public BathGrooming getBathGroomingById(@PathParam("id") int id) {
+		assertNotNull(id);
+		assert(id>0);
 		BathGrooming desiredBathGrooming = null;
 		desiredBathGrooming = dao.getObjectById(id, BathGrooming.class);
-	    return desiredBathGrooming;
+	    	
+		assertNotNull(desiredBathGrooming);
+		
+		return desiredBathGrooming;
 	}
 
 	/**
