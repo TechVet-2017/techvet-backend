@@ -35,7 +35,7 @@ public class BathGroomingService implements ServiceInterface {
 	/**
 	 * Constructs the BathGroomingService and initializes a dao object.
 	 */
-	public BathGroomingService() {
+	private BathGroomingService() {
 		dao = DataAccessObject.getInstance(TECHVET_UNIT);
 	}
 	
