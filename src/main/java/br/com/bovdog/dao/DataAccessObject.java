@@ -80,6 +80,7 @@ public class DataAccessObject {
 	 */
 	public <T> T createObject(T beanInstance) {
 		logger.info("Method createObject started.");
+		// Here the transaction is initiated, the instance persisted and transaction finished. 
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(beanInstance);
