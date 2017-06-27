@@ -21,6 +21,16 @@ import org.apache.log4j.Logger;
 
 @Path("/owners")
 
+/**
+ * Name: OwnerService.java
+ * 
+ * Service class that handles requests and json consumption for owner.
+ * 
+ * @author adailson2, mateusvroriz, antoniocoj, SkiNgK, gustavo2795, iamferreirajp, leomeister, LucasAmoedo, luizguilherme5, 
+ * oliveiraMarcelo, varleysilva
+ *
+ */
+
 public class OwnerService implements ServiceInterface {
 
 	// Initializing the log service
